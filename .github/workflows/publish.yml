@@ -1,0 +1,20 @@
+name: CI
+
+on: 
+  push: 
+    branches:
+      - source
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a multi-line script
+      run: |
+        npm run docs:build
+        git add -A
+        git commit -m 'auto deploy'
+        git push -f git@github.com:kid1412621/kid1412621.github.io.git master
