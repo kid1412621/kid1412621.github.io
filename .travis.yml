@@ -5,7 +5,9 @@ install:
   - npm ci
 script:
   - npm run docs:build
+  - cd docs/.vuepress/dist
   - echo 'nanonova.space' > CNAME
+  - cd -
 deploy:
   provider: pages
   target_branch: master
