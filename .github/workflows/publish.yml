@@ -14,6 +14,8 @@ jobs:
     - name: publish
       run: |
         npm run docs:build
+        git init
         git add -A
         git commit -m 'auto deploy'
         git push -f git@github.com:kid1412621/kid1412621.github.io.git master
+        cd -
