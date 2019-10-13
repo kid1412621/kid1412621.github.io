@@ -1,9 +1,14 @@
 language: node_js
 node_js:
-  - '10'
+  - lts/*
+install:
+  - npm ci
 script:
-  - npm i -D vuepress
   - npm run docs:build
+  - cd docs/.vuepress/dist
+  - git add -A
+  - git commit -m 'auto deploy'
+  - git push -f git@github.com:kid1412621/kid1412621.github.io.git master
 deploy:
   provider: pages
   skip-cleanup: true
