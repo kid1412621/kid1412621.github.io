@@ -6,9 +6,11 @@ install:
 script:
   - npm run docs:build
   - cd docs/.vuepress/dist
+  - git init
   - git add -A
   - git commit -m 'auto deploy'
   - git push -f git@github.com:kid1412621/kid1412621.github.io.git master
+  - cd -
 deploy:
   provider: pages
   skip-cleanup: true
