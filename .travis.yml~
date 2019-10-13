@@ -5,7 +5,6 @@ install:
   - npm ci
 script:
   - npm run docs:build
-  - echo 'nanonova.space' > CNAME
 deploy:
   provider: pages
   target_branch: master
