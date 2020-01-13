@@ -1,0 +1,7 @@
+title: "NanoNova's cyberspace"
+description: The ubiquitous uniqueness
+lacals:
+  - /:
+    lang: zh-CN
+  - /en/:
+    lang: en-US
