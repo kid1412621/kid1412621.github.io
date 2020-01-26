@@ -2,9 +2,9 @@ title: "NanoNova's cyberspace"
 description: The ubiquitous uniqueness
 
 locals:
-  - /:
+  /:
     lang: zh-CN
-  - /en/:
+  /en/:
     lang: en-US
 
 themeConfig:
@@ -12,22 +12,23 @@ themeConfig:
   sidebar: auto
   lastUpdated: true
   smoothScroll: true
-  nav:
-    - text: 前端
-      link: /frontend
-    - text: 后端
-      link: /backend
-      items:
-        - text: xx
-          link: /backend/xx
-        - text: hh
-          link: /backend/hh
+
   locals:
-    - /:
+    /:
       selectText: 🌐
       label: 中文
+      nav:
+        - text: 前端
+          link: /frontend
+        - text: 后端
+          link: /backend
+          items:
+            - text: xx
+              link: /backend/xx
+            - text: hh
+              link: /backend/hh
 
-    - /en/:
+    /en/:
       selectText: 🌐i18n
       label: English
       nav:
