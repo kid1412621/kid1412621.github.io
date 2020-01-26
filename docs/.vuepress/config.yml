@@ -12,7 +12,6 @@ themeConfig:
   sidebar: auto
   lastUpdated: true
   smoothScroll: true
-
   locals:
     /:
       selectText: 🌐
@@ -27,7 +26,6 @@ themeConfig:
               link: /backend/xx
             - text: hh
               link: /backend/hh
-
     /en/:
       selectText: 🌐i18n
       label: English
