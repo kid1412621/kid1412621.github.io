@@ -1,7 +1,7 @@
-title: "NanoNova's cyberspace"
+title: "NanoNova's 8ncyberspace"
 description: The ubiquitous uniqueness
 
-locals:
+locales:
   /:
     lang: zh-CN
   /en/:
@@ -12,10 +12,10 @@ themeConfig:
   sidebar: auto
   lastUpdated: true
   smoothScroll: true
-  locals:
+  locales:
     /:
       selectText: 🌐
-      label: 中文
+      label: 🇨🇳中文
       nav:
         - text: 前端
           link: /frontend
@@ -27,8 +27,8 @@ themeConfig:
             - text: hh
               link: /backend/hh
     /en/:
-      selectText: 🌐i18n
-      label: English
+      selectText: 🌐
+      label: 🇺🇸English
       nav:
         - text: Frontend
           link: /frontend
