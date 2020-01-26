@@ -4,25 +4,42 @@ description: The ubiquitous uniqueness
 locals:
   - /:
     lang: zh-CN
-    selectText: en
   - /en/:
     lang: en-US
-    selectText: 中文
 
 themeConfig:
   logo: /img/logo.jpeg
   sidebar: auto
   lastUpdated: true
   smoothScroll: true
-  nav:
-    - text: Home
-      link: /
-    - text: Frontend
-      link: /frontend
-    - text: Backend
-      link: /backend
-      items:
-        - text: xx
-          link: /backend/xx
-        - text: hh
-          link: /backend/hh
+  locals:
+    - /:
+      # selectText: Languages
+      label: 中文
+      nav:
+        - text: 首页
+          link: /
+        - text: 前端
+          link: /frontend
+        - text: 后端
+          link: /backend
+          items:
+            - text: xx
+              link: /backend/xx
+            - text: hh
+              link: /backend/hh
+    - /en/:
+      # selectText: 语言
+      label: English
+      nav:
+        - text: Home
+          link: /
+        - text: Frontend
+          link: /frontend
+        - text: Backend
+          link: /backend
+          items:
+            - text: xx
+              link: /backend/xx
+            - text: hh
+              link: /backend/hh
