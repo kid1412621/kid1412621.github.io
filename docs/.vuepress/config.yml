@@ -14,7 +14,7 @@ themeConfig:
   smoothScroll: true
   locals:
     - /:
-      # selectText: Languages
+      selectText: Languages
       label: 中文
       nav:
         - text: 首页
@@ -29,7 +29,7 @@ themeConfig:
             - text: hh
               link: /backend/hh
     - /en/:
-      # selectText: 语言
+      selectText: 语言
       label: English
       nav:
         - text: Home
