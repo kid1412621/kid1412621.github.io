@@ -14,11 +14,9 @@ themeConfig:
   smoothScroll: true
   locals:
     - /:
-      selectText: Languages
+      selectText: i18n
       label: 中文
       nav:
-        - text: 首页
-          link: /
         - text: 前端
           link: /frontend
         - text: 后端
@@ -29,11 +27,9 @@ themeConfig:
             - text: hh
               link: /backend/hh
     - /en/:
-      selectText: 语言
+      selectText: i18n
       label: English
       nav:
-        - text: Home
-          link: /
         - text: Frontend
           link: /frontend
         - text: Backend
