@@ -3,8 +3,10 @@ description: The ubiquitous uniqueness
 lacals:
   - /:
     lang: zh-CN
+    selectText: en
   - /en/:
     lang: en-US
+    selectText: 中文
 themeConfig:
   logo: /img/logo.jpeg
   nav:
