@@ -5,3 +5,20 @@ lacals:
     lang: zh-CN
   - /en/:
     lang: en-US
+themeConfig:
+  logo: /img/logo.jpeg
+  nav:
+    - text: Home
+      link: /
+    - text: Frontend
+      link: /frontend
+    - text: Backend
+      link: /backend
+      items:
+        - text: xx
+          link: /backend/xx
+        - text: hh
+          link: /backend/hh
+  sidebar: auto
+  lastUpdated: true
+  smoothScroll: true
