@@ -3,6 +3,9 @@ node_modules
 # MAC OS Finder
 .DS_Store
 
+# VSCode
+.vscode
+
 # Vuepress build
 docs/.vuepress/dist
 

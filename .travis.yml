@@ -13,7 +13,7 @@ deploy:
   target_branch: master
   skip-cleanup: true
   local_dir: docs/.vuepress/dist
-  github-token: $GITHUB_TOKEN # a token generated on github allowing travis to push code on you repository
+  github-token: $GITHUB_TOKEN
   keep-history: true
   on:
     branch: source
