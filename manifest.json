@@ -8,14 +8,14 @@
   "description": "The ubiquitous uniqueness",
   "icons": [
     {
-      "src": "img/logo.jpeg",
+      "src": "img/logo.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
     },
     {
-      "src": "img/logo.jpeg",
+      "src": "img/logo.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }
