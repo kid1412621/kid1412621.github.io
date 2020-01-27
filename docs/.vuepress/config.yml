@@ -3,7 +3,7 @@ description: The ubiquitous uniqueness
 head:
   - - link
     - rel: icon
-      href: /img/logo.jpeg
+      href: /img/logo.png
   - - link
     - rel: manifest
       href: /manifest.json
@@ -27,7 +27,7 @@ plugins:
     updatePopup: true
 
 themeConfig:
-  logo: /img/logo.jpeg
+  logo: /img/logo.png
   sidebar: auto
   lastUpdated: true
   smoothScroll: true
