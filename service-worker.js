@@ -27,7 +27,7 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "2ca0bcff300433ddd3306c94e71fe59e"
+    "revision": "885df0b58ce5617a174737b5a9c9d476"
   },
   {
     "url": "assets/css/0.styles.b94b2d70.css",
@@ -90,8 +90,8 @@ self.__precacheManifest = [
     "revision": "e7de697b42391c2d2c96b4c568841793"
   },
   {
-    "url": "assets/js/app.e4582aa1.js",
-    "revision": "c94e891c4e9d7e650f44d80a8da50bbd"
+    "url": "assets/js/app.5ac84827.js",
+    "revision": "e970eafa07f14d5ac85492109f08a5ef"
   },
   {
     "url": "assets/js/vendors~flowchart.63ead12e.js",
@@ -99,31 +99,31 @@ self.__precacheManifest = [
   },
   {
     "url": "backend/be.html",
-    "revision": "45d4e1810dd4034ea0a62b63a828d547"
+    "revision": "d8227722708cb194316607901e0950aa"
   },
   {
     "url": "backend/index.html",
-    "revision": "8b25bad23315662d8aee93b0b2132654"
+    "revision": "9d1376771277f86b3d20b2e37ed7968b"
   },
   {
     "url": "en/backend/be.html",
-    "revision": "07b5fe43d6afa573ce43c01ac202fa8f"
+    "revision": "f01bbe30397c33fe3bf6bd8792ddaa32"
   },
   {
     "url": "en/frontend/fe.html",
-    "revision": "39c8585210e86abfde873f11b125515f"
+    "revision": "f274edfadc1e973a4e85749a43656f0b"
   },
   {
     "url": "en/index.html",
-    "revision": "72932f174be8b036248c5a74cab0181e"
+    "revision": "f74e7082cad19a47107c32c27e66eb6c"
   },
   {
     "url": "frontend/fe.html",
-    "revision": "f7ddd78d1b983d569e72152f855e8e56"
+    "revision": "64f0333df55c9b445bfac6ce459dd75d"
   },
   {
     "url": "frontend/index.html",
-    "revision": "18160c4af8b02747ada0986ca3b79ea8"
+    "revision": "e5298ecd3631dc95947371be04826536"
   },
   {
     "url": "img/logo.png",
@@ -131,7 +131,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "1e75544ac88024944c327be918238b13"
+    "revision": "b4c2aa2f00fe40f3d793d8e980d8b514"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
