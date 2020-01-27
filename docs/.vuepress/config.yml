@@ -18,13 +18,20 @@ locales:
     lang: en-US
 
 plugins:
-  '@vuepress/back-to-top': ~
-  '@vuepress/medium-zoom':
+  "@vuepress/back-to-top": ~
+  "@vuepress/medium-zoom":
     options:
       margin: 20
-  '@vuepress/pwa':
+  "@vuepress/pwa":
     serviceWorker: true
     updatePopup: true
+  "img-lazy": ~
+  "flowchart": ~
+  "feed":
+    canonical_base: "https://nanonova.space"
+    feeds:
+      posts_directories:
+        - /
 
 themeConfig:
   logo: /img/logo.png
