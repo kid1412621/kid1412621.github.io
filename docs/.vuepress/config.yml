@@ -1,11 +1,30 @@
-title: "NanoNova's 8ncyberspace"
+title: "NanoNova's cyberspace"
 description: The ubiquitous uniqueness
+head:
+  - - link
+    - rel: icon
+      href: /img/logo.jpeg
+  - - link
+    - rel: manifest
+      href: /manifest.json
+
+markdown:
+  lineNumbers: true
 
 locales:
   /:
     lang: zh-CN
   /en/:
     lang: en-US
+
+plugins:
+  '@vuepress/back-to-top': ~
+  '@vuepress/medium-zoom':
+    options:
+      margin: 20
+  '@vuepress/pwa':
+    serviceWorker: true
+    updatePopup: true
 
 themeConfig:
   logo: /img/logo.jpeg
@@ -33,9 +52,9 @@ themeConfig:
         - text: Frontend
           link: /frontend
         - text: Backend
-          link: /backend
+          link: /en/backend
           items:
-            - text: xx
-              link: /backend/xx
+            - text: be
+              link: /en/backend/be
             - text: hh
-              link: /backend/hh
+              link: /en/backend/hh
