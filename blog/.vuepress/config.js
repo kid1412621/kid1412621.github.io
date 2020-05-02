@@ -14,7 +14,7 @@ module.exports = {
     sidebar: 'auto',
     lastUpdated: true,
     smoothScroll: true,
-    directorires: [
+    directories: [
       { id: 'code', dirname: '_code', path: '/code/', title: '编码', frontmatter: { tag: 'code' } },
       { id: 'life', dirname: '_life', path: '/life/', title: '周遭', frontmatter: { tag: 'life' } }
     ],
@@ -23,7 +23,7 @@ module.exports = {
       { text: 'Code', link: '/code/' },
       { text: 'Life', link: '/life/' },
       { text: 'Tags', link: '/tag/' },
-      { text: 'About', link: '/About' },
+      { text: 'About', link: '/about' },
     ],
     footer: {
       contact: [
