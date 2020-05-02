@@ -15,23 +15,13 @@ module.exports = {
     lastUpdated: true,
     smoothScroll: true,
     directorires: [
-      {
-        id: 'code',
-        dirname: '_code',
-        path: '/code/',
-        title: '编码',
-        frontmatter: { tag: 'code' },
-      },
-      {
-        id: 'life',
-        dirname: '_life',
-        path: '/life/',
-        title: '周遭',
-        frontmatter: { tag: 'life' },
-      }
+      { id: 'code', dirname: '_code', path: '/code/', title: '编码', frontmatter: { tag: 'code' } },
+      { id: 'life', dirname: '_life', path: '/life/', title: '周遭', frontmatter: { tag: 'life' } }
     ],
     nav: [
-      { text: 'Blog', link: '/' },
+      { text: 'Home', link: '/' },
+      { text: 'Code', link: '/code/' },
+      { text: 'Life', link: '/life/' },
       { text: 'Tags', link: '/tag/' },
       { text: 'About', link: '/About' },
     ],
@@ -63,6 +53,9 @@ module.exports = {
     'feed': {
       canonical_base: 'https://nanonova.space',
       posts_directories: ['/']
+    },
+    'sitemap': {
+      hostname: 'https://nanonova.space'
     },
     '@vssue/vuepress-plugin-vssue': {
       platform: 'github-v4',
