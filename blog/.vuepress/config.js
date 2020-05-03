@@ -4,7 +4,10 @@ module.exports = {
   description: 'The ubiquitous uniqueness',
   head: [
     ['link', { rel: 'icon', href: '/img/logo.png' }],
-    ['link', { rel: 'manifest', href: '/manifest.json' }]
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    ['meta', { name: 'referrer', content: 'no-referrer' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
   ],
 
   //theming
@@ -32,7 +35,14 @@ module.exports = {
         { type: 'instagram', link: 'https://instagram.com/kid1412621' },
       ],
     },
-    comment: { service: 'vssue' }
+    comment: { service: 'vssue' },
+    feed: {
+      canonical_base: 'https://nanonova.space',
+      posts_directories: ['/_code/', '/_life']
+    },
+    sitemap: {
+      hostname: 'https://nanonova.space'
+    }
   },
 
   // plugin
@@ -48,15 +58,11 @@ module.exports = {
       serviceWorker: true,
       updatePopup: true
     },
+    '@vuepress/google-analytics': {
+      'ga': 'UA-165369471-1'
+    },
     'img-lazy': {},
     'flowchart': {},
-    'feed': {
-      canonical_base: 'https://nanonova.space',
-      posts_directories: ['/']
-    },
-    'sitemap': {
-      hostname: 'https://nanonova.space'
-    },
     '@vssue/vuepress-plugin-vssue': {
       platform: 'github-v4',
       owner: 'kid1412621',
