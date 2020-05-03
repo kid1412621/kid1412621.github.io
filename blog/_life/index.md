@@ -1,9 +1,8 @@
 ---
-title: heihei
+title: some thing simple
 date: 2020-05-03
 tags:
-  - JavaScript
-  - Vue
+  - index
 author: Alex
 location: Chengdu
 ---
