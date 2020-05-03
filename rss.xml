@@ -1,48 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
     <channel>
         <title>NanoNova&apos;s cyberspace</title>
         <link>https://nanonova.space</link>
         <description>The ubiquitous uniqueness</description>
-        <lastBuildDate>Sat, 02 May 2020 16:58:57 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 03 May 2020 14:31:12 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
-        <atom:link href="https://nanonova.space/feed.atom" rel="self" type="application/rss+xml"/>
-        <item>
-            <title><![CDATA[About]]></title>
-            <link>https://nanonova.space/About.html</link>
-            <guid>https://nanonova.space/About.html</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
-            <description><![CDATA[About me
-
-About anything else ...]]></description>
-        </item>
-        <item>
-            <title><![CDATA[Greeting! Earthlings.]]></title>
-            <link>https://nanonova.space/</link>
-            <guid>https://nanonova.space/</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
-            <description><![CDATA[test
-
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-echo hello
-
-Here is a footnote reference, and another.[^lon ...]]></description>
-        </item>
         <item>
             <title><![CDATA[Static Site Generators 小史]]></title>
             <link>https://nanonova.space/1970/01/01/staticsitegenerators/</link>
             <guid>https://nanonova.space/1970/01/01/staticsitegenerators/</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
+            <pubDate>Sun, 03 May 2020 14:31:12 GMT</pubDate>
             <description><![CDATA[List
 
 第一代
@@ -68,28 +37,31 @@ VuePress
             <title><![CDATA[backend]]></title>
             <link>https://nanonova.space/1970/01/01/be/</link>
             <guid>https://nanonova.space/1970/01/01/be/</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
+            <pubDate>Sun, 03 May 2020 14:31:12 GMT</pubDate>
             <description><![CDATA[测试 ...]]></description>
         </item>
         <item>
             <title><![CDATA[frontend]]></title>
             <link>https://nanonova.space/1970/01/01/fe/</link>
             <guid>https://nanonova.space/1970/01/01/fe/</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
+            <pubDate>Sun, 03 May 2020 14:31:12 GMT</pubDate>
             <description><![CDATA[测试 ...]]></description>
         </item>
         <item>
             <link>https://nanonova.space/1970/01/01/code/</link>
             <guid>https://nanonova.space/1970/01/01/code/</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
+            <pubDate>Sun, 03 May 2020 14:31:12 GMT</pubDate>
             <description><![CDATA[To Be Continue... ...]]></description>
         </item>
         <item>
-            <title><![CDATA[周遭]]></title>
-            <link>https://nanonova.space/1970/01/01/life/</link>
-            <guid>https://nanonova.space/1970/01/01/life/</guid>
-            <pubDate>Sat, 02 May 2020 16:58:57 GMT</pubDate>
-            <description><![CDATA[life sucks ...]]></description>
+            <title><![CDATA[heihei]]></title>
+            <link>https://nanonova.space/2020/05/03/life/</link>
+            <guid>https://nanonova.space/2020/05/03/life/</guid>
+            <pubDate>Sun, 03 May 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[life sucks
+ ...]]></description>
+            <enclosure url="https://raw.githubusercontent.com/kid1412621/imgBed/master/71F36C9D-14CB-4927-9CA4-DBB550624BE5_1_105_c.jpeg">
+            </enclosure>
         </item>
     </channel>
 </rss>
