@@ -19,12 +19,14 @@ module.exports = {
     smoothScroll: true,
     directories: [
       { id: 'code', dirname: '_code', path: '/code/', title: '编码', frontmatter: { tag: 'code' } },
-      { id: 'life', dirname: '_life', path: '/life/', title: '周遭', frontmatter: { tag: 'life' } }
+      { id: 'life', dirname: '_life', path: '/life/', title: '周遭', frontmatter: { tag: 'life' } },
+      { id: 'world', dirname: '_world', path: '/world/', title: '世界', frontmatter: { tag: 'world' } }
     ],
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Code', link: '/code/' },
       { text: 'Life', link: '/life/' },
+      { text: 'World', link: '/world/' },
       { text: 'Tags', link: '/tag/' },
       { text: 'About', link: '/about' },
     ],
@@ -54,7 +56,7 @@ module.exports = {
         margin: 20
       }
     },
-    '@vuepress/pwa': {
+    '@vuepress/`pwa`': {
       serviceWorker: true,
       updatePopup: true
     },
