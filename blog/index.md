@@ -3,6 +3,8 @@ tags:
   - Genesis
 ---
 
-![nice-to-meet-you](https://raw.githubusercontent.com/kid1412621/imgBed/master/IMG_4747.jpeg)
+![nice-to-meet-you](https://nanonova-imgbed.oss-cn-chengdu.aliyuncs.com/2020/05/04/img4747.jpeg)
+
+
 
 # Greeting! Earthlings.
