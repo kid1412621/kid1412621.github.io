@@ -11,4 +11,4 @@ tags:
 
 ## [How does the sci-fi guru | post rock & classic music buff feel the life?](/life)
 
-## [How does the human being from the planet Earth explore the planet?](/world)
+## [How does the human being from the planet earth explore the planet?](/world)
