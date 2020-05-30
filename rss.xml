@@ -4,7 +4,7 @@
         <title>NanoNova&apos;s cyberspace</title>
         <link>https://nanonova.space</link>
         <description>The ubiquitous uniqueness</description>
-        <lastBuildDate>Sat, 30 May 2020 13:57:23 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 30 May 2020 14:10:49 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <item>
@@ -34,10 +34,12 @@ VuePress
  ...]]></description>
         </item>
         <item>
-            <link>https://nanonova.space/2020/05/01/code/</link>
-            <guid>https://nanonova.space/2020/05/01/code/</guid>
-            <pubDate>Fri, 01 May 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[To Be Continue... ...]]></description>
+            <title><![CDATA[周遭]]></title>
+            <link>https://nanonova.space/2020/05/03/life/</link>
+            <guid>https://nanonova.space/2020/05/03/life/</guid>
+            <pubDate>Sun, 03 May 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[life sucks
+> --me ...]]></description>
         </item>
         <item>
             <title><![CDATA[当 Markdown 遇上 UML]]></title>
@@ -53,26 +55,10 @@ VuePress
             </enclosure>
         </item>
         <item>
-            <title><![CDATA[test]]></title>
-            <link>https://nanonova.space/2020/05/03/try/</link>
-            <guid>https://nanonova.space/2020/05/03/try/</guid>
-            <pubDate>Sun, 03 May 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[echo hello
-echo suckers
-
-Here is a footnote reference, and another.
-
-: Here is the footnote.
-: Here's one with multiple blocks.
-
-  Subsequent paragraphs ...]]></description>
-        </item>
-        <item>
-            <title><![CDATA[some thing simple]]></title>
-            <link>https://nanonova.space/2020/05/03/life/</link>
-            <guid>https://nanonova.space/2020/05/03/life/</guid>
-            <pubDate>Sun, 03 May 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[life sucks ...]]></description>
+            <link>https://nanonova.space/2020/05/01/code/</link>
+            <guid>https://nanonova.space/2020/05/01/code/</guid>
+            <pubDate>Fri, 01 May 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[To Be Continue... ...]]></description>
         </item>
     </channel>
 </rss>
