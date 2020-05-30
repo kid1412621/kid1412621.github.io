@@ -1,4 +1,4 @@
-# About
+# About me
 
 ## Labeling is a cognitive shortcutting ( AKA degeneration )
 
@@ -9,8 +9,6 @@
 - Post-Rock & Classic Music buff
 
 - Human Being from Planet Earth
-
-
 
 ## Welcome to track me down
 
@@ -23,4 +21,3 @@
 🤣 [Yet another self entertainment cyberspace](https://www.reddit.com/user/kid1412621)
 
 🍜 [Yet another self fulfillment cyberspace](https://m.dianping.com/userprofile/38933478)
-
