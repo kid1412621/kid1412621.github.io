@@ -72,12 +72,13 @@ module.exports = {
       clientId: '69804ae7507313e777e3',
       clientSecret: '7d46b6f908f1ed970f0a12ba48c501e2414c6bd9',
     },
+    'vuepress-plugin-mermaidjs': {}
   },
   markdown: {
     lineNumbers: true,
     extendMarkdown: md => {
-      md.use(require('markdown-it-plantuml'))
-        .use(require('markdown-it-footnote'))
+      md.use(require('markdown-it-footnote'))
+        .use(require('markdown-it-plantuml'))
     }
   },
   evergreen: true

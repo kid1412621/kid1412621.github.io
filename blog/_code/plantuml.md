@@ -8,13 +8,9 @@
 
 当然，我们能想到的大多场景，早已有人也在深受折磨后，造好了轮子。
 
-
-
 ## PlantUML 是什么
 
 [PlantUML](https://plantuml.com) 是一个开源项目，支持以特定简单直观的语法，来描述多种图表，并转化成图片，或者整合在 Markdown 中。支持 UML 中的类图、时序图、用例图等，非 UML 支持 LaxTex、思维导图、甘特图、架构图等，具体支持情况请参见官网。
-
-
 
 ## PlantUML 语法
 
@@ -22,13 +18,13 @@ PlantUML 提供的语法极其简单，几分钟就能上手，下面是声明�
 
 开头 `@startuml` 和结尾 `@enduml` 是声明，若要放在 Markdown 里面的话，需要放在代码块中，声明为 plantuml，如下：
 
-```pseudocode
+````pseudocode
 ​```plantuml
 @startuml
 ...do your own stuff
 @enduml
 ​```
-```
+````
 
 下面是我写的一些简单的例子，你可以去[官网在线渲染服务](http://www.plantuml.com/plantuml/umla/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80) get your hands dirty。
 
@@ -36,7 +32,7 @@ PlantUML 提供的语法极其简单，几分钟就能上手，下面是声明�
 
 - PlantUML 代码
 
-```pseudocode
+````pseudocode
 ​```plantuml
 @startuml
 Thanos -up-> InfinityGauntlet : use
@@ -69,11 +65,10 @@ N .. Thanos
 InfinityGauntlet .. N
 @enduml
 ​```
-```
+````
 
-- 生成的图片
+- 生成后效果
 
-```plantuml
 @startuml
 Thanos -up-> InfinityGauntlet : use
 
@@ -94,17 +89,16 @@ PowerStone --o InfinityGauntlet
 interface InfinityStone {}
 
 class InfinityGauntlet {
-  snap()
+snap()
 }
 
-note left:  需集齐6颗无限宝石
+note left: 需集齐 6 颗无限宝石
 
 note "灭霸使用无限手套打响指" as N
 
 N .. Thanos
 InfinityGauntlet .. N
 @enduml
-```
 
 可以看出，类之间关系的箭头，通过如 `--|>` 或 `--o` 之类的符号，很直观的映射成了图中的关系，短横线 `-` 的长短决定了图中关系线的长短，还可以在短横线中加方向关键字 `-up->` 来改变布局。下面是一些图例，一图胜千言：
 
@@ -112,7 +106,7 @@ InfinityGauntlet .. N
 
 关系的声明和元素（类、接口）的声明是分开的，若仅有关系的声明，那么元素默认为类。你可以通过声明语法来改变元素的类型，并添加元素的成员变量和方法（其可访问性修饰符号也和 UML 一致），语法和 Java 很像：
 
-```pseudocode
+````pseudocode
 ​```plantuml
 @startuml
 skinparam classAttributeIconSize 0
@@ -135,15 +129,13 @@ abstract class AbstractList
 interface List
 @enduml
 ​```
-```
-
-
+````
 
 ### 时序图
 
 - PlantUML 代码
 
-```pseudocode
+````pseudocode
 ​```plantuml
 @startuml
 actor 需求 #yellow
@@ -177,11 +169,10 @@ return 增量需求开发完成
 开发 --> 开发 !! : 猝
 @enduml
 ​```
-```
+````
 
 - 生成后效果
 
-```plantuml
 @startuml
 actor 需求 #yellow
 actor 开发 #green
@@ -202,7 +193,7 @@ return 需求验证
 需求 ->> 开发: 那个这么改
 开发 -> 需求: 这么改会影响以前的功能
 需求 -> 开发: 那把以前的功能也改了啊
-开发 -> 开发  ++ : 我...
+开发 -> 开发 ++ : 我...
 return 增量需求开发完成
 开发 -> 需求: 改完了，验证下，这回不会变了吧
 [->> 需求: 客户又确认
@@ -213,9 +204,6 @@ return 增量需求开发完成
 测试 ->> 开发: 之前的功能改出 bug 了
 开发 --> 开发 !! : 猝
 @enduml
-```
-
-
 
 ## PlantUML 集成
 
@@ -253,7 +241,7 @@ docker pull plantuml/plantuml-server
 
 #### VSCode（ Winows / Mac OS / Linux ）
 
-大厂的编辑器品质有保证，在 M$ 收购 Github 前，同样使用 Electron 开发的 VSCode 比 Atom 性能高出不是一星半点（而且 Electron 还是 Github 开发的）。使用 VSCode 最大的幸福感之一坐拥无比繁荣的插件生态，要什么样的自行车，丰俭由君。支持 Markdown 中使用 PlantUML 主要涉及两个插件：[PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) 和 [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended)，前者主要集成 PlantUML 渲染服务以及语法高亮，后者主要提供转化文件。
+大厂的编辑器品质有保证，在 M\$ 收购 Github 前，同样使用 Electron 开发的 VSCode 比 Atom 性能高出不是一星半点（而且 Electron 还是 Github 开发的）。使用 VSCode 最大的幸福感之一坐拥无比繁荣的插件生态，要什么样的自行车，丰俭由君。支持 Markdown 中使用 PlantUML 主要涉及两个插件：[PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) 和 [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended)，前者主要集成 PlantUML 渲染服务以及语法高亮，后者主要提供转化文件。
 
 Tips：
 
@@ -269,8 +257,6 @@ Tips：
 #### IntelliJ IDEA（ Winows / Mac OS / Linux ）
 
 IDEA 的支持也是靠插件：[PlantUML integration](https://plugins.jetbrains.com/plugin/7017-plantuml-integration)，安装完成后，`Ctrl` + `Shift` + `A` 唤出 IDEA 的 Action 搜索 PlantUML，选择 PlantUML File New，可根据不同的类别直接生成模板。此插件同样支持在无需配置渲染服务的情况下，实时浏览。唯一的不足是，不支持整个 Markdown 文件支持导出，PlantUML 代码只能挨个导出图片。
-
-
 
 ### 服务
 
@@ -292,25 +278,22 @@ npm i -D markdown-it-plantuml
 
 ```javascript
 module.exports = {
-  markdown: {
-    extendMarkdown: md => {
-      md.use(require('markdown-it-plantuml'))
-    }
-  }
+	markdown: {
+		extendMarkdown: (md) => {
+			md.use(require('markdown-it-plantuml'))
+		},
+	},
 }
 ```
 
-
-
 ## 结语
 
-> *“Sometimes the truth of a thing is not so much in the think of it, but in the feel of it.”* 
+> _“Sometimes the truth of a thing is not so much in the think of it, but in the feel of it.”_
 >
-> ​																												—STANLEY KUBRICK
+> ​ —STANLEY KUBRICK
 
 最后，引述 John Gruber 在其 [Dive Into Markdown](https://daringfireball.net/2004/03/dive_into_markdown) 一文中对创造 Markdown 的想法，来总结下我折腾 PlantUML 的初衷。
 
 > 我在文章开始引用库布里克的话是我非常喜欢的之一。当你在用 HTML 标签写作时，它迫使你将注意力耗散在思考（样式）上，而不是在感受上。但正是后者，才是我想 Markdown 作为格式化语言所去传达的。
 
 PlantUML 正是作为一种简单直观的语言来描述图表，正像 Markdown 当时将人们从 HTML 中解放出来一样，将人们的注意力聚焦在内容本身的思考（类的设计，交互的时序等），而不是在一个 GUI 工具里面拖拽方框，然后将其摆得好看。
-

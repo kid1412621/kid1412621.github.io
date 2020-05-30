@@ -12,10 +12,11 @@
 		"@vuepress/plugin-pwa": "^1.4.1",
 		"@vuepress/theme-blog": "^2.2.0",
 		"markdown-it-footnote": "^3.0.2",
-		" ": "^1.4.1",
+		"markdown-it-plantuml": "^1.4.1",
 		"vuepress": "^1.4.1",
 		"vuepress-plugin-feed": "^0.1.8",
 		"vuepress-plugin-flowchart": "^1.4.3",
+		"vuepress-plugin-mermaidjs": "^1.5.1",
 		"vuepress-plugin-seo": "^0.1.2"
 	},
 	"dependencies": {
