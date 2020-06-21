@@ -6,8 +6,9 @@ module.exports = {
     ['link', { rel: 'icon', href: '/img/logo.png' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'referrer', content: 'no-referrer' }],
+    ['meta', { name: 'theme-color', content: 'white' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'white-translucent' }]
   ],
 
   //theming
