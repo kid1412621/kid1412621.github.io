@@ -1,6 +1,6 @@
 ---
 date: 2020-06-21
-tag:
+tags:
   - backend
   - java
   - test
