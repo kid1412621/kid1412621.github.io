@@ -1,21 +1,21 @@
 {
-  "name": "NanoNova's cyberspace",
-  "short_name": "NanoNova",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#fff",
-  "theme_color": "#3eaf7c",
-  "description": "The ubiquitous uniqueness",
-  "icons": [
-    {
-      "src": "img/logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "img/logo.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+	"name": "NanoNova's cyberspace",
+	"short_name": "NanoNova",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#fff",
+	"theme_color": "#ffffff",
+	"description": "Nothing more than the ubiquitous uniqueness",
+	"icons": [
+		{
+			"src": "img/logo.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "img/logo.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
 }
