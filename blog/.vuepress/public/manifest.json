@@ -17,5 +17,19 @@
 			"sizes": "512x512",
 			"type": "image/png"
 		}
+	],
+	"shortcuts": [
+		{
+			"name": "Code",
+			"url": "/code"
+		},
+		{
+			"name": "Life",
+			"url": "/life"
+		},
+		{
+			"name": "World",
+			"url": "/world"
+		}
 	]
 }
