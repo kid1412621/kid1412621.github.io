@@ -1,5 +1,7 @@
 # About me
 
+Nothing more than the ubiquitous uniqueness.
+
 ## Labeling is a cognitive shortcutting ( AKA degeneration )
 
 - Code Money & pseudo-Geek
