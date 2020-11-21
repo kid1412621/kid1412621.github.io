@@ -40,11 +40,11 @@ module.exports = {
     },
     comment: { service: 'vssue' },
     feed: {
-      canonical_base: 'https://nanonova.space',
+      canonical_base: 'https://nanova.me',
       posts_directories: ['/_code/', '/_life']
     },
     sitemap: {
-      hostname: 'https://nanonova.space'
+      hostname: 'https://nanova.me'
     }
   },
 

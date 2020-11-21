@@ -6,7 +6,7 @@ install:
 script:
   - npm run build
   - cd blog/.vuepress/dist
-  - echo 'nanonova.space' > CNAME
+  - echo 'nanova.me' > CNAME
   - cd -
 deploy:
   provider: pages
