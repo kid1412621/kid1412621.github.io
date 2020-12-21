@@ -1,6 +1,16 @@
-# What's new in Java 15
+---
+date: 2020-12-20
+tags:
+  - backend
+  - java
+  - translate
+---
 
-> 本译文已获取作者许可后翻译、发布。原文地址：https://www.baeldung.com/java-15-new
+# Java 15 都更新了什么
+
+> 本译文已获取作者许可后翻译、发布。
+>
+> 原文：[What's new in Java 15](https://www.baeldung.com/java-15-new)
 
 ## 1. 引言
 
@@ -8,11 +18,11 @@ Java 15 作为 JDK 平台下一个短期发行版[^1]，在 2020 年 9 月已进
 
 **在本文中，我们将一同探讨 Java 15 所提供的一些新特性**，以及 Java 开发者可能感兴趣的一些变动。
 
-## 2. 记录类 (JEP 384)
+## 2. 记录类 (JEP[^2] 384)
 
 **记录类是 Java 类型（class）系统中一个新的种类（type），可以用于更容易地创建不可变对象。**
 
-在 Java 14 的版本中，就作为早期预览特性[引入](https://www.baeldung.com/java-record-keyword)，Java 15 中旨于在其成为正式特性前做[一些改进](https://openjdk.java.net/jeps/384)。
+在 Java 14 的版本中，就作为早期预览特性[^3][引入](https://www.baeldung.com/java-record-keyword)，Java 15 中旨于在其成为正式特性前做[一些改进](https://openjdk.java.net/jeps/384)。
 
 接下来我们看下使用当前版本 Java 代码的例子，以及使用了记录类的样例代码。
 
@@ -59,7 +69,7 @@ public record Person(String name, int age) {
 
 此外，编译器也提供了 toString、equals 和 hashCode 方法这些实用的实现。
 
-在记录类消除了很多样板代码的同时，**也允许我们覆写一些编译器的默认行为**。比如，我们可以定义一个范式构造器[^2]来做一些校验：
+在记录类消除了很多样板代码的同时，**也允许我们覆写一些编译器的默认行为**。比如，我们可以定义一个范式构造器[^4]来做一些校验：
 
 ```java
 public record Person(String name, int age) {
@@ -178,7 +188,7 @@ if (person instanceof Employee employee && employee.getYearsOfService() > 5) {
 
 此前它们支持使用实验特性标记来使用。这样可以让开发者无需单独下载 JDK 或插件，就能尝试新的垃圾回收器，提交反馈。
 
-关于 [Shenandoah](https://openjdk.java.net/jeps/379) 有点需要注意：所有提供商 JDK 版本[^3]都不自带，尤其 Oracle JDK 也不包含。
+关于 [Shenandoah](https://openjdk.java.net/jeps/379) 有点需要注意：所有提供商 JDK 版本[^5]都不自带，尤其 Oracle JDK 也不包含。
 
 ## 8. 其它变化
 
@@ -188,7 +198,7 @@ Java 15 还有其它一些值得注意的变化。
 
 [有用的空指针异常](https://www.baeldung.com/java-14-nullpointerexception)，最初在 Java 14 中 JEP 358 被引入，现在被默认开启。
 
-遗留的 *DatagramSocket* API 被重写。这是 Java 14 中 *Socket* API 重写的后续。大多数开发者不会受其影响，但它是 [Project Loom](https://www.baeldung.com/openjdk-project-loom) [^4]的先决条件。
+遗留的 *DatagramSocket* API 被重写。这是 Java 14 中 *Socket* API 重写的后续。大多数开发者不会受其影响，但它是 [Project Loom](https://www.baeldung.com/openjdk-project-loom) [^6]的先决条件。
 
 同样值得一提，Java 15 包括了对爱德华兹曲线数字签名算法。EdDSA 是一个现代的椭圆曲线签名方案，相较于 JDK 中现存的签名方案有很多优势。
 
@@ -202,7 +212,15 @@ Java 15 基于前续版本的若干特性构建，包括记录类、文本块、
 
 由于 Java 15 不是长期支持版本，其支持周期将于 2021 年 3 月结束。同时我们能期待 Java 16 ，以及紧随其后的长期支持版本 Java 17。
 
-[^1]: short-term release，相较于 LTS 而言，译者注
-[^2]: canonical constructor，翻译[参照](https://en.wikipedia.org/wiki/Canonical_form)
-[^3]: [List of Java virtual machines](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines)，译者注
-[^4]: Java 中的协（纤）程，译者注
+
+
+---
+
+[^1]: short-term release 或 non-LTS release ，相较于 LTS 而言，会在下一个版本发布后终止支持，一般每 6 个月作为迭代周期；LTS 一般迭代周期 3 年，支持周期长达约十年，译者注
+[^2]: JEP, JDK Enhancement Proposal, JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals) ，译者注；
+
+[^3]: Java 非最终特性分为三个类型：预览（Preview）特性旨在提供 JavaSE 的新特性预览，以收集开发者反馈，此阶段的特性可能会在未来版本中发生变化，一般经过两轮预览版本后，会「转正」成为永久（Permanent）特性；实验（Experimental）特性主要是针对 HotSpot JVM 的功能，最终会成为产品（Production）特性；孵化（Incubating）特性涵盖一些在日后可能成为标准的潜在 API 或 JDK 工具，一般在 jdk.incubator 命名空间下。[参考链接](https://blogs.oracle.com/javamagazine/the-role-of-previews-in-java-14-java-15-java-16-and-beyond)，译者注
+
+[^4]: canonical constructor，翻译[参照](https://en.wikipedia.org/wiki/Canonical_form)
+[^5]: [List of Java virtual machines](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines)，译者注
+[^6]: Java 原生的协（纤）程，译者注
