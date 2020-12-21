@@ -214,13 +214,9 @@ Java 15 基于前续版本的若干特性构建，包括记录类、文本块、
 
 
 
----
-
 [^1]: short-term release 或 non-LTS release ，相较于 LTS 而言，会在下一个版本发布后终止支持，一般每 6 个月作为迭代周期；LTS 一般迭代周期 3 年，支持周期长达约十年，译者注
 [^2]: JEP, JDK Enhancement Proposal, JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals) ，译者注；
-
 [^3]: Java 非最终特性分为三个类型：预览（Preview）特性旨在提供 JavaSE 的新特性预览，以收集开发者反馈，此阶段的特性可能会在未来版本中发生变化，一般经过两轮预览版本后，会「转正」成为永久（Permanent）特性；实验（Experimental）特性主要是针对 HotSpot JVM 的功能，最终会成为产品（Production）特性；孵化（Incubating）特性涵盖一些在日后可能成为标准的潜在 API 或 JDK 工具，一般在 jdk.incubator 命名空间下。[参考链接](https://blogs.oracle.com/javamagazine/the-role-of-previews-in-java-14-java-15-java-16-and-beyond)，译者注
-
 [^4]: canonical constructor，翻译[参照](https://en.wikipedia.org/wiki/Canonical_form)
 [^5]: [List of Java virtual machines](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines)，译者注
 [^6]: Java 原生的协（纤）程，译者注
