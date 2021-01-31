@@ -4,7 +4,7 @@
 
 当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程的风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响到特性，但带来了很多较小的改进。
 
-When Java 8 introduced Streams and Lambdas it was a big change, enabling functional programming style to be expressed with much less boilerplate. While recent versions did not add such impactful features, lots of smaller improvements were made to the language.
+~~When Java 8 introduced Streams and Lambdas it was a big change, enabling functional programming style to be expressed with much less boilerplate. While recent versions did not add such impactful features, lots of smaller improvements were made to the language.~~
 
 ## Language enhancements after Java 8
 
@@ -50,11 +50,11 @@ For an overview of all the JEPs shaping the new platform, including API, perform
 
 ## 文本块
 
-**可用版本：** [JDK 15](https://openjdk.java.net/jeps/378) ( [JDK 13](https://openjdk.java.net/jeps/355) 处于预览特性) [JDK 14](https://openjdk.java.net/jeps/368)
+**支持版本：** [`JDK 15`](https://openjdk.java.net/jeps/378) ( [`JDK 13`](https://openjdk.java.net/jeps/355)  [`JDK 14`](https://openjdk.java.net/jeps/368) 为预览特性)
 
 相较于其它现代编程语言，在 Java 中编写多行字符串是臭名昭著的困难：
 
-Compared to other modern languages, in Java it was notoriously hard to express text containing multiple lines:
+~~Compared to other modern languages, in Java it was notoriously hard to express text containing multiple lines:~~
 
 ```
 String html = "";
@@ -69,7 +69,7 @@ System.out.println(html);
 
 为了将这种情形变得更加的程序员友好，Java 15 引入了多行字符串字面量，叫做文本块：
 
-To make this situation more programmer-friendly, Java 15 introduced multi-line string literals called Text Blocks:
+~~To make this situation more programmer-friendly, Java 15 introduced multi-line string literals called Text Blocks:~~
 
 ```
 String html = """
@@ -91,13 +91,13 @@ System.out.println(html);
 
 源代码中的每个换行的地方都会产生一个 `\n` 字符。
 
-They are similar to the old String literals but they can contain **new lines and quotes without escaping**.
+~~They are similar to the old String literals but they can contain **new lines and quotes without escaping**.~~
 
-Text Blocks start with `"""` followed by a new line, and end with `"""`. The closing token can be at the end of the last line or in separate line such as is in the example above.
+~~Text Blocks start with `"""` followed by a new line, and end with `"""`. The closing token can be at the end of the last line or in separate line such as is in the example above.~~
 
-They can be used anywhere an old String literal can be used and they both produce similar String objects.
+~~They can be used anywhere an old String literal can be used and they both produce similar String objects.~~
 
-For each line-break in the source code, there will be a `\n` character in the result.
+~~For each line-break in the source code, there will be a `\n` character in the result.~~
 
 ```
 String twoLines = """
@@ -106,7 +106,9 @@ String twoLines = """
           """;
 ```
 
-This can be prevented by ending the line with the `\` character, which can be useful in case of very long lines that you’d like to split into two for keeping the source code readable.
+这样可以避免每行以 `\` 字符结尾，对于那些太长的行以至于不得不分为两行来说，保持代码可读性十分有帮助。
+
+~~This can be prevented by ending the line with the `\` character, which can be useful in case of very long lines that you’d like to split into two for keeping the source code readable.~~
 
 ```
 String singleLine = """
@@ -115,9 +117,13 @@ String singleLine = """
           """;
 ```
 
-Text Blocks can be aligned with neighboring Java code because **incidental indentation is automatically removed**. The compiler checks the whitespace used for indentation in each line to find the least indented line, and shifts each line to the left by this minimal common indentation.
+文本段可以和相邻的 Java 代码对齐，因为意外的缩进会被自动移除。编译器会检查没行用于缩进的空格，找到缩进最少的行，然后将没行都转化为这个相同的最少缩进。
 
-This means that if the closing `"""` is in a separate line, the indentation can be increased by shifting the closing token to the left.
+~~Text Blocks can be aligned with neighboring Java code because **incidental indentation is automatically removed**. The compiler checks the whitespace used for indentation in each line to find the least indented line, and shifts each line to the left by this minimal common indentation.~~
+
+这就意味着如果结尾的 `"""` 是在一个单独的行，转变结尾标记到左边会导致缩进增加。
+
+~~This means that if the closing `"""` is in a separate line, the indentation can be increased by shifting the closing token to the left.~~
 
 ```
 String noIndentation = """
@@ -131,7 +137,9 @@ String indentedByToSpaces = """
         """;
 ```
 
-The opening `"""` does not count for the indentation removal so it’s not necessary to line up the text block with it. For example, both of the following examples produce the same string with the same indentation:
+开头的 `"""` 不会影响缩进移除，所以文本块没有必要和其对齐。例如，下面的例子将产生相同的缩进：
+
+~~The opening `"""` does not count for the indentation removal so it’s not necessary to line up the text block with it. For example, both of the following examples produce the same string with the same indentation:~~
 
 ```
 String indentedByToSpaces = """
@@ -145,9 +153,13 @@ String indentedByToSpaces = """
                             """;
 ```
 
-The `String` class also provides some programmatic ways to deal with indentation. The `indent` method takes an integer and returns a new string with the specified levels of additional indentation, while `stripIndent` returns the contents of the original string without all the incidental indentation.
+`String` 类通用也可以通过编程式的方法来处理缩进。`indent` 方法接收一个整数作为入参，相应的返回一个新的，特定缩进级别的字符串；与之对应的，`stripIndent` 方法返回一个移除源内容所有缩进的字符串。
 
-Text Blocks do not support interpolation, a feature I really miss. As the JEP says it may be considered in the future, and until then we can use `String::formatted` or `String::format`:
+~~The `String` class also provides some programmatic ways to deal with indentation. The `indent` method takes an integer and returns a new string with the specified levels of additional indentation, while `stripIndent` returns the contents of the original string without all the incidental indentation.~~
+
+文本块不支持插值，这个功能我十分期待。JEP 表示在未来的版本中会考虑，但到那之前，我们可以使用 `String::formatted` 或 `String::format`：
+
+~~Text Blocks do not support interpolation, a feature I really miss. As the JEP says it may be considered in the future, and until then we can use `String::formatted` or `String::format`:~~
 
 ```
 var greeting = """
@@ -156,25 +168,43 @@ var greeting = """
     """.formatted("world");
 ```
 
-Resources:
+参考来源[^1]：
 
-- [Programmer’s Guide To Text Blocks](https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html)
-- [Definitive Guide To Text Blocks In Java 13](https://nipafx.dev/java-13-text-blocks#)
-- [Java Text Blocks - Bealdung](https://www.baeldung.com/java-text-blocks)
+- [面向开发者的文本块指南](https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html)
+- [Java 13 文本块终极指南](https://nipafx.dev/java-13-text-blocks#)
+- [Java 文本块指南 - Bealdung](https://www.baeldung.com/java-text-blocks)
+
+~~Resources:~~
+
+- ~~[Programmer’s Guide To Text Blocks](https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html)~~
+- ~~[Definitive Guide To Text Blocks In Java 13](https://nipafx.dev/java-13-text-blocks#)~~
+- ~~[Java Text Blocks - Bealdung~~](https://www.baeldung.com/java-text-blocks)
 
 
 
-### ⚠️ Tip: Preserve trailing spaces
+### ⚠️ 技巧：保留结尾空格
 
-Trailing spaces in Text Blocks are ignored. This is usually not a problem but in some cases they do matter, for example in context of unit test when a method result is compared to a baseline value.
+在文本块的结尾空格会被忽略掉。这通常不是问题，除非在特定的场景，比如在单元测试时一个方法的执行结果需要和一个基准值做比较。
 
-If this is the case be mindful about them and if a line ends with whitespace add `\s` or `\t`instead of the last space or tab to the end of the line.
+如果是需要考虑这些的场景时，这行结尾需要添加 `\s` 或 `\t`，而不是空格或者是制表符。
+
+### ~~⚠️ Tip: Preserve trailing spaces~~
+
+~~Trailing spaces in Text Blocks are ignored. This is usually not a problem but in some cases they do matter, for example in context of unit test when a method result is compared to a baseline value.~~
+
+~~If this is the case be mindful about them and if a line ends with whitespace add `\s` or `\t`instead of the last space or tab to the end of the line.~~
+
+### ⚠️ 技巧：正确处理 Windows 的换行符
+
+[换行](https://en.wikipedia.org/wiki/Newline)在 Unix 和 Windows 下有着不同的控制符。前者使用单一的换行符（`\n`），而后者多使用了回车符（`\r\n`）。
+
+然后不论你是用什么操作系统，或者在源码中使用什么换行符，文本块都会使用单一的 `\n` 来换行，这可能会导致兼容性问题。
 
 ### ⚠️ Tip: Produce the correct newline characters for Windows
 
-[Line endings](https://en.wikipedia.org/wiki/Newline) are represented with different control characters on Unix and Windows. The former one uses a single line feed (`\n`), while the latter uses carriage return followed by line feed (`\r\n`).
+[~~Line endings](https://en.wikipedia.org/wiki/Newline) are represented with different control characters on Unix and Windows. The former one uses a single line feed (`\n`), while the latter uses carriage return followed by line feed (`\r\n`).~~
 
-However, regardless to the operating system you choose to use or how you encode new lines in the source code, Text Blocks will use a single `\n` for each new line, which can lead to compatibility issues.
+~~However, regardless to the operating system you choose to use or how you encode new lines in the source code, Text Blocks will use a single `\n` for each new line, which can lead to compatibility issues.~~
 
 ```
 Files.writeString(Paths.get("<PATH_TO_FILE>"), """
@@ -183,21 +213,37 @@ Files.writeString(Paths.get("<PATH_TO_FILE>"), """
     """);
 ```
 
-If a tool compatible only with the Windows line ending format (e.g. Notepad) is used to open such a file, it will display only a single line. Make sure that you use the correct control characters if you also target Windows, for example by calling `String::replace` to replace each `"\n"` with `"\r\n"`.
+如果使用一个仅兼容 Windows 换行符的软件（如 Notepad）打开这样的文件，会单单只显示一行。如果你旨在兼容 Windows 系统，请确保使用正确的换行符，比方说使用 `Stirng::replace` 来替换每一个 `"\n"` 为 `"\r\n"`。
 
-### ⚠️ Tip: Pay attention to consistent indentation
+~~If a tool compatible only with the Windows line ending format (e.g. Notepad) is used to open such a file, it will display only a single line. Make sure that you use the correct control characters if you also target Windows, for example by calling `String::replace` to replace each `"\n"` with `"\r\n"`.~~
 
-Text Blocks work well with any kind of indentation: tabs spaces or even the mix of these two. It’s important though to use **consistent indentation** for each line in the block, otherwise the incidental indentation can’t be removed.
+### ⚠️ 技巧：关注缩进的一致性
 
-Most editors offer autoformatting and automatically add indentation on each new line when you hit enter. Make sure to use the latest version of these tools to ensure they play well with Text Blocks, and don’t try to add wrong indentations.
+文本块在任意类型的缩进下都能胜任：制表符、空格或者两者混用。但每行使用一致的缩进很重要，否则意外的缩进不会被移除。
 
-## Helpful NullPointerExceptions
+大多数文本编辑器都提供了自动格式化，且在你敲击回车键时会自动添加缩进。使用最新版本的编辑器来确保它们能正确处理文本块，再者就是避免使用错误的缩进。
 
-**Available since:** [JDK 15](https://bugs.openjdk.java.net/browse/JDK-8233014) (Enabled with `-XX:+ShowCodeDetailsInExceptionMessages` in [JDK 14](https://openjdk.java.net/jeps/358))
+### ~~⚠️ Tip: Pay attention to consistent indentation~~
 
-This little gem is not really a language feature, but it’s so nice that I wanted to include it in this list.
+~~Text Blocks work well with any kind of indentation: tabs spaces or even the mix of these two. It’s important though to use **consistent indentation** for each line in the block, otherwise the incidental indentation can’t be removed.~~
 
-Traditionally, experiencing a `NullPointerException` was like this:
+~~Most editors offer autoformatting and automatically add indentation on each new line when you hit enter. Make sure to use the latest version of these tools to ensure they play well with Text Blocks, and don’t try to add wrong indentations.~~
+
+
+
+## 包含有用信息的空指针异常 ~~Helpful NullPointerExceptions~~
+
+~~**Available since:** [JDK 15](https://bugs.openjdk.java.net/browse/JDK-8233014) (Enabled with `-XX:+ShowCodeDetailsInExceptionMessages` in [JDK 14](https://openjdk.java.net/jeps/358))~~
+
+**可用版本**：[`JDK 15`](https://bugs.openjdk.java.net/browse/JDK-8233014) (`JDK 14`](https://openjdk.java.net/jeps/358) 中使用 `-XX:+ShowCodeDetailsInExceptionMessages` 开启)
+
+这块小宝石不能算做真正意义的语言特性，但它很棒以至于我想将它加到这份清单中。
+
+一般来说，遇到一个 `NullPointerException` 是这样的：
+
+~~This little gem is not really a language feature, but it’s so nice that I wanted to include it in this list.~~
+
+~~Traditionally, experiencing a `NullPointerException` was like this:~~
 
 ```
 node.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
@@ -206,9 +252,13 @@ Exception in thread "main" java.lang.NullPointerException
         at Unlucky.method(Unlucky.java:83)
 ```
 
-From the exception it’s not obvious which method returned null in this case. For this reason many developers used to spread such statements over multiple lines to make sure they’ll be able to figure out which step led to the exception.
+这个例子中，异常信息中很难看出是哪个方法返回了空。基于此很多开发者常常将这样的语句改写为多行，来排查到底是哪一行代码导致了空指针异常。
 
-From Java 15, there’s no need to do that because NPE’s describe which part was null in the statement. (Also, in in Java 14 you can enable it with the `-XX:+ShowCodeDetailsInExceptionMessages` flag.)
+从 Java 15 开始，再也没必要这样做了，NPE 会描述出这条语句的哪个部分为空。（在 Java 14 中你也可以通过 `-XX:+ShowCodeDetailsInExceptionMessages` 标记来开启这个特性）
+
+~~From the exception it’s not obvious which method returned null in this case. For this reason many developers used to spread such statements over multiple lines to make sure they’ll be able to figure out which step led to the exception.~~
+
+~~From Java 15, there’s no need to do that because NPE’s describe which part was null in the statement. (Also, in in Java 14 you can enable it with the `-XX:+ShowCodeDetailsInExceptionMessages` flag.)~~
 
 ```
 Exception in thread "main" java.lang.NullPointerException:
@@ -217,32 +267,59 @@ Exception in thread "main" java.lang.NullPointerException:
         at Unlucky.method(Unlucky.java:83)
 ```
 
-([Check the example project on GitHub](https://github.com/dodie/java-helpful-npe-demo))
+([参看 Github 上这个示例项目](https://github.com/dodie/java-helpful-npe-demo))
 
-The detailed message contains the action that could not be performed (Cannot invoke `getChildNodes`) and the reason for the failure (`item(int)` is `null`), making it much easier to find the exact source of the problem.
+详细的信息包含了不能被执行的步骤（无法调用 `getChildNodes`），以及其失败原因（`item(int)` 为空），这大大简化了定位问题根源。
 
-So overall **this feature is good for debugging, and also good for code readability** as there’s one less reason to sacrifice it for a technical reason.
+总体上来说，**这个特性有助于调试，这也意味着对代码可读性也有帮提升**，因为你又失去了一个牺牲代码可读性的技术原因。
 
-The Helpful NullPointerExceptions extension is implemented in the JVM so you get the same benefits for code compiled with older Java versions, and when using other JVM languages, such as Scala or Kotlin.
+有用信息的空指针异常扩展是在 JVM 层面实现的，这也就是说，即使你的代码编译为较老的 Java 版本也同样能受益，而且当你使用其它 JVM 语言，例如 Scala 或 Kotlin 也一样。
 
-Note, that **not all NPEs get this extra info, just the ones that are created and thrown by the JVM** upon:
+值得注意的是，**并非所有的空指针异常都能得到这些额外的信息，仅仅是被 JVM 创建并抛出的才能**：
 
-- reading or writing a field on null
-- invoking method on null
-- accessing or assigning an element of an array (indices are **not** part of the error message)
-- [unboxing](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html) null
+- 读取或写入一个成员变量为空时
+- 调用一个方法为空时
+- 获取或赋值一个数组元素为空时（索引信息**不在**错误信息中）
+- [包装类开箱](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html) 为空时
 
-Also note that this feature **does not support serialization**. For example, when an NPE is thrown on the remote code executed via RMI, the exception will not include the helpful message.
+另外值得注意的是，这个特性**不支持序列化**。比如，当一个空指针异常被通过 RMI 方式的远程调用，异常信息里不会包含有用信息。
 
-Currently the **Helpful NullPointerExceptions are disabled by default**, and have to be enabled with the `-XX:+ShowCodeDetailsInExceptionMessages` flag.
+当前**有用信息的空指针这一特性默认关闭**，必须加上 `-XX:+ShowCodeDetailsInExceptionMessages` 标记来手动开启。
 
-### ⚠️ Tip: Check your tooling
+~~([Check the example project on GitHub](https://github.com/dodie/java-helpful-npe-demo))~~
 
-When upgrading to Java 15, make sure to check your application and infrastructure to ensure:
+~~The detailed message contains the action that could not be performed (Cannot invoke `getChildNodes`) and the reason for the failure (`item(int)` is `null`), making it much easier to find the exact source of the problem.~~
 
-- sensitive variable names not end up in log files and web server responses
-- log parsing tools can handle the new message format
-- the additional overhead required to construct the additional details is okay
+~~So overall **this feature is good for debugging, and also good for code readability** as there’s one less reason to sacrifice it for a technical reason.~~
+
+~~The Helpful NullPointerExceptions extension is implemented in the JVM so you get the same benefits for code compiled with older Java versions, and when using other JVM languages, such as Scala or Kotlin.~~
+
+~~Note, that **not all NPEs get this extra info, just the ones that are created and thrown by the JVM** upon:~~
+
+- ~~reading or writing a field on null~~
+- ~~invoking method on null~~
+- ~~accessing or assigning an element of an array (indices are **not** part of the error message)~~
+- ~~[unboxing](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html) null~~
+
+~~Also note that this feature **does not support serialization**. For example, when an NPE is thrown on the remote code executed via RMI, the exception will not include the helpful message.~~
+
+~~Currently the **Helpful NullPointerExceptions are disabled by default**, and have to be enabled with the `-XX:+ShowCodeDetailsInExceptionMessages` flag.~~
+
+### ⚠️ 技巧：检查你的工具链
+
+当你升级到 Java 15 时，检查你的应用和基础设施并确保以下几点：
+
+- 大小写敏感到变量命名不会出现在日志文件和网页服务器响应中
+- 日志分析工具能处理新的消息格式
+- 构建额外细节的额外开销是有必要
+
+### ~~⚠️ Tip: Check your tooling~~
+
+~~When upgrading to Java 15, make sure to check your application and infrastructure to ensure:~~
+
+- ~~sensitive variable names not end up in log files and web server responses~~
+- ~~log parsing tools can handle the new message format~~
+- ~~the additional overhead required to construct the additional details is okay~~
 
 ## Switch Expressions
 
@@ -637,3 +714,7 @@ double area = switch (shape) {
 ## Summary
 
 This post covered the improvements related to the Java language since Java 8. It’s important to keep an eye on the Java platform, as with the new rapid release cadence a new Java version is released every six months, delivering changes to the platform and to the language.
+
+
+
+[^1]: 这里指的是原文的参考来源
