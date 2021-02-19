@@ -50,13 +50,13 @@ For an overview of all the JEPs shaping the new platform, including API, perform
 
 ## 文本块
 
-**支持版本：** [`JDK 15`](https://openjdk.java.net/jeps/378) ( [`JDK 13`](https://openjdk.java.net/jeps/355)  [`JDK 14`](https://openjdk.java.net/jeps/368) 为预览特性)
+**开始支持版本：** [`JDK 15`](https://openjdk.java.net/jeps/378) ( [`JDK 13`](https://openjdk.java.net/jeps/355)  [`JDK 14`](https://openjdk.java.net/jeps/368) 为预览特性)
 
 相较于其它现代编程语言，在 Java 中编写多行字符串是臭名昭著的困难：
 
 ~~Compared to other modern languages, in Java it was notoriously hard to express text containing multiple lines:~~
 
-```
+```java
 String html = "";
 html += "<html>\n";
 html += "  <body>\n";
@@ -71,7 +71,7 @@ System.out.println(html);
 
 ~~To make this situation more programmer-friendly, Java 15 introduced multi-line string literals called Text Blocks:~~
 
-```
+```java
 String html = """
           <html>
             <body>
@@ -99,7 +99,7 @@ System.out.println(html);
 
 ~~For each line-break in the source code, there will be a `\n` character in the result.~~
 
-```
+```java
 String twoLines = """
           Hello
           World
@@ -110,7 +110,7 @@ String twoLines = """
 
 ~~This can be prevented by ending the line with the `\` character, which can be useful in case of very long lines that you’d like to split into two for keeping the source code readable.~~
 
-```
+```java
 String singleLine = """
           Hello \
           World
@@ -125,7 +125,7 @@ String singleLine = """
 
 ~~This means that if the closing `"""` is in a separate line, the indentation can be increased by shifting the closing token to the left.~~
 
-```
+```java
 String noIndentation = """
           First line
           Second line
@@ -141,7 +141,7 @@ String indentedByToSpaces = """
 
 ~~The opening `"""` does not count for the indentation removal so it’s not necessary to line up the text block with it. For example, both of the following examples produce the same string with the same indentation:~~
 
-```
+```java
 String indentedByToSpaces = """
          First line 
          Second line
@@ -161,7 +161,7 @@ String indentedByToSpaces = """
 
 ~~Text Blocks do not support interpolation, a feature I really miss. As the JEP says it may be considered in the future, and until then we can use `String::formatted` or `String::format`:~~
 
-```
+```java
 var greeting = """
     hello
     %s
@@ -206,7 +206,7 @@ var greeting = """
 
 ~~However, regardless to the operating system you choose to use or how you encode new lines in the source code, Text Blocks will use a single `\n` for each new line, which can lead to compatibility issues.~~
 
-```
+```java
 Files.writeString(Paths.get("<PATH_TO_FILE>"), """
     first line
     second line
@@ -233,19 +233,19 @@ Files.writeString(Paths.get("<PATH_TO_FILE>"), """
 
 ## 包含有用信息的空指针异常 ~~Helpful NullPointerExceptions~~
 
-~~**Available since:** [JDK 15](https://bugs.openjdk.java.net/browse/JDK-8233014) (Enabled with `-XX:+ShowCodeDetailsInExceptionMessages` in [JDK 14](https://openjdk.java.net/jeps/358))~~
-
-**可用版本**：[`JDK 15`](https://bugs.openjdk.java.net/browse/JDK-8233014) (`JDK 14`](https://openjdk.java.net/jeps/358) 中使用 `-XX:+ShowCodeDetailsInExceptionMessages` 开启)
+**开始支持版本：**[`JDK 15`](https://bugs.openjdk.java.net/browse/JDK-8233014) ([`JDK 14`](https://openjdk.java.net/jeps/358) 中使用 `-XX:+ShowCodeDetailsInExceptionMessages` 开启)
 
 这块小宝石不能算做真正意义的语言特性，但它很棒以至于我想将它加到这份清单中。
 
 一般来说，遇到一个 `NullPointerException` 是这样的：
 
+~~**Available since:** [JDK 15](https://bugs.openjdk.java.net/browse/JDK-8233014) (Enabled with `-XX:+ShowCodeDetailsInExceptionMessages` in [JDK 14](https://openjdk.java.net/jeps/358))~~
+
 ~~This little gem is not really a language feature, but it’s so nice that I wanted to include it in this list.~~
 
 ~~Traditionally, experiencing a `NullPointerException` was like this:~~
 
-```
+```java
 node.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
 
 Exception in thread "main" java.lang.NullPointerException
@@ -321,13 +321,17 @@ Exception in thread "main" java.lang.NullPointerException:
 - ~~log parsing tools can handle the new message format~~
 - ~~the additional overhead required to construct the additional details is okay~~
 
-## Switch Expressions
+## Switch 表达式 ~~Switch Expressions~~
 
-**Available since:** [JDK 14](https://openjdk.java.net/jeps/361) (Preview in [JDK 12](https://openjdk.java.net/jeps/325) [JDK 13](https://openjdk.java.net/jeps/354))
+**开始支持版本：** [`JDK 14`](https://openjdk.java.net/jeps/361) ([`JDK 12`](https://openjdk.java.net/jeps/325) [`JDK 13`](https://openjdk.java.net/jeps/354) 中为预览特性)
 
-The good old `switch` got a facelift in Java 14. While Java keeps supporting the old [switch statement](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html), it adds the new **switch expression** to the language:
+久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^2]的语法支持：
 
-```
+~~**Available since:** [JDK 14](https://openjdk.java.net/jeps/361) (Preview in [JDK 12](https://openjdk.java.net/jeps/325) [JDK 13](https://openjdk.java.net/jeps/354))~~
+
+~~The good old `switch` got a facelift in Java 14. While Java keeps supporting the old [switch statement](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html), it adds the new **switch expression** to the language:~~
+
+```java
 int numLetters = switch (day) {
     case MONDAY, FRIDAY, SUNDAY -> 6;
     case TUESDAY                -> 7;
@@ -339,9 +343,11 @@ int numLetters = switch (day) {
 };
 ```
 
-The most striking difference is that this new form **can be used as an expression**. It can be used to populate variables as demonstrated in the example above, and it can be used wherever an expression is accepted:
+最重大的差别是，这个新的语法形式能作为表达式使用。从上面的例子中可见，这可用于变量赋值，且可以用在任何接受表达式的地方：
 
-```
+~~The most striking difference is that this new form **can be used as an expression**. It can be used to populate variables as demonstrated in the example above, and it can be used wherever an expression is accepted:~~
+
+```java
 int k = 3;
 System.out.println(
     switch (k) {
@@ -352,13 +358,19 @@ System.out.println(
 );
 ```
 
-However, there are some other, more subtle differences between switch expressions and switch statements.
+然而，switch 表达式和 switch 语句之间存在一些细微的差别。
 
-First, for switch expressions **cases don’t fall-through**. So no more subtle bugs caused by missing `breaks`. To avoid the need for fall-through, **multiple constants can be specified for each case** in a comma separated list.
+首先，switch 表达式不存在击穿[^3]的情况。这样再也不会因缺失 `break` 关键字而产生缺陷了。为了避免有使用击穿的需求，**多个常量可以指定到每一个 `case`**，以逗号分割。
 
-Second, each **case has its own scope**.
+其次，每一个 `case` 有其自己的作用域。
 
-```
+~~However, there are some other, more subtle differences between switch expressions and switch statements.~~
+
+~~First, for switch expressions **cases don’t fall-through**. So no more subtle bugs caused by missing `breaks`. To avoid the need for fall-through, **multiple constants can be specified for each case** in a comma separated list.~~
+
+~~Second, each **case has its own scope**.~~
+
+```java
 String s = switch (k) {
     case  1 -> {
         String temp = "one";
@@ -372,11 +384,15 @@ String s = switch (k) {
 }
 ```
 
-A branch is either a single expression or if it consist of multiple statements it has to be wrapped in a block.
+每个分支要么是一条单独的表达式，要么是由包裹在一个语块中的多条语句组成。
 
-Third, **cases of a switch expression are exhaustive**. This means that for String, primitive types and their wrappers the `default` case always has to be defined.
+再者，switch 表达式必须涵盖所有的情况。这就意味着对于字符串类型、基本类型以及它们的包装类来说，`default` 的情况必须指明。
 
-```
+~~A branch is either a single expression or if it consist of multiple statements it has to be wrapped in a block.~~
+
+~~Third, **cases of a switch expression are exhaustive**. This means that for String, primitive types and their wrappers the `default` case always has to be defined.~~
+
+```java
 int k = 3;
 String s = switch (k) {
     case  1 -> "one";
@@ -385,9 +401,11 @@ String s = switch (k) {
 }
 ```
 
-For `enums` either a `default` case has to be present, or all cases have to be explicitly covered. Relying on the latter is quite nice to ensure that all values are considered. Adding an extra value to the `enum` will result in a compile error for all switch expressions where it’s used.
+对于枚举的话，要么 `defualt` 需要声明，要么显式的声明出所有情况。后者的话是最佳实践，能确保所有的值都被考虑到了。当给枚举中添加一个新值时，用到它作为 switch 表达式的地方都会报出编译错误。
 
-```
+~~For `enums` either a `default` case has to be present, or all cases have to be explicitly covered. Relying on the latter is quite nice to ensure that all values are considered. Adding an extra value to the `enum` will result in a compile error for all switch expressions where it’s used.~~
+
+```java
 enum Day {
    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
 }
@@ -401,13 +419,19 @@ switch (day) {
 }
 ```
 
-For all these reasons preferring switch expressions over switch statements can lead to more maintainable code.
+鉴于以上所有原因，更偏向于使用 switch 表达式而不是 switch 语句，有利于产出更多可维护的代码。
 
-### ⚠️ Tip: Use arrow syntax
+~~For all these reasons preferring switch expressions over switch statements can lead to more maintainable code.~~
 
-Switch expression can not only used with the lambda-like arrow-form cases. **The old switch statement with its colon-form cases can also be used as an expression** using `yield`:
+### ⚠️ 技巧：使用箭头语法
 
-```
+switch 表达式中 `case` 不仅能使用类似于 lambda 表达式中箭头形式，还能配合 `yeild` 关键字**使用类似于以往 switch 语句中的冒号形式**：
+
+### ~~⚠️ Tip: Use arrow syntax~~
+
+~~Switch expression can not only used with the lambda-like arrow-form cases. **The old switch statement with its colon-form cases can also be used as an expression** using `yield`:~~
+
+```java
 int result = switch (s) {
     case "foo":
     case "bar":
@@ -417,62 +441,101 @@ int result = switch (s) {
 };
 ```
 
-This version can also be used as an expression, but it’s more similar to the old switch statement because
+这种形式也能被用作一个表达式，但这更类似于以往的 switch 语句，因为：
 
-- cases fall through
-- cases share the same scope
+- 条件击穿
+- 条件之共享一个作用域
 
-My advice? Don’t use this form, use switch expressions with the arrow syntax instead to get all the benefits.
+~~我的意见？不要使用这种形式，而是使用箭头形式的 switch 表达式，这样能获取所有好处。~~
 
-## Local-Variable Type Inference
+~~This version can also be used as an expression, but it’s more similar to the old switch statement because~~
 
-**Available since:** [JDK 11](https://openjdk.java.net/jeps/323) (Without lambda support in [JDK 10](https://openjdk.java.net/jeps/286))
+- ~~cases fall through~~
+- ~~cases share the same scope~~
 
-Probably the most significant language improvement since Java 8 is the addition of the `var`keyword. It was initially introduced in [Java 10](https://openjdk.java.net/jeps/286), and was further improved in [Java 11](https://openjdk.java.net/jeps/323).
+~~My advice? Don’t use this form, use switch expressions with the arrow syntax instead to get all the benefits.~~
 
-This feature allows us to reduce the ceremony of a local variable declaration by omitting the explicit type specification:
+## 局部变量类型推断 ~~Local-Variable Type Inference~~
 
-```
+**开始支持版本：** [`JDK 11`](https://openjdk.java.net/jeps/323) ([`JDK 10`](https://openjdk.java.net/jeps/286) 中无 lambda 支持)
+
+自从 Java 8 之后最显著的语言特性改进可能是 `var` 关键字。这最初是在 [Java 10](https://openjdk.java.net/jeps/286) 中引入的，随后在 [Java 11](https://openjdk.java.net/jeps/323) 中得到进一步改进。
+
+通过省略显式的类型声明，这个特性帮助我们简化了局部变量声明的繁文缛节：
+
+~~**Available since:** [JDK 11](https://openjdk.java.net/jeps/323) (Without lambda support in [JDK 10](https://openjdk.java.net/jeps/286))~~
+
+~~Probably the most significant language improvement since Java 8 is the addition of the `var`keyword. It was initially introduced in [Java 10](https://openjdk.java.net/jeps/286), and was further improved in [Java 11](https://openjdk.java.net/jeps/323).~~
+
+~~This feature allows us to reduce the ceremony of a local variable declaration by omitting the explicit type specification:~~
+
+```java
 var greetingMessage = "Hello!";
 ```
 
-While it looks similar to Javascript’s `var` keyword, this is **not about dynamic typing**.
+虽然看起来像 Javascript 中的 `var` 关键字，但这**并非是动态类型**。
 
-Take this quote from the JEP:
+来看下这段来自 JEP 的引述：
 
-> > > We seek to improve the developer experience by reducing the ceremony associated with writing Java code, while maintaining Java’s commitment to static type safety.
+> > > 我们旨在简化 Java 代码编写中的繁文缛节，来提升开发者的编程体验，并保持 Java 作为静态类型安全语言的承诺。
 
-The type of the declared variables is **inferred at compile time**. In the example above the inferred type is String. Using `var` instead of an explicit type makes this piece of code less redundant, thus, easier to read.
+声明变量的类型是**在编译时推断的**。在上面的例子中其类型是字符串。使用 `var` 而不是显示的类型，能使这块代码不那么臃肿，也更易读。
 
-Here’s another good candidate for type inference:
+这是另一个类型推断能发挥优势的例子：
 
-```
+~~While it looks similar to Javascript’s `var` keyword, this is **not about dynamic typing**.~~
+
+~~Take this quote from the JEP:~~
+
+> > > ~~We seek to improve the developer experience by reducing the ceremony associated with writing Java code, while maintaining Java’s commitment to static type safety.~~
+
+~~The type of the declared variables is **inferred at compile time**. In the example above the inferred type is String. Using `var` instead of an explicit type makes this piece of code less redundant, thus, easier to read.~~
+
+~~Here’s another good candidate for type inference:~~
+
+```java
 MyAwesomeClass awesome = new MyAwesomeClass();
 ```
 
-It’s clear that in many cases this feature can improve code quality. However, sometimes it’s better to stick with the explicit type declaration. Let’s see a few examples where replacing a type declaration with `var` can backfire.
+在很多的情况下，这个特性确实能提升代码质量。但有时候继续使用显示的类型声明反而是更推崇的。我们来看几个使用 `var` 替换类型声明导致问题的例子。
 
-### ⚠️ Tip: Keep readability in mind
+~~It’s clear that in many cases this feature can improve code quality. However, sometimes it’s better to stick with the explicit type declaration. Let’s see a few examples where replacing a type declaration with `var` can backfire.~~
 
-The first case is when removing explicit type information from the source code makes it less readable.
+### ⚠️ 技巧：时刻想着可读性
 
-Of course, IDEs can help in this regard, but during code-reviews or when you just quickly scanning the code it might hurt readability. For example, consider factories or builders: you have to find the code responsible for object initialization to determine the type.
+第一个情形是，当在源码中移除显示的类型信息，会减少可读性。
 
-Here’s a little puzzle. The following piece of code is using Java 8’s Date/Time API. Guess the types of the variables in the following snippet:
+当然，IDE 能在这方面起到一定帮助，但是在代码评审，或快速浏览代码时这就会损失可读性。例如，在工厂模式或构造者模式中，你不得不找到负责构建对象的代码，才能推断出其类型。
 
-```
+来点小测试，下面的代码片段使用了 Java 8 中的日期时间 API，猜下这些变量的类型：
+
+### ~~⚠️ Tip: Keep readability in mind~~
+
+~~The first case is when removing explicit type information from the source code makes it less readable.~~
+
+~~Of course, IDEs can help in this regard, but during code-reviews or when you just quickly scanning the code it might hurt readability. For example, consider factories or builders: you have to find the code responsible for object initialization to determine the type.~~
+
+~~Here’s a little puzzle. The following piece of code is using Java 8’s Date/Time API. Guess the types of the variables in the following snippet:~~
+
+```java
 var date = LocalDate.parse("2019-08-13");
 var dayOfWeek = date.getDayOfWeek();
 var dayOfMonth = date.getDayOfMonth();
 ```
 
-Done? Here’s the solution:
+猜完了吗？这是答案：
 
-The first one is pretty intuitive, the `parse` method returns a `LocalDate` object. However, for the next two, you should be a little bit more familiar with the API: `dayOfWeek` returns a `java.time.DayOfWeek`, while `dayOfMonth` simply returns an `int`.
+第一个变量十分直观，`parse` 方法返回了 `LocalDate` 对象。然而，接下来两个，你需要对 API 更了解： `dayOfWeek` 方法返回的是 `java.time.DayOfWeek`，但 `dayOfMonth` 仅仅是返回了 `int`。
 
-Another potential problem is that with `var` the reader has to rely more on the context. Consider the following:
+还有个潜在问题，遇到 `var` 时，代码阅读者不得不更依赖于上下文。想象下这个例子：
 
-```
+~~Done? Here’s the solution:~~
+
+~~The first one is pretty intuitive, the `parse` method returns a `LocalDate` object. However, for the next two, you should be a little bit more familiar with the API: `dayOfWeek` returns a `java.time.DayOfWeek`, while `dayOfMonth` simply returns an `int`.~~
+
+~~Another potential problem is that with `var` the reader has to rely more on the context. Consider the following:~~
+
+```java
 private void longerMethod() {
     // ...
     // ...
@@ -486,38 +549,56 @@ private void longerMethod() {
 }
 ```
 
-Based on the previous example, I bet you’d guess it’s a `java.time.DayOfWeek`. But this time, it’s an integer, because the `date` in this example is from Joda time. It’s a different API, behaving slightly differently, but you can’t see it because it’s a longer method, and you did not read all the lines. (JavaDoc: [Joda time](https://www.joda.org/joda-time/apidocs/org/joda/time/ReadableDateTime.html#getDayOfWeek--) / [Java 8 Date/Time API](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html#getDayOfWeek--))
+基于之前对例子，你可能会猜是 `java.time.DayOfWeek` 。但这个例子中的 `date` 对象是 Joda 库中的，所以返回的是整型。这是个不同的 API，同样的方法有所差池，这个较长的方法，没看完每行代码，导致你看不出差异。(JavaDoc: [Joda time](https://www.joda.org/joda-time/apidocs/org/joda/time/ReadableDateTime.html#getDayOfWeek--) / [Java 8 Date/Time API](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html#getDayOfWeek--))
 
-If the explicit type declaration was present, figuring out what type `dayOfWeek` has would be trivial. Now, with `var`, the reader first has to find out the type of the `date` variable and check what `getDayOfWeek` does. This is simple with an IDE, not so simple when just scanning the code.
+如果这儿有显示的类型声明，弄清 `dayOfWeek` 对象是什么类型旧很容易。现在有了 `var` ，读者首先得找出 `date` 对象的类型，还要搞清 `getDayOfWeek` 方法做了什么。要是有一个 IDE，这一切都很轻松，但是仅仅是快速浏览代码，这就没那么容易了。
 
-### ⚠️ Tip: Pay attention to preserve important type information
+~~Based on the previous example, I bet you’d guess it’s a `java.time.DayOfWeek`. But this time, it’s an integer, because the `date` in this example is from Joda time. It’s a different API, behaving slightly differently, but you can’t see it because it’s a longer method, and you did not read all the lines. (JavaDoc: [Joda time](https://www.joda.org/joda-time/apidocs/org/joda/time/ReadableDateTime.html#getDayOfWeek--) / [Java 8 Date/Time API](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html#getDayOfWeek--))~~
 
-The second case is when using `var` removes all available type information, so it can not be even inferred. In most cases, these situations are caught by the Java compiler. For example, `var` cannot infer type for lambdas or method references, because for these features the compiler relies on the left-hand side expression to figure out the types.
+~~If the explicit type declaration was present, figuring out what type `dayOfWeek` has would be trivial. Now, with `var`, the reader first has to find out the type of the `date` variable and check what `getDayOfWeek` does. This is simple with an IDE, not so simple when just scanning the code.~~
 
-However, there are a few exceptions. For example, `var` does not play nicely with the Diamond Operator. The Diamond operator is a nice feature to remove some verbosity from the right-hand side of an expression when creating a generic instance:
+### ⚠️ 技巧：注意保留重要的类型信息
 
-```
+第二个情形是，使用 `var` 消除了所有可用的类型信息，导致甚至无法被推断。在绝大多数情形下，这些问题能被 Java 编译器捕获。比如，`var` 不能针对 lambda 和方法引用进行推断，因为编译器依赖于表达式左边的声明来确定类型。
+
+然而，存在一些例外情况。例如，`var` 不能和钻石运算符很好的搭配使用，后者能移除在创建泛型对象时右侧表达式冗长的语法：
+
+### ~~⚠️ Tip: Pay attention to preserve important type information~~
+
+~~The second case is when using `var` removes all available type information, so it can not be even inferred. In most cases, these situations are caught by the Java compiler. For example, `var` cannot infer type for lambdas or method references, because for these features the compiler relies on the left-hand side expression to figure out the types.~~
+
+~~However, there are a few exceptions. For example, `var` does not play nicely with the Diamond Operator. The Diamond operator is a nice feature to remove some verbosity from the right-hand side of an expression when creating a generic instance:~~
+
+```java
 Map<String, String> myMap = new HashMap<String, String>(); // Pre Java 7
 Map<String, String> myMap = new HashMap<>(); // Using Diamond operator
 ```
 
-Because it only deals with the generic types, there is still redundancy to be removed. Let’s try to make it terser with `var`:
+由于钻石操作符仅和泛型有关，这就还有语法上的冗余能被移除。我们来用 `var` 关键字使它看起来更简洁：
 
-```
+~~Because it only deals with the generic types, there is still redundancy to be removed. Let’s try to make it terser with `var`:~~
+
+```java
 var myMap = new HashMap<>();
 ```
 
-This example is valid, and Java 11 it does not even emit in compiler warnings about it. However, with all these type inference we ended up not specifying the generic types at all, and the type will be `Map<Object, Object>`.
+这个例子语法上是可行的，在 Java 11 中编译器甚至不会报出警告。然而，我们完全不指定泛型类型，类型推断会给出 `Map<Object, Object>` 的结果。
 
-Of course, this can be solved easily by removing the Diamond Operator:
+当然，我们能替换掉钻石操作符来轻松的解决这个问题：
 
-```
+~~This example is valid, and Java 11 it does not even emit in compiler warnings about it. However, with all these type inference we ended up not specifying the generic types at all, and the type will be `Map<Object, Object>`.~~
+
+~~Of course, this can be solved easily by removing the Diamond Operator:~~
+
+```java
 var myMap = new HashMap<String, String>();
 ```
 
-Another set of problems can arise when `var` is used with primitive data types:
+`var` 的另一系列问题是和基础类型使用的时候：
 
-```
+~~Another set of problems can arise when `var` is used with primitive data types:~~
+
+```java
 byte   b = 1;
 short  s = 1;
 int    i = 1;
@@ -526,53 +607,93 @@ float  f = 1;
 double d = 1;
 ```
 
-Without explicit type declaration, the type of all these variables would be inferred to `int`. Use type literals (e.g. `1L`) when working with primitive data types, or don’t use `var` in this case at all.
+在没有显示类型声明的情况下，上面的所有变量都会被推断为整型。在处理基本类型时，要么使用类型字面量（比如 `1L`），要么就完全避免使用 `var` 。
 
-### ⚠️ Tip: Make sure to read the official style guides
+~~Without explicit type declaration, the type of all these variables would be inferred to `int`. Use type literals (e.g. `1L`) when working with primitive data types, or don’t use `var` in this case at all.~~
 
-It’s ultimately up to you to decide when to use type inference and make sure that it does not hurt readability and correctness. As a rule of thumb, sticking to good programming practices, such as good naming and minimizing the scope of local variables certainly helps a lot. Make sure to read the official [style guide](https://openjdk.java.net/projects/amber/LVTIstyle.html) and [FAQ](https://openjdk.java.net/projects/amber/LVTIFAQ.html) about `var`.
+### **⚠️ 技巧：确保阅读官方的代码风格指南**
 
-Because `var` has so many gotchas, it’s great that it was introduced conservatively and can only be used on local variables, which scope is usually pretty limited.
+什么时候使用类型推断完全取决于你，但确保它不会影响可读性和正确性。经验之谈，保持一个良好的编程实践，比如好的命名和缩小局部变量的作用域肯定是很有帮助的。确保阅读官方针对 `var` 的 [代码风格指南](https://openjdk.java.net/projects/amber/LVTIstyle.html) 和 [常见问题](https://openjdk.java.net/projects/amber/LVTIFAQ.html)。
 
-Also, it has been introduced cautiously, **`var` is not a new keyword but a reserved type name**. This means that it only has special meaning when it’s used as a type name, everywhere else `var` is continuing to be a valid identifier.
+由于 `var` 有很多坑，最好在把它引入到代码中时保守些，也仅仅在局部变量中使用它，这样它的作用域也十分局限。
 
-Currently, `var` does not have an immutable counterpart (such as `val` or `const`) to declare a final variable and infer its type with a single keyword. Hopefully, we’ll get it in a future release, until then, we can resort to `final var`.
+同时，在引入时也尽量谨慎些，**`var` 不是一个新的关键字，而是一个保留类名**。这意味着当用作类名时有特殊含义，在任何地方其都作为合法的引用。
 
-Resources:
+当前，`var` 还没有相应的单一「关键字」来声明不可变变量（比如 `val` 或 `const`）。希望未来的版本中会支持，在那之前，我们可以使用 `final var` 。
+
+参考来源：
+
+### ~~⚠️ Tip: Make sure to read the official style guides~~
+
+~~It’s ultimately up to you to decide when to use type inference and make sure that it does not hurt readability and correctness. As a rule of thumb, sticking to good programming practices, such as good naming and minimizing the scope of local variables certainly helps a lot. Make sure to read the official [style guide](https://openjdk.java.net/projects/amber/LVTIstyle.html) and [FAQ](https://openjdk.java.net/projects/amber/LVTIFAQ.html) about `var`.~~
+
+~~Because `var` has so many gotchas, it’s great that it was introduced conservatively and can only be used on local variables, which scope is usually pretty limited.~~
+
+~~Also, it has been introduced cautiously, **`var` is not a new keyword but a reserved type name**. This means that it only has special meaning when it’s used as a type name, everywhere else `var` is continuing to be a valid identifier.~~
+
+~~Currently, `var` does not have an immutable counterpart (such as `val` or `const`) to declare a final variable and infer its type with a single keyword. Hopefully, we’ll get it in a future release, until then, we can resort to `final var`.~~
+
+~~Resources:~~
 
 - [First Contact With ‘var’ In Java 10](https://blog.codefx.org/java/java-10-var-type-inference/)
 - [26 Items for Dissecting Java Local Variable Type Inference (Var Type)](https://dzone.com/articles/var-work-in-progress)
 - [Java 10: Local Variable Type Inference](https://www.journaldev.com/19871/java-10-local-variable-type-inference)
 
-## Allow private methods in interfaces
 
-**Available since:** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)
 
-Since Java 8 it is possible to add default methods to interfaces. With Java 9 these default methods can even call private methods to share code in case you are in a need for reuse, but do not want to expose functionality publicly.
+## 接口中允许私有方法 ~~Allow private methods in interfaces~~
 
-Although it’s not a huge deal, it’s a logical addition that allows to tidy up code in default methods.
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](http://openjdk.java.net/jeps/213))
 
-## Diamond operator for anonymous inner classes
+从 Java 8 开始，在接口中添加默认方法成为可能。到 Java 9 中，默认方法甚至能调用私有方法，这既满足代码复用的需求，但又不对外暴露相应逻辑。
 
-**Available since:** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)
+虽然这不是个大的改进，但这对整理默认方法中的代码小有帮助。
 
-Java 7 introduced the Diamond Operator (`<>`) to reduce verbosity by letting the compiler infer the parameter types for constructors:
+~~**Available since:** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)~~
 
-```
+~~Since Java 8 it is possible to add default methods to interfaces. With Java 9 these default methods can even call private methods to share code in case you are in a need for reuse, but do not want to expose functionality publicly.~~
+
+~~Although it’s not a huge deal, it’s a logical addition that allows to tidy up code in default methods.~~
+
+
+
+## 匿名内部类的钻石操作符 ~~Diamond operator for anonymous inner classes~~
+
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](http://openjdk.java.net/jeps/213))
+
+Java 7 引入了钻石操作符（`<>`）来减少冗余，这是通过让编译器推断构造方法的参数类型实现的：
+
+~~**Available since:** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)~~
+
+~~Java 7 introduced the Diamond Operator (`<>`) to reduce verbosity by letting the compiler infer the parameter types for constructors:~~
+
+```java
 List<Integer> numbers = new ArrayList<>();
 ```
 
-However, this feature did not work with anonymous inner classes before. According to the [discussion on the project’s mailing list](http://mail.openjdk.java.net/pipermail/coin-dev/2011-June/003283.html) this was not added as part of the original Diamond Operator feature, because it required a substantial JVM change.
+然而，这个特性之前并不能使用在匿名内部类上。根据 [JDK 项目的邮件列表讨论](http://mail.openjdk.java.net/pipermail/coin-dev/2011-June/003283.html)来看，钻石操作符一开始没有添加此特性是由于这需要 JVM 层面较大的改动。
 
-With Java 9, this small rough edge is removed, making the operator more universally applicable:
+到 Java 9 时，这个小小的痛点已被解决，钻石操作符更加的通用：
 
-```
+~~However, this feature did not work with anonymous inner classes before. According to the [discussion on the project’s mailing list](http://mail.openjdk.java.net/pipermail/coin-dev/2011-June/003283.html) this was not added as part of the original Diamond Operator feature, because it required a substantial JVM change.~~
+
+~~With Java 9, this small rough edge is removed, making the operator more universally applicable:~~
+
+```java
 List<Integer> numbers = new ArrayList<>() {
     // ...
 }
 ```
 
-## Allow effectively-final variables to be used as resources in try-with-resources statements
+
+
+## try-with-resources 语句中允许使用 effectively-final 变量 ~~Allow effectively-final variables to be used as resources in try-with-resources statements~~
+
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](http://openjdk.java.net/jeps/213))
+
+Java 7 带来了另一个语法增强：`try-with-resources` ，帮助开发者解决总是担心释放资源的问题。
+
+为展示它的威力，先看一个 Java 7 以前正确释放资源的示例：
 
 **Available since:** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)
 
@@ -580,7 +701,7 @@ Another enhancement introduced by Java 7 is the `try-with-resources`, which free
 
 To illustrate its power, first consider the effort made to properly close a resource in this typical pre-Java 7 example:
 
-```
+```java
 BufferedReader br = new BufferedReader(...);
 try {
     return br.readLine();
@@ -591,30 +712,40 @@ try {
 }
 ```
 
-With `try-with-resources` resources can be automatically released, with much less ceremony:
+使用 `try-with-resources` 能自动释放资源，代码量还更少：
 
-```
+~~With `try-with-resources` resources can be automatically released, with much less ceremony:~~
+
+```java
 try (BufferedReader br = new BufferedReader(...)) {
     return br.readLine();
 }
 ```
 
-Despite its power, `try-with-resources` had a few shortcomings that Java 9 addressed.
+尽管它威力强大，但也有短板，Java 9 正好旨在解决它们。
 
-Although this construct can handle multiple resources, it can easily make the code harder to read. Declaring variables like this in a list after the `try` keyword is a bit unconventional compared to the usual Java code:
+兴许你能用它来处理多个资源，但很容易就会导致代码可读性下降。在 `try` 关键字后声明一长串变量，稍稍有些违背常规的 Java 代码。
 
-```
+~~Despite its power, `try-with-resources` had a few shortcomings that Java 9 addressed.~~
+
+~~Although this construct can handle multiple resources, it can easily make the code harder to read. Declaring variables like this in a list after the `try` keyword is a bit unconventional compared to the usual Java code:~~
+
+```java
 try (BufferedReader br1 = new BufferedReader(...);
     BufferedReader br2 = new BufferedReader(...)) {
     System.out.println(br1.readLine() + br2.readLine());
 }
 ```
 
-Also, in the Java 7 version, if you already have a variable that you want to handle with this construct, you had to introduce a dummy variable. (For an example, see [JDK-8068948](https://bugs.openjdk.java.net/browse/JDK-8068948).)
+还有，在 Java 7 中，如果你有了一个已经存在但需要放到这个结构中处理的变量，就不得不引入一个伪变量。（看这例子：[JDK-8068948](https://bugs.openjdk.java.net/browse/JDK-8068948)）
 
-To mitigate these criticisms, `try-with-resources` was enhanced to handle final or effectively final local variables in addition to newly created ones:
+为减少这些负面影响，`try-with-resources` 得到了增强，除了新建变量外，可以处理不可变或实际不可变的局部变量：
 
-```
+~~Also, in the Java 7 version, if you already have a variable that you want to handle with this construct, you had to introduce a dummy variable. (For an example, see [JDK-8068948](https://bugs.openjdk.java.net/browse/JDK-8068948).)~~
+
+~~To mitigate these criticisms, `try-with-resources` was enhanced to handle final or effectively final local variables in addition to newly created ones:~~
+
+```java
 BufferedReader br1 = new BufferedReader(...);
 BufferedReader br2 = new BufferedReader(...);
 try (br1; br2) {
@@ -622,13 +753,19 @@ try (br1; br2) {
 }
 ```
 
-In this example, the initialization of the variables is separated from their registration to the `try-with-resources` construct.
+在这个例子中，变量的初始化和将其注册到 `try-with-resources` 结构中的步骤已经分离开。
 
-### ⚠️ Tip: Watch out for released resources
+~~In this example, the initialization of the variables is separated from their registration to the `try-with-resources` construct.~~
 
-One caveat to keep in mind is that now it’s possible to reference variables that are already released by `try-with-resources`, which, in most cases will fail:
+**⚠️ 技巧：当心已释放的资源**
 
-```
+有一点需要警惕在心，已被 `try-with-resources` 释放的资源是可能会被再次引用的，但这几乎都会失败：
+
+### ~~⚠️ Tip: Watch out for released resources~~
+
+~~One caveat to keep in mind is that now it’s possible to reference variables that are already released by `try-with-resources`, which, in most cases will fail:~~
+
+```java
 BufferedReader br = new BufferedReader(...);
 try (br) {
     System.out.println(br.readLine());
@@ -636,64 +773,88 @@ try (br) {
 br.readLine(); // Boom!
 ```
 
-## Underscore is no longer a valid identifier name
+## 下划线不再是合法变量名~~Underscore is no longer a valid identifier name~~
+
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)
 
 **Available since:** [JDK 9](https://openjdk.java.net/jeps/213) (Milling Project Coin)
 
-[In Java 8](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8005852), the compiler emits a warning when ‘_’ is used as an identifier. Java 9 took this a step further making the sole underscore character illegal as an identifier, reserving this name to have special semantics in the future:
+[在 Java 8 中](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8005852)，变量名为下划线（`_`）时编译器会抛出警告。Java 9 更进一步，将单个下划线字符视为非法变量名，保留给未来作为特殊语义做准备：
 
-```
+~~[In Java 8](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8005852), the compiler emits a warning when ‘_’ is used as an identifier. Java 9 took this a step further making the sole underscore character illegal as an identifier, reserving this name to have special semantics in the future:~~
+
+```java
 int _ = 10; // Compile error
 ```
 
-## Improved Warnings
+## 改进的警告 ~~Improved Warnings~~
 
-**Available since:** [JDK 9](https://openjdk.java.net/jeps/211)
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/211)
 
-Finally, let’s say a word about the changes related to the compiler warnings in newer Java versions.
+~~**Available since:** [JDK 9](https://openjdk.java.net/jeps/211)~~
 
-Now it’s possible to annotate a private method with `@SafeVarargs` to mark a `Type safety: Potential heap pollution via varargs parameter` warning false positive. (In fact, this change is part of the previously discussed [JEP 213: Milling Project Coin](https://openjdk.java.net/jeps/213)). Read more about [Varargs](https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html), [Generics](https://docs.oracle.com/javase/8/docs/technotes/guides/language/generics.html) and [the potential probems](https://docs.oracle.com/javase/tutorial/java/generics/nonReifiableVarargsType.html) that can arise by combining these features in the official documentation.
+最后，我们再说点在较新 Java 版本中关于编译器警告的变化。
 
-Also since [Java 9](https://openjdk.java.net/jeps/211), the compiler does not issue a warning for import statements when a deprecated type is imported. These warnings were uninformative and redundant since a separate warning is always displayed at the actual usage of the deprecated members.
+现在可以用 `@SafeVarargs` 注解在私有方法上，以标记 `Type safety: Potential heap pollution via varargs parameter` 警告（事实上，这个变化是前面讨论过  [JEP 213: Milling Project Coin](https://openjdk.java.net/jeps/213) 的一部分）。需要了解更多可以参看官方文档，[可变参数](https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html)、[泛型](https://docs.oracle.com/javase/8/docs/technotes/guides/language/generics.html)以及两者结合[可能产生的问题](https://docs.oracle.com/javase/tutorial/java/generics/nonReifiableVarargsType.html)。
 
-## What’s next: Preview features in Java 15
+还有，自从 [Java 9](https://openjdk.java.net/jeps/211) 以后，编译器不再为引入废弃的类型报出警告。因为这些警告已经在调用的地方展示了，所以没有太多实际有价值的信息，也显得冗余。
 
-Java 15 has 3 preview features that can be enabled with the `--enable-preview -source 15`flags. Most likely they are the next improvements to the Java language. Here’s short teaser.
+~~Finally, let’s say a word about the changes related to the compiler warnings in newer Java versions.~~
 
-### Records
+~~Now it’s possible to annotate a private method with `@SafeVarargs` to mark a `Type safety: Potential heap pollution via varargs parameter` warning false positive. (In fact, this change is part of the previously discussed [JEP 213: Milling Project Coin](https://openjdk.java.net/jeps/213)). Read more about [Varargs](https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html), [Generics](https://docs.oracle.com/javase/8/docs/technotes/guides/language/generics.html) and [the potential probems](https://docs.oracle.com/javase/tutorial/java/generics/nonReifiableVarargsType.html) that can arise by combining these features in the official documentation.~~
 
-[Records](https://openjdk.java.net/jeps/359) introduce a new type declaration to the language, providing compact syntax to create data classes. Instead of the usual ceremony with private fields, getters, setters and constructors, it allows us to use a terse definition to create data structures:
+~~Also since [Java 9](https://openjdk.java.net/jeps/211), the compiler does not issue a warning for import statements when a deprecated type is imported. These warnings were uninformative and redundant since a separate warning is always displayed at the actual usage of the deprecated members.~~
 
-```
+## 接下来还什么：Java 15 中的预览特性 ~~What’s next: Preview features in Java 15~~
+
+Java 15 中有三个预览特性，可以通过 `--enable-preview -source 15` 标记来开启。它们很有可能成为下一个 Java 版本更新的特性。这里简短的预告下。
+
+~~Java 15 has 3 preview features that can be enabled with the `--enable-preview -source 15`flags. Most likely they are the next improvements to the Java language. Here’s short teaser.~~
+
+### 记录类 ~~Records~~
+
+[记录类](https://openjdk.java.net/jeps/359)带来了一种「新的」类型声明，通过简短的语法来创建数据类（data classes）。相较于传统的私有成员变量、getter 和 setter 方法以及构造方法来构建，记录类可以让我们使用更加简短地定义数据结构题（data structures）：
+
+~~[Records](https://openjdk.java.net/jeps/359) introduce a new type declaration to the language, providing compact syntax to create data classes. Instead of the usual ceremony with private fields, getters, setters and constructors, it allows us to use a terse definition to create data structures:~~
+
+```java
 record Point(int x, int y) { }
 ```
 
-I can’t wait for this to become a standard feature supported by popular libraries and frameworks!
+我已经迫不及待它成为一个流行类库和框架支持的正式特性了。
 
-### Pattern Matching for instanceof
+~~I can’t wait for this to become a standard feature supported by popular libraries and frameworks!~~
+
+### instanceof 的模式匹配 ~~Pattern Matching for instanceof~~
+
+大多数情况下，`instanceof` 都会跟一个显式的类型转换：
 
 In most cases, `instanceof` is usually followed by a cast:
 
-```
+```java
 if (obj instanceof String) {
     String s = (String) obj;
     // use s
 }
 ```
 
-[JEP 305](https://openjdk.java.net/jeps/305) extends `instanceof` to make this typical scenario a bit less verbose:
+[JEP 305](https://openjdk.java.net/jeps/305) 扩展了 `instanceof` 关键字，使得在使用时不再那么啰嗦：
 
-```
+~~[JEP 305](https://openjdk.java.net/jeps/305) extends `instanceof` to make this typical scenario a bit less verbose:~~
+
+```java
 if (obj instanceof String s) {
     // use s
 }
 ```
 
-### Sealed Classes
+### 封闭类 ~~Sealed Classes~~
 
-[JEP 360](https://openjdk.java.net/jeps/360) enhances adds sealed classes and interfaces to the language which can be used to restrict which other classes or interfaces may extend or implement them.
+[JEP 360](https://openjdk.java.net/jeps/360) 改进给 Java 语言添加了封闭类和接口，用于限定哪些类或接口可以被继承或实现它们。
 
-```
+~~[JEP 360](https://openjdk.java.net/jeps/360) enhances adds sealed classes and interfaces to the language which can be used to restrict which other classes or interfaces may extend or implement them.~~
+
+```java
 public abstract sealed class Shape
     permits Circle, Rectangle {...}
 
@@ -702,19 +863,26 @@ public class Rectangle extends Shape {...} // OK
 public class Triangle extends Shape {...} // Compile error
 ```
 
-This feature also enhances switch expressions. As with enums, if the possible values are known compile time and all cases are handled, there’s no need to define a default branch.
+这个特性也改善了 switch 表达式。当其使用枚举时，如果可能的之在编译时能确定，且所有的情况都有处理，那么不需要定义 default 分支。
 
-```
+~~This feature also enhances switch expressions. As with enums, if the possible values are known compile time and all cases are handled, there’s no need to define a default branch.~~
+
+```java
 double area = switch (shape) {
     case Circle c    -> Math.pow(c.radius(), 2) * Math.PI
     case Rectangle r -> r.a() * r.b()
 };
 ```
 
-## Summary
+## 总结 ~~Summary~~
 
-This post covered the improvements related to the Java language since Java 8. It’s important to keep an eye on the Java platform, as with the new rapid release cadence a new Java version is released every six months, delivering changes to the platform and to the language.
+这篇文章介绍了 Java 8 以来该语言的改进。随着新的每 6 个月一次的快速发布周期，带来了许多变化，对 Java 平台保持关注就更加重要了。
+
+~~This post covered the improvements related to the Java language since Java 8. It’s important to keep an eye on the Java platform, as with the new rapid release cadence a new Java version is released every six months, delivering changes to the platform and to the language.~~
 
 
 
-[^1]: 这里指的是原文的参考来源
+[^1]: 这里指的是原文的参考来源，下同
+[^2]: 译者注：statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
+[^3]: fall-through
+
