@@ -19,9 +19,9 @@ module.exports = {
     lastUpdated: true,
     smoothScroll: true,
     directories: [
-      { id: 'code', dirname: '_code', path: '/code/', title: '编码', frontmatter: { tag: 'code' } },
+      { id: 'code', dirname: '_code', path: '/code/', title: '代码', frontmatter: { tag: 'code' } },
       { id: 'life', dirname: '_life', path: '/life/', title: '周遭', frontmatter: { tag: 'life' } },
-      { id: 'world', dirname: '_world', path: '/world/', title: '世界', frontmatter: { tag: 'world' } }
+      { id: 'world', dirname: '_world', path: '/world/', title: '天下', frontmatter: { tag: 'world' } }
     ],
     nav: [
       { text: 'Home', link: '/' },

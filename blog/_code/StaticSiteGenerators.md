@@ -6,6 +6,7 @@ tags:
 ---
 
 # Static Site Generators 小史
+to be update...
 
 List[^1]
 

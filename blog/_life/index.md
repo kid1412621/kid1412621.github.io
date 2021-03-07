@@ -2,11 +2,11 @@
 date: 2020-05-03
 tags:
   - todo
+  - game
 author: Alex
 location: Chengdu
 ---
 
-# 周遭
+# GTA 中的黑帮
 
-> life sucks
-> --me
+to be update...

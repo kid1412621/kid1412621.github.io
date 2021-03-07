@@ -3,7 +3,7 @@ date: 2020-12-20
 tags:
   - backend
   - java
-  - translate
+  - translation
 ---
 
 # Java 15 都更新了什么

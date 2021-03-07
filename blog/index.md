@@ -4,6 +4,6 @@
 
 ☝️ [How does the code monkey code the code?](/code)
 
-✌️ [How does the sci-fi guru | post rock & classic music buff feel the life?](/life)
+✌️ [How does the life lover feel the life?](/life)
 
-🤟 [How does the human being from the planet earth explore the planet?](/world)
+🤟 [How does the human being explore the planet?](/world)
