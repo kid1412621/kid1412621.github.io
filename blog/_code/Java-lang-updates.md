@@ -10,7 +10,7 @@ tags:
 
 > 本译文已获取作者许可后翻译、发布。
 >
-> 原文：[New language features since Java 8 to 15（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8-to-15/#records)
+> 原文：[New language features since Java 8 to 15（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8-to-15/)
 
 当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响的特性，但带来了很多较小的改进。
 
