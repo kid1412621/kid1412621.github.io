@@ -4,7 +4,7 @@
         <title>NanoNova&apos;s cyberspace</title>
         <link>https://nanova.me</link>
         <description>The ubiquitous uniqueness</description>
-        <lastBuildDate>Tue, 09 Mar 2021 14:58:45 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 13 Mar 2021 05:58:18 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <item>
@@ -29,7 +29,7 @@ What
 >
 > 原文：New language features since Java 8 to 15（Enhancements to the Java language you should know）
 
-当 Java 8 引 ...]]></description>
+当 Java 8 引入流和 Lam ...]]></description>
         </item>
         <item>
             <title><![CDATA[Package Manager]]></title>
