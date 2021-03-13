@@ -4,7 +4,7 @@
         <title>NanoNova&apos;s cyberspace</title>
         <link>https://nanova.me</link>
         <description>The ubiquitous uniqueness</description>
-        <lastBuildDate>Sat, 13 Mar 2021 05:58:18 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 13 Mar 2021 10:17:30 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <item>
@@ -30,63 +30,6 @@ What
 > 原文：New language features since Java 8 to 15（Enhancements to the Java language you should know）
 
 当 Java 8 引入流和 Lam ...]]></description>
-        </item>
-        <item>
-            <title><![CDATA[Package Manager]]></title>
-            <link>https://nanova.me/2020/05/02/packagemanager/</link>
-            <guid>https://nanova.me/2020/05/02/packagemanager/</guid>
-            <pubDate>Sat, 02 May 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[to be update...
-
-Linux
-
-RHEL/CentOS/Fedora
-
-yum
-dnf
-
-Debian/Ubuntu
-apt
-
-Arch/Manjora
-pacman
-
-MacOS
-homebrew
-mas
-
-Windows
-scoop
-chocolate
- ...]]></description>
-        </item>
-        <item>
-            <title><![CDATA[Static Site Generators 小史]]></title>
-            <link>https://nanova.me/2020/05/02/staticsitegenerators/</link>
-            <guid>https://nanova.me/2020/05/02/staticsitegenerators/</guid>
-            <pubDate>Sat, 02 May 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[to be update...
-
-List
-
-第一代
-
-Jekyll
-
-第二代
-
-Hugo
-
-Hexo
-
-第三代
-
-Gatsby
-
-Docusaurus
-
-VuePress
- ...]]></description>
         </item>
         <item>
             <title><![CDATA[Java 15 都更新了什么]]></title>
@@ -117,7 +60,7 @@ Java 15 作为 JDK 平台下一个短期发行版，在 2020 年 9 月已进入�
             </enclosure>
         </item>
         <item>
-            <title><![CDATA[GTA 中的黑帮]]></title>
+            <title><![CDATA[Year 2020]]></title>
             <link>https://nanova.me/2020/05/03/life/</link>
             <guid>https://nanova.me/2020/05/03/life/</guid>
             <pubDate>Sun, 03 May 2020 00:00:00 GMT</pubDate>
