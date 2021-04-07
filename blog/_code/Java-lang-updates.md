@@ -1,22 +1,27 @@
 ---
-date: 2021-03-07
+date: 2021-04-04
 tags:
   - backend
   - java
   - translation
 ---
 
-# Java 9 到 15 的语言特性更新
+# Java 9 到 16 的语言特性更新
 
 > 本译文已获取作者许可后翻译、发布。
 >
-> 原文：[New language features since Java 8 to 15（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
+> 原文：[New language features since Java 8 to 16（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
 
 当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响的特性，但带来了很多较小的改进。
 
 
 
 ## 目录
+
+**Java 16**
+
+- [记录类](#记录类)
+- [instanceof 的模式匹配](#instanceof-的模式匹配)
 
 **Java 15**
 
@@ -46,6 +51,196 @@ tags:
 - [封闭类](#封闭类)
 
 想要一览塑造这个新平台所有的 JEP[^1]，其涵盖了包括 API 、性能与安全方面的改进，参看这份[精选清单：Java 8 以来所有的改进](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-15/)。
+
+
+
+## 记录类
+
+**开始支持版本：** [`JDK 16`](https://openjdk.java.net/jeps/394) ( [`JDK 14`](https://openjdk.java.net/jeps/305)  [`JDK 15`](https://openjdk.java.net/jeps/375) 为预览特性)
+
+记录类给 Java 语言带来了一种「新的」类型声明，通过简短的语法来创建数据类（data classes）。相较于传统的私有成员变量、getter 和 setter 方法以及构造方法来构建，记录类可以让我们使用一种**简短的语法**来定义：
+
+```java
+public record Point(int x, int y) { }
+```
+
+上面的记录类很像普通的类，其有以下定义：
+
+- 两个私有的、final 的成员变量：int x 和 int y
+- 一个以 x 和 y 作为参数的构造方法
+- 成员变量的 getter 方法：x() 和 y() 
+- 涉及 x 和 y 变量的 hashCode、equals 和 toString 方法
+
+它们使用起来也很像一般的类：
+
+```java
+var point = new Point(1, 2);
+point.x(); // 返回 1
+point.y(); // 返回 2
+```
+
+记录类旨于作为**浅层不可变数据**（shallowly immutable data）的**透明载体**（transparent carriers）。为支撑这种设计，随之而来的是一系列**限制**。
+
+记录类不仅仅成员变量默认是 final 的，甚至**不允许有非 final 的成员变量**。
+
+**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。
+
+再者，由于可以定义额外的构造方法来提供一些成员变量的默认值，因此无法隐藏含有所有成员变量的*范式构造方法*（*canonical constructor*）。
+
+最后，记录类**不能继承其它类**，**不能声明 native 方法**，是**隐式 final 的**，也**不能是抽象的**。
+
+因为它的成员变量不可变，给其*填充数据*也只能通过构造方法。
+
+默认一个记录类仅有一个隐式的*范式构造方法*。如果数据需要校验或「标准化」（normalized），*范式构造方法*也能被现实声明：
+
+```java
+public record Point(int x, int y) {
+  public Point {
+    if (x < 0) {
+      throw new IllegalArgumentException("x can't be negative");
+    }
+    if (y < 0) {
+      y = 0;
+    }
+  }
+}
+```
+
+
+
+
+
+## instanceof 的模式匹配
+
+**开始支持版本：** [`JDK 16`](https://openjdk.java.net/jeps/394) ( [`JDK 14`](https://openjdk.java.net/jeps/305)  [`JDK 15`](https://openjdk.java.net/jeps/375) 为预览特性)
+
+大多数情况下，`instanceof` 都会跟一个显式的类型转换：
+
+```java
+if (obj instanceof String) {
+    String s = (String) obj;
+    // 使用变量 s
+}
+```
+
+至少以前是这样，好在 Java 16 扩展了 `instanceof` 关键字，使其在使用时不再那么啰嗦：
+
+```java
+if (obj instanceof String s) {
+    // 使用变量 s
+}
+```
+
+这种模式匹配其实是一种*检测*（obj instance of）和*模式变量*（s）的组合。
+
+这种*检测***和旧的 instanceof 操作符几乎一样**，除了若不保证它能通过的话，会导致编译错误。
+
+```java
+// 老的 instanceof 操作符，没有模式变量：
+// 编译时这个条件一直是 true
+Integer i = 1;
+if (i instanceof Object) { ... } // 没问题
+
+// 新的 instanceof 操作符，有模式变量：
+// 在这种情形会产生编译错误
+if (i instanceof Object o) { ... } // 报错
+```
+
+注意，相反即使用的是旧的 instanceof 操作符，出现了编译错误，那么模式匹配也总会失败。
+
+而且仅在检测通过时，*模式变量*才会从目标变量中提取出来。**它几乎和常规的非 final 变量一样**：
+
+- 值能被修改
+- 可以跟在成员变量声明的后面
+- 如果和本地变量重名，将会导致编译错误
+
+然而，模式变量有着特殊的作用域规则：该作用域是确定匹配的，并由流程控制的作用域解析决定。
+
+从上面例子里可以看出最简单的情形：如果检测通过，变量 s 能在 if 语块中使用。
+
+但「明确匹配」的规则也能应用到更复杂的情形：
+
+```java
+if (obj instanceof String s && s.length() > 5) {
+  // 使用变量 s
+}
+```
+
+变量 s 能被用于判断条件的第二部分是因为，仅在第一部分的 instanceof 操作符匹配成功时，它才会被赋值。
+
+再来个更细节的例子，提前返回值和异常也能确保匹配：
+
+```java
+private static int getLength(Object obj) {
+  if (!(obj instanceof String s)) {
+    throw new IllegalArgumentException();
+  }
+
+  // 变量 s 在作用域中 - 如果 instanceof 没能匹配成功
+  //      则不会执行到这个声明
+  return s.length();
+}
+```
+
+流程控制的作用域解析和现有的流程解析很相似，比如对[明确赋值](https://docs.oracle.com/javase/specs/jls/se15/html/jls-16.html)的检测：
+
+```java
+private static int getDoubleLength(String s) {
+  int a; // 变量 a 声明了但未赋值
+  if (s == null) {
+    return 0; // 提前返回
+  } else {
+    a = s.length(); // 赋值变量 a
+  }
+
+  // 变量 a 已经是明确赋值的
+  // 所以我们可以使用它
+  a = a * 2;
+  return a;
+}
+```
+
+我十分喜欢这个特性，因为它对减少 Java 程序中显式类型转换造成非必要的代码膨胀很会有帮助。相较于其它现代编程语言，仍显得有那么一点点啰嗦。
+
+比如在 Kotlin 中你根本不需要定义模式变量：
+
+```kotlin
+if (obj is String) {
+    print(obj.length)
+}
+```
+
+至于 Java 的模式变量，是确保向后兼容性的手段。因为改变 obj instanceof String 中 obj 的类型也就意味着，在其被用作重载方法参数的时候，调用可能会被解析成这个方法的不同版本。
+
+### ⚠️ 技巧：敬请关注更新
+
+模式匹配在当下看来可能没什么大不了的，但很快会有更多有意思的特性发布。
+
+[JEP 405](https://openjdk.java.net/jeps/405) 提议新增一个解构的特性，来支持其能用于记录类或数组：
+
+```java
+if (o instanceof Point(int x, int y)) {
+  System.out.println(x + y);
+}
+
+if (o instanceof String[] { String s1, String s2, ... }){
+  System.out.println("The first two elements of this array are: " + s1 + ", " + s2);
+}
+```
+
+接下来，[JEP 406](https://openjdk.java.net/jeps/406) 准备将模式匹配带到 switch 表达式和语句中：
+
+```java
+return switch (o) {
+  case Integer i -> String.format("int %d", i);
+  case Long l    -> String.format("long %d", l);
+  case Double d  -> String.format("double %f", d);
+  case String s  -> String.format("String %s", s);
+  default        -> o.toString();
+};
+```
+
+现在这两个提议都还在备选状态，未明确其具体搭载的版本号，我希望能尽早看到其预览版本发布。
 
 
 
@@ -206,7 +401,7 @@ Exception in thread "main" java.lang.NullPointerException:
         at Unlucky.method(Unlucky.java:83)
 ```
 
-（[参看 Github 上这个示例项目](https://github.com/dodie/java-helpful-npe-demo)）
+（[参看 Github 上这个示例项目](https://github.com/dodie/java-tutorials/tree/master/java-helpful-npe-demo)）
 
 详细的信息包含了不能被执行的步骤（无法调用 `getChildNodes`），及其失败原因（`item(int)` 为空），这大大简化了定位问题根源。
 
@@ -584,38 +779,9 @@ int _ = 10; // 编译错误
 
 
 
-## 接下来还什么更新: Java 15 中的预览特性
+## 接下来还什么更新: Java 16 中的预览特性
 
-Java 15 中有三个预览特性，可以通过 `--enable-preview -source 15` 标记来开启。它们很有可能成为下一个 Java 版本更新的特性。这里简短的预告下。
-
-### 记录类
-
-[记录类](https://openjdk.java.net/jeps/359)带来了一种「新的」类型声明，通过简短的语法来创建数据类（data classes）。相较于传统的私有成员变量、getter 和 setter 方法以及构造方法来构建，记录类可以让我们使用更加简短地定义数据结构体（data structures）：
-
-```java
-record Point(int x, int y) { }
-```
-
-我对它成为一个流行类库和框架都支持的正式特性已经迫不及待了！
-
-### instanceof 的模式匹配
-
-大多数情况下，`instanceof` 都会跟一个显式的类型转换：
-
-```java
-if (obj instanceof String) {
-    String s = (String) obj;
-    // use s
-}
-```
-
-[JEP 305](https://openjdk.java.net/jeps/305) 扩展了 `instanceof` 关键字，使其在使用时不再那么啰嗦：
-
-```java
-if (obj instanceof String s) {
-    // use s
-}
-```
+Java 16 中有一个预览特性，可以通过 `--enable-preview -source 16` 标记来开启。它们很有可能很快成为下一个 Java 版本更新的特性。这里简短的预告下。
 
 ### 封闭类
 
