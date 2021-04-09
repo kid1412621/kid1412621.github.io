@@ -21,7 +21,7 @@ tags:
 **Java 16**
 
 - [记录类](#记录类)
-- [instanceof 的模式匹配](#instanceof-的模式匹配)
+- [instanceof 模式匹配](#instanceof-模式匹配)
 
 **Java 15**
 
@@ -85,13 +85,13 @@ point.y(); // 返回 2
 
 **记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。
 
-再者，由于可以定义额外的构造方法来提供一些成员变量的默认值，因此无法隐藏含有所有成员变量的*范式构造方法*（*canonical constructor*）。
+再者，由于可以定义额外的构造方法来提供一些成员变量的默认值，因此无法隐藏含有所有成员变量的*标准造方法*（*canonical constructor*）[^2]。
 
 最后，记录类**不能继承其它类**，**不能声明 native 方法**，是**隐式 final 的**，也**不能是抽象的**。
 
 因为它的成员变量不可变，给其*填充数据*也只能通过构造方法。
 
-默认一个记录类仅有一个隐式的*范式构造方法*。如果数据需要校验或「标准化」（normalized），*范式构造方法*也能被现实声明：
+默认一个记录类仅有一个隐式的*标准造方法*。如果数据需要校验或「标准化」（normalized），*标准造方法*也能被现实声明：
 
 ```java
 public record Point(int x, int y) {
@@ -110,7 +110,7 @@ public record Point(int x, int y) {
 
 
 
-## instanceof 的模式匹配
+## instanceof 模式匹配
 
 **开始支持版本：** [`JDK 16`](https://openjdk.java.net/jeps/394) ( [`JDK 14`](https://openjdk.java.net/jeps/305)  [`JDK 15`](https://openjdk.java.net/jeps/375) 为预览特性)
 
@@ -340,7 +340,7 @@ var greeting = """
     """.formatted("world");
 ```
 
-参考来源[^2]：
+参考来源[^3]：
 
 - [Programmer’s Guide To Text Blocks](https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html)
 - [Definitive Guide To Text Blocks In Java 13](https://nipafx.dev/java-13-text-blocks#)
@@ -434,7 +434,7 @@ Exception in thread "main" java.lang.NullPointerException:
 
 **开始支持版本：** [`JDK 14`](https://openjdk.java.net/jeps/361) ([`JDK 12`](https://openjdk.java.net/jeps/325) [`JDK 13`](https://openjdk.java.net/jeps/354) 中为预览特性)
 
-久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^3]的语法支持：
+久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^4]的语法支持：
 
 ```java
 int numLetters = switch (day) {
@@ -814,6 +814,7 @@ double area = switch (shape) {
 
 
 [^1]: 译者注：[JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
-[^2]: 这里指的是原文的参考来源，下同
-[^3]: 译者注：statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
+[^2]: 记录类的构造器：*canonical constructor* 和 *compact constructors* 以及 *alternative constructor*，参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
+[^3]: 这里指的是原文的参考来源，下同
+[^4]: 译者注：statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
 
