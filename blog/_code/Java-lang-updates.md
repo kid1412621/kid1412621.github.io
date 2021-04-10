@@ -8,7 +8,7 @@ tags:
 
 # Java 9 到 16 的语言特性更新
 
-> 本译文已获取作者许可后翻译、发布。
+> 本译文已获取作者许可后翻译、调整、发布。
 >
 > 原文：[New language features since Java 8 to 16（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
 
@@ -44,10 +44,8 @@ tags:
 - [下划线不再是合法变量名](#下划线不再是合法变量名)
 - [改进的警告](#改进的警告)
 
-**[接下来还什么更新: Java 15 中的预览特性](#接下来还什么更新-java-15-中的预览特性)**
+**[接下来还什么更新: Java 16 中的预览特性](#接下来还什么更新-java-16-中的预览特性)**
 
-- [记录类](#记录类)
-- [instanceof 的模式匹配](#instanceof-的模式匹配)
 - [封闭类](#封闭类)
 
 想要一览塑造这个新平台所有的 JEP[^1]，其涵盖了包括 API 、性能与安全方面的改进，参看这份[精选清单：Java 8 以来所有的改进](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-15/)。
@@ -935,7 +933,7 @@ double area = switch (shape) {
 
 
 [^1]: 译者注：[JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
-[^2]: 记录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
-[^3]: 这里指的是原文的参考来源，下同
+[^2]: 译者注：记录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
+[^3]: 译者注：这里指的是原文的参考来源，下同
 [^4]: 译者注：statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
 
