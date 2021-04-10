@@ -83,15 +83,13 @@ point.y(); // 返回 2
 
 记录类不仅仅成员变量默认是 final 的，甚至**不允许有非 final 的成员变量**。
 
-**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。
-
-再者，由于可以定义额外的构造方法来提供一些成员变量的默认值，因此无法隐藏含有所有成员变量的*标准造方法*（*canonical constructor*）[^2]。
+**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。再者，虽然可以定义额外的构造方法来提供一些成员变量的默认值，但无法隐藏含有所有成员变量的*标准构造方法*（*canonical constructor*）[^2]。
 
 最后，记录类**不能继承其它类**，**不能声明 native 方法**，是**隐式 final 的**，也**不能是抽象的**。
 
 因为它的成员变量不可变，给其*填充数据*也只能通过构造方法。
 
-默认一个记录类仅有一个隐式的*标准造方法*。如果数据需要校验或「标准化」（normalized），*标准造方法*也能被现实声明：
+默认一个记录类仅有一个隐式的*标准构造方法*。如果数据需要校验或标准化（normalized），*标准构造方法*也能被显式声明：
 
 ```java
 public record Point(int x, int y) {
@@ -106,7 +104,130 @@ public record Point(int x, int y) {
 }
 ```
 
+编译器自动添加的隐式*标准构造方法*和记录类本身具有相同的可见性。如果是显式声明的，它的访问修饰符必须至少和记录类的访问修饰符具有一样权限。
 
+记录类也可以自定义额外的构造方法，但是必须委派给其它的构造方法。因为最后*标准构造方法*始终会被调用。额外的构造方法对于设置默认值很有用。
+
+```java
+public record Point(int x, int y) {
+  public Point(int x) {
+    this(x, 0);
+  }
+}
+```
+
+从记录类*获取数据*是通过它的访问器方法。对于每个成员变量，例如 x，记录类都会生成对应的公共 getter 方法，像 x() 这种格式。
+
+这些 getter 方法也可以显式声明：
+
+```java
+public record Point(int x, int y) {
+  @Override
+  public int x() {
+    return x;
+  }
+}
+```
+
+注意上面的例子， Override 注解能被用于确保显式定义的方法是一个访问器方法，而不是意外地添加成其它普通方法。
+
+除了 getter 方法，hashCode、equals 以及 toString 方法都有默认提供，且涉及所有成员变量；当然这些方法也可以显式声明。
+
+最后，记录类也允许有静态方法和实例方法，用于方便地得到衍生信息或是作为工厂方法：
+
+```java
+public record Point(int x, int y) {
+  static Point zero() {
+    return new Point(0, 0);
+  }
+  
+  boolean isZero() {
+    return x == 0 && y == 0;
+  }
+}
+```
+
+小结一下：**记录类专注于承载数据**，不提供太多定制化选项。
+
+得益于这样的特殊设计，**记录类的序列化也十分容易**且安全，相较于[其它的普通类](http://cr.openjdk.java.net/~briangoetz/amber/serialization.html)来说。就像 JEP 中提及的：
+
+> 记录类的实例能被序列化和反序列化。然而不能通过提供 writeObject，readObject，readObjectNoData，writeExternal 或 readExternal 方法来自定义其处理流程。记录类的组件（成员变量）负责序列化，而记录类的标准构造方法掌管反序列化。
+
+由于序列化正好基于成员变量的状态，反序列化又总会调用标准构造方法，所以不可能创建一个无效状态的记录类。
+
+从用户（开发者）的角度来看，开启和使用序列化和以往一样：
+
+```java
+public record Point(int x, int y) implements Serializable { }
+
+public static void recordSerializationExample() throws Exception {
+  Point point = new Point(1, 2);
+
+  // 序列化
+  ObjectOutputStream oos =
+    new ObjectOutputStream(new FileOutputStream("tmp"));
+  oos.writeObject(point);
+
+  // 反序列化
+  ObjectInputStream ois =
+    new ObjectInputStream(new FileInputStream("tmp"));
+  Point deserialized = (Point) ois.readObject();
+}
+```
+
+注意这里不再需要定义 serialVersionUID 了，因为记录类抛弃了对 serialVersionUID 比对的要求。
+
+参考来源[^3]：
+
+- [Inside Java Podcast Episode 4: “Record Classes” with Gavin Bierman](https://inside.java/2020/10/05/podcast-004/)
+- [Inside Java Podcast Episode 14: “Records Serialization” with Julia Boes and Chris Hegarty](https://inside.java/2021/03/08/podcast-014/)
+- [Towards Better Serialization - Brian Goetz, June 2019](http://cr.openjdk.java.net/~briangoetz/amber/serialization.html)
+- [Record Serialization](https://docs.oracle.com/en/java/javase/16/docs/specs/records-serialization.html)
+
+### ⚠️ 技巧：使用本地记录类来构建中间转化变量
+
+复杂的数据转换需要我们构建中间变量。在 Java 16 之前，典型方案是依赖于 Pair 或三方库里相似的 holder 类，再或者是自己定义（可能是静态内部）类来承载数据。
+
+这样做的问题是，前者通常被证实不够灵活，后者又在仅用于单个方法的上下文中引入了其它类，污染了命名空间。虽然也可以在方法体中定义类，但也因为其啰嗦的语法很少这么用。
+
+Java 16 改进了这点，现在也可以**在方法体中定义本地记录类**：
+
+```java
+public List<Product> findProductsWithMostSaving(List<Product> products) {
+  record ProductWithSaving(Product product, double savingInEur) {}
+
+  products.stream()
+    .map(p -> new ProductWithSaving(p, p.basePriceInEur * p.discountPercentage))
+    .sorted((p1, p2) -> Double.compare(p2.savingInEur, p1.savingInEur))
+    .map(ProductWithSaving::product)
+    .limit(5)
+    .collect(Collectors.toList());
+}
+```
+
+记录类紧凑的语法正好契合 Steam API 紧凑的语法。
+
+除了记录类外，这个改进也适用于本地枚举甚至接口。
+
+### ⚠️ 技巧：检查你用的类库
+
+**记录类没有遵循 [JavaBeans](https://www.oracle.com/java/technologies/javase/javabeans-spec.html) 的约定**：
+
+- 没有默认的构造方法；
+- 没有 setter 方法；
+- 访问器方法不依照 getX() 格式；
+
+由于以上原因，**一些依循 JavaBeans 约定的工具类和记录类可能不能正常使用**。
+
+举个例子，**记录类不能用作 JPA（比如 Hibernate ）的实体**。有一些[关于 JPA 遵循记录类规范的讨论](https://www.eclipse.org/lists/jpa-dev/msg00056.html)，但迄今为止我没找到相关开发进度的报道。然而值得一提的是，有文章指出[将记录类能应用到项目中](https://thorben-janssen.com/java-records-hibernate-jpa/)且没有问题。
+
+大多数我[试过的工具类](https://advancedweb.hu/working-with-structured-data-in-java/)（包括 [Jackson](https://github.com/FasterXML/jackson)，[Apache Commons Lang](https://commons.apache.org/proper/commons-lang/)，[JSON-P](https://javaee.github.io/jsonp/)，[Guava](https://github.com/google/guava) ）都**支持记录类，但由于它十分新还存在些小问题**。
+
+比如，流行的 JSON 库 Jackson [较早就支持记录类](https://github.com/FasterXML/jackson-future-ideas/issues/46)。它的大多数特性，包括对记录类和 JavaBeans 的序列化、反序列化都没什么问题，但[操控对象的特性还没适配](https://github.com/FasterXML/jackson-databind/issues/3079)。
+
+我的建议是，**在使用记录类前先升级并检查使用的工具库**，避免意外之喜，但大体上来说，可以认为流行的工具库已经涵盖了大部分特性。
+
+参看我在 [Github 上关于记录类的工具库集成试验](https://github.com/dodie/java-tutorials/tree/master/working-with-structured-data)。
 
 
 
@@ -154,7 +275,7 @@ if (i instanceof Object o) { ... } // 报错
 - 可以跟在成员变量声明的后面
 - 如果和本地变量重名，将会导致编译错误
 
-然而，模式变量有着特殊的作用域规则：该作用域是确定匹配的，并由流程控制的作用域解析决定。
+然而，模式变量有着特殊的作用域规则：该作用域是明确匹配的，并由流程控制的作用域解析决定。
 
 从上面例子里可以看出最简单的情形：如果检测通过，变量 s 能在 if 语块中使用。
 
@@ -200,7 +321,7 @@ private static int getDoubleLength(String s) {
 }
 ```
 
-我十分喜欢这个特性，因为它对减少 Java 程序中显式类型转换造成非必要的代码膨胀很会有帮助。相较于其它现代编程语言，仍显得有那么一点点啰嗦。
+我十分喜欢这个特性，因为它对减少 Java 程序中显式类型转换造成非必要代码膨胀很会有帮助。相较于其它现代编程语言，仍显得有那么一点点啰嗦。
 
 比如在 Kotlin 中你根本不需要定义模式变量：
 
@@ -240,7 +361,7 @@ return switch (o) {
 };
 ```
 
-现在这两个提议都还在备选状态，未明确其具体搭载的版本号，我希望能尽早看到其预览版本发布。
+现在这两个提议都还在备选状态，未明确其具体搭载的版本号，希望能尽早看到其预览版本发布。
 
 
 
@@ -814,7 +935,7 @@ double area = switch (shape) {
 
 
 [^1]: 译者注：[JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
-[^2]: 记录类的构造器：*canonical constructor* 和 *compact constructors* 以及 *alternative constructor*，参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
+[^2]: 记录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
 [^3]: 这里指的是原文的参考来源，下同
 [^4]: 译者注：statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
 
