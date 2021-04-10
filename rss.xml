@@ -4,7 +4,7 @@
         <title>NanoNova&apos;s cyberspace</title>
         <link>https://nanova.me</link>
         <description>The ubiquitous uniqueness</description>
-        <lastBuildDate>Sat, 10 Apr 2021 14:54:51 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 10 Apr 2021 15:03:21 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <item>
@@ -25,11 +25,11 @@ What
             <link>https://nanova.me/2021/04/04/java-lang-updates/</link>
             <guid>https://nanova.me/2021/04/04/java-lang-updates/</guid>
             <pubDate>Sun, 04 Apr 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[本译文已获取作者许可后翻译、发布。
+            <description><![CDATA[本译文已获取作者许可后翻译、调整、发布。
 >
 > 原文：New language features since Java 8 to 16（Enhancements to the Java language you should know）
 
-当 Java 8 引入流和 Lam ...]]></description>
+当 Java 8 引入流和 ...]]></description>
         </item>
         <item>
             <title><![CDATA[Java 15 都更新了什么]]></title>
