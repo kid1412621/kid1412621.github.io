@@ -1,4 +1,4 @@
-# Java 9 至 16 的语言和 JVM 特性更新分类列表
+# Java 9 到 16 的语言和 JVM 特性更新分类清单
 
 从 Java 8 到 16 版本，已有 180 个 [JDK Enhancement Proposals](http://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
 
@@ -367,17 +367,102 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
   [`JDK 15`](https://openjdk.java.net/jeps/383) [`JDK 14`](https://openjdk.java.net/jeps/370)
 
-- 
+- 允许在 Java 应用执行结束时对类进行动态归档
+
+  [`JDK 13`](https://openjdk.java.net/jeps/350)
+
+- 默认启用默认类列表的类数据共享存档，以改善开箱即用的启动时间
+
+  [`JDK 12`](https://openjdk.java.net/jeps/341)
+
+- 应用类数据共享，通过在Java进程之间共享类元数据来改善启动时间并减少占用空间
+
+  [`JDK 10`](https://openjdk.java.net/jeps/310)
+
+- 节省空间的紧凑型字符串，更有效地存储只有 Latin-1 字符的字符串
+
+  [`JDK 9`](https://openjdk.java.net/jeps/254)
+
+- 性能分析和未分析的编译代码缓存被分离开，以提高性能和内存占用
+
+  [`JDK 9`](https://openjdk.java.net/jeps/197)
+
+- 将 intern 字符串存储在类数据共享档案中，以减少内存消耗
+
+  [`JDK 9`](https://openjdk.java.net/jeps/250)
+
+  
 
 ### 库
 
+- 改进 AArch64 处理器上 `java.lang.Math` 的 `sin`、`cos` 和 `log` 函数的内部函数
+
+  [`JDK 11`](https://openjdk.java.net/jeps/387)
+
+- 安全管理器的性能提升
+
+  [`JDK 9`](https://openjdk.java.net/jeps/232)
+
+- Spin-Wait 提示 (`Thread#onSpinWait`) 来优化繁忙等待式循环
+
+  [`JDK 9`](https://openjdk.java.net/jeps/285)
+
+- 替换 Java 2D 中 Pisces 渲染器成 Marlin 作为默认的图形光栅化器
+
+  [`JDK 9`](https://openjdk.java.net/jeps/265)
+
+- 使用最近推出的 SPARC 和英特尔 x64 CPU 指令，以提高 GHASH 和 RSA 性能
+
+  [`JDK 9`](https://openjdk.java.net/jeps/246)
+
+  
+
 ### 并发
+
+- Thread-Local 握手机制以停止个别线程
+
+  [`JDK 10`](https://openjdk.java.net/jeps/312)
+
+- 提高被竞争对象的 monitor 性能
+
+  [`JDK 9`](https://openjdk.java.net/jeps/143)
+
+- 在线程堆栈上为关键部分提供额外空间，减小 `java.util.concurrent` 的 locks 在堆栈溢出时出现死锁的风险
+
+  [`JDK 9`](https://openjdk.java.net/jeps/270)
+
+  
 
 ### 编译器
 
+- Linux 平台支持 Ahead-of-Time 编译功能（实验特性💥）
+
+  [`JDK 10`](https://openjdk.java.net/jeps/246)（Graal 作为实验性的 JIT 编译器）
+
+  [`JDK 9`](https://openjdk.java.net/jeps/243)（JVM 编译器接口）
+
+  [`JDK 9`](https://openjdk.java.net/jeps/295)（Graal 作为 AoT 编译器）
+
+  
+
 ### G1 垃圾回收器（默认）
 
+- NUMA-Aware Memory Allocation
+  [JDK 14](https://openjdk.java.net/jeps/345)
+- Abortable mixed collections to meet user-supplied pause goals
+  [JDK 12](https://openjdk.java.net/jeps/344)
+- Automatically return heap memory to the operating system when idle
+  [JDK 12](https://openjdk.java.net/jeps/346)
+- Parallel Full GC to improve worst-case latencies
+  [JDK 10](https://openjdk.java.net/jeps/307)
+- G1 Garbage Collector is now the default instead of Parallel GC
+  [JDK 9](https://openjdk.java.net/jeps/248)
+
+
+
 ### 其它垃圾回收器
+
+
 
 ### 诊断分析及工具
 
@@ -411,7 +496,7 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 
 
-新版本命名格式
+## 新版本号格式
 
 
 
@@ -419,7 +504,7 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 
 
-总结
+## 总结
 
 
 
