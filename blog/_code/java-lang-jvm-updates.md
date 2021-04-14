@@ -435,7 +435,7 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 ### 编译器
 
-- Linux 平台支持 Ahead-of-Time 编译功能（实验特性💥）
+- Linux 平台支持 Ahead-of-Time 编译功能（**实验特性**💥）
 
   [`JDK 10`](https://openjdk.java.net/jeps/246)（Graal 作为实验性的 JIT 编译器）
 
@@ -445,24 +445,36 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
   
 
-### G1 垃圾回收器（默认）
+### G1 垃圾收集器（默认）
 
-- NUMA-Aware Memory Allocation
-  [JDK 14](https://openjdk.java.net/jeps/345)
-- Abortable mixed collections to meet user-supplied pause goals
-  [JDK 12](https://openjdk.java.net/jeps/344)
-- Automatically return heap memory to the operating system when idle
-  [JDK 12](https://openjdk.java.net/jeps/346)
-- Parallel Full GC to improve worst-case latencies
-  [JDK 10](https://openjdk.java.net/jeps/307)
-- G1 Garbage Collector is now the default instead of Parallel GC
-  [JDK 9](https://openjdk.java.net/jeps/248)
-
-
-
-### 其它垃圾回收器
+- NUMA（ non-uniform memory access ）感知的内存分配
+  [`JDK 14`](https://openjdk.java.net/jeps/345)
+- 可中止的混合收集，以满足用户提供的暂停目标
+  [`JDK 12`](https://openjdk.java.net/jeps/344)
+- 空闲时自动将堆内存返回给操作系统
+  [`JDK 12`](https://openjdk.java.net/jeps/346)
+- 并行 Full GC 以改善最坏情况下的延迟
+  [`JDK 10`](https://openjdk.java.net/jeps/307)
+- 将并行 GC 替换为 G1 作为默认垃圾收集器
+  [`JDK 9`](https://openjdk.java.net/jeps/248)
 
 
+
+### 其它垃圾收集器
+
+- Z 垃圾收集器，在大的堆空间上提供非常低的暂停时间
+  [`JDK 16`](https://openjdk.java.net/jeps/376) [`JDK 15`](https://openjdk.java.net/jeps/379) (**实验特性**💥  [`JDK 14`](https://openjdk.java.net/jeps/365) (Windows) [`JDK 14`](https://openjdk.java.net/jeps/364) (OS X) [`JDK 11`](https://openjdk.java.net/jeps/333) (Linux) )
+
+- Shenandoah 垃圾收集器, 提供同 ZGC 类似的好处，但基于不同的算法
+  [`JDK 15`](https://openjdk.java.net/jeps/377) ( [`JDK 12`](https://openjdk.java.net/jeps/189) 中为**实验特性**💥)
+
+- Epsilon 垃圾收集器, 未实现实际的内存回收，力求最低开销
+  [`JDK 11`](https://openjdk.java.net/jeps/318)
+
+- `XX:AllocateHeapAt=<path>` 支持可替代的存储器设备
+  [`JDK 10`](https://openjdk.java.net/jeps/316)
+
+  
 
 ### 诊断分析及工具
 
