@@ -497,9 +497,36 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 ## 安全改进
 
-- 
+- JDK 提供一组默认的根认证机构 (CA) 证书，TLS 连接可开箱即用
+  [`JDK 10`](https://openjdk.java.net/jeps/319)
+- 验证传入的序列化数据
+  [`JDK 9`](https://openjdk.java.net/jeps/290)
+- 默认的密钥存储类型是标准的 PKCS12，而不是专属的 JKS
+  [`JDK 9`](https://openjdk.java.net/jeps/229)
+- 基于 DRBG (Deterministic Random Bit Generator) 的 `SecureRandom`
+  [`JDK 9`](https://openjdk.java.net/jeps/273)
+- 禁用基于 SHA-1 签名的 X.509 证书链
+  [`JDK 9`](https://openjdk.java.net/jeps/288)
+- SHA-3 哈希算法
+  [`JDK 9`](https://openjdk.java.net/jeps/287)
+
+
 
 ### TLS
+
+- 支持 TLS 1.3
+  [`JDK 11`](https://openjdk.java.net/jeps/332)
+
+- 数据报传输层安全 ( DTLS, Datagram Transport Layer Security ) 的 API
+  [`JDK 9`](https://openjdk.java.net/jeps/219)
+
+- 实现 TLS 的 OCSP 修订 ( Online Certificate Status Protocol (OCSP) stapling ) ，提高证书状态检查的性能
+  [`JDK 9`](https://openjdk.java.net/jeps/249)
+
+- TLS 应用层协议协商 ( ALPN, Application-Layer Protocol Negotiation ) 扩展，无需额外的往返即可进行协议协商；ALPN 是 HTTP/2 连接的要求
+  [`JDK 9`](https://openjdk.java.net/jeps/244)
+
+  
 
 ### 加解密
 
