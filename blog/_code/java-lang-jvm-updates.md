@@ -478,9 +478,26 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 ### 诊断分析及工具
 
+- Flight Recorder 事件流: 可通过 [API](https://cr.openjdk.java.net/~egahlin/jep-349/javadocs/api/jdk.jfr/jdk/jfr/consumer/package-summary.html) 提供性能分析数据， 使其适用于连续监测
+  [`JDK 14`](https://openjdk.java.net/jeps/349)
+- 基于 JMH 的微基准测试套件[^3]
+  [`JDK 12`](https://openjdk.java.net/jeps/230)
+- Flight Recorder 成为 OpenJDK 的一部分
+  [`JDK 11`](https://openjdk.java.net/jeps/328)
+- 通过 JMTI 进行低开销堆性能分析
+  [`JDK 11`](https://openjdk.java.net/jeps/331)
+- C1 和 C2 编译器的运行时可管理和特定方法控制实现包含的测试
+  [`JDK 9`](https://openjdk.java.net/jeps/165)
+- 为 JVM 所有组件提供的细粒度、易配置的日志系统
+  [`JDK 9`](https://openjdk.java.net/jeps/158) (Unified JVM Logging) [JDK 9](https://openjdk.java.net/jeps/271) (Unified GC Logging)
+- 允许应用程序提供日志实现，供平台类使用
+  [`JDK 9`](https://openjdk.java.net/jeps/264)
+
 
 
 ## 安全改进
+
+- 
 
 ### TLS
 
@@ -524,4 +541,5 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 [^1]: 这篇文章也有翻译：参看 [Java 9 到 16 的语言特性更新](https://nanova.me/2021/04/04/java-lang-updates/)
 [^2]: 这里指的是原文的参考来源
+[^3]: 译者有写相关的介绍文[章](https://nanova.me/2020/06/21/jmh/)
 
