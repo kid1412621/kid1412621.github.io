@@ -4,7 +4,7 @@
         <title>NanoNova&apos;s cyberspace</title>
         <link>https://nanova.me</link>
         <description>The ubiquitous uniqueness</description>
-        <lastBuildDate>Sat, 10 Apr 2021 15:03:21 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 18 Apr 2021 15:47:32 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <item>
@@ -45,6 +45,17 @@ What
 Java 15 作为 JDK 平台下一个短期发行版，在 2020 年 9 月已进入普遍可用（GA）阶段。该版本基于早期版本一些功能的同时，也提供了一些新的改进。
 
 **在本文中，我们将一同 ...]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Java 9 到 16 的语言和 JVM 特性更新分类清单]]></title>
+            <link>https://nanova.me/1970/01/01/java-lang-jvm-updates/</link>
+            <guid>https://nanova.me/1970/01/01/java-lang-jvm-updates/</guid>
+            <pubDate>Sun, 18 Apr 2021 15:47:32 GMT</pubDate>
+            <description><![CDATA[从 Java 8 以来，一直到 16 版本，已有 180 个 JDK Enhancement Proposals（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
+
+![TOTAL NUMBER OF JEPS SINCE JDK 8](https://advancedweb.h ...]]></description>
+            <enclosure url="https://advancedweb.hu/assets/posts/post_java_8/jdktimeline-v4-284e4243b1ecaae845e987964b565e343eb3046efb507b20a7d4bed511a6a821.jpg">
+            </enclosure>
         </item>
         <item>
             <title><![CDATA[当 Markdown 遇上 UML]]></title>
