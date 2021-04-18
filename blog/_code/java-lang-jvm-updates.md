@@ -1,22 +1,22 @@
 # Java 9 到 16 的语言和 JVM 特性更新分类清单
 
-从 Java 8 到 16 版本，已有 180 个 [JDK Enhancement Proposals](http://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
+从 Java 8 以来，一直到 16 版本，已有 180 个 [JDK Enhancement Proposals](http://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
 
 ![TOTAL NUMBER OF JEPS SINCE JDK 8](https://advancedweb.hu/assets/posts/post_java_8/jdktimeline-v4-284e4243b1ecaae845e987964b565e343eb3046efb507b20a7d4bed511a6a821.jpg)
 
 目录：
 
-- [New Language Features](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#new-language-features)
-- [New APIs](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#new-apis)
-- [Performance Improvements](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#performance-improvements)
-- [Security Improvements](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#security-improvements)
-- [Bytecode Changes](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#bytecode)
-- [Launching](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#launching)
-- [Packaging](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#packaging)
-- [Javadoc](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#javadoc)
-- [New Platforms](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#new-supported-platforms)
-- [Deprecation and Removal](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#deprecation-and-removal)
-- [New Version Scheme](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/#new-version-scheme)
+- [新语言特性](#新语言特性)
+- [新 API](#新-API)
+- [性能提升](#性能提升)
+- [安全改进](#安全改进)
+- [启动](#启动)
+- [打包](#打包)
+- [Javadoc](#Javadoc)
+- [字节码变动](#字节码)
+- [新支持平台](#新支持平台)
+- [新版本号格式](#新版本号格式)
+- [废弃和移除](#废弃和移除)
 
 JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.net/projects/jdk/) 和 [jdk9](https://openjdk.java.net/projects/jdk9/) 项目找到。
 
@@ -523,44 +523,197 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 - 实现 TLS 的 OCSP 修订 ( Online Certificate Status Protocol (OCSP) stapling ) ，提高证书状态检查的性能
   [`JDK 9`](https://openjdk.java.net/jeps/249)
 
-- TLS 应用层协议协商 ( ALPN, Application-Layer Protocol Negotiation ) 扩展，无需额外的往返即可进行协议协商；ALPN 是 HTTP/2 连接的要求
+- TLS 应用层协议协商 ( ALPN, Application-Layer Protocol Negotiation ) 扩展，无需额外的来回通信即可进行协议协商；ALPN 是 HTTP/2 连接的要求
   [`JDK 9`](https://openjdk.java.net/jeps/244)
 
   
 
-### 加解密
+### 加密
+
+- Edwards-Curve 电子签名算法 (EdDSA) - [RFC8032](https://tools.ietf.org/html/rfc8032)
+  [`JDK 15`](https://openjdk.java.net/jeps/339)
+- 使用 Curve25519 和 Curve448 的密钥协议
+  [`JDK 11`](https://openjdk.java.net/jeps/324)
+- ChaCha20 和 Poly1305 加密算法
+  [`JDK 11`](https://openjdk.java.net/jeps/329)
 
 
 
 ## 启动
 
+- 支持启动单文件源码程序，包括 Unix 的 Shebang (`#!`) 行
+  [`JDK 11`](https://openjdk.java.net/jeps/330)
+- `jshell`:  Java 的「读取-求值-输出」循环 ( Read-Eval-Print Loop, REPL ) 编程环境
+  [`JDK 9`](https://openjdk.java.net/jeps/222) (Project Kulla)
+  相关链接[^2]： [Prototyping with JShell](https://advancedweb.hu/prototyping-with-jshell/)
+- 用 `--release` 编译旧的平台版本，配置 `--source` 和 `--target` 并链接到相应的平台版本
+  [`JDK 9`](https://openjdk.java.net/jeps/247)
+- JVM 命令行标记的提前校验，避免崩溃
+  [`JDK 9`](https://openjdk.java.net/jeps/245)
+
 
 
 ## 打包
+
+- 用于创建单文件应用 ( self-contained applications ) 的打包工具，也支持原生包格式：msi，exe，pkg，dmg，deb 和 rpm
+  [`JDK 16`](https://openjdk.java.net/jeps/392) ( **孵化模块** 🥚 in [`JDK 14`](https://openjdk.java.net/jeps/343) )
+  相关链接[^2]：[Inside Java - Episode 12 “jpackage” with Kevin Rushforth](https://inside.java/2021/02/11/podcast-012/)
+- `jlink` Java Linker，可为模块化 Java 应用程序构建一个优化的、精简的运行时映像，该映像只包含 JDK 的所需部分
+  [`JDK 9`](https://openjdk.java.net/jeps/282) - [[2](https://openjdk.java.net/jeps/220)], [[3](https://openjdk.java.net/jeps/275)], [[4](https://openjdk.java.net/jeps/200)], [[4](https://openjdk.java.net/jeps/201)], [[5](https://openjdk.java.net/jeps/260)]
+- 多版本 JAR 文件允许多个 Java 版本的类在一个打包文件
+  [`JDK 9`](https://openjdk.java.net/jeps/238)
 
 
 
 ## Javadoc
 
+- Javadoc 工具现在使用 HTML5 ，而不是基于 iframe 的布局，文档包含一个搜索框以方便导航
+  [`JDK 9`](https://openjdk.java.net/jeps/225) - [[2](https://openjdk.java.net/jeps/224)], [[3](https://openjdk.java.net/jeps/221)]
+
 
 
 ## 字节码
+
+- 用 `Unsafe::defineAnonymousClass()` 替换 `Lookup::defineHiddenClass()`，使框架动态生成隐藏类，这些类不能被其它类发现、链接或直接使用
+
+  [`JDK 15`](https://openjdk.java.net/jeps/371)
+
+- `java.lang.invoke.constant` 包允许轻松的描述可加载常量（ `ldc` 指令的运算元 ），这比依赖临时的 String 表示法更不易出错
+  [`JDK 12`](https://openjdk.java.net/jeps/334)
+
+- `CONSTANT_Dynamic` 常量池条目，使用引导的方式进行解析，和 `INVOKEDYNAMIC` 调用类似
+  [`JDK 11`](https://openjdk.java.net/jeps/309)
+
+- 引入 Nest 访问控制上下文，将类包装在同一代码实体中，例如嵌套类，避免了编译器向生成的字节码插入桥接方法的需要
+  [`JDK 11`](https://openjdk.java.net/jeps/181)
+
+- 为静态字符串连接生成的字节码使用 `invokedynamic ` 而不是直接创建 `StringBuilder#append` 链。这将使未来的字符串连接优化不需要字节码变动
+  [`JDK 9`](https://openjdk.java.net/jeps/280)
+
+- `INVOKEDYNAMIC` 可以表示对象属性和/或集合的高层级操作
+  [`JDK 9`](https://openjdk.java.net/jeps/276)
 
 
 
 ## 新支持平台
 
+- Alpine
+  [`JDK 16`](https://openjdk.java.net/jeps/386)
+- Windows/AArch64
+  [`JDK 16`](https://openjdk.java.net/jeps/388)
+- Linux/AArch64
+  [`JDK 9`](https://openjdk.java.net/jeps/237)
+- Linux/s390x
+  [`JDK 9`](https://openjdk.java.net/jeps/294)
+- Unified arm32/arm64
+  [`JDK 9`](https://openjdk.java.net/jeps/297)
+
 
 
 ## 新版本号格式
+
+- 简化的版本格式
+  [`JDK 9`](https://openjdk.java.net/jeps/223) [`JDK 10`](https://openjdk.java.net/jeps/322)
 
 
 
 ## 废弃和移除
 
+- 默认情况下对内部 API 强封装 ( `sun.*` )， 除了一些[关键 API](https://openjdk.java.net/jeps/260#Description)，例如  `sun.misc.Unsafe`
+  解开强封装由启动器参数 [`--illegal-access`](https://openjdk.java.net/jeps/396#Description) 控制
+  [`JDK 16`](https://openjdk.java.net/jeps/396) (Deprecated in [`JDK 9`](https://openjdk.java.net/jeps/260) - [[2](https://openjdk.java.net/jeps/253)])
 
+- 废弃原始包装器类的构造函数，不允许在包装器对象上进行同步
+  (`Byte`, `Short`, `Integer`, `Long`, `Float`, `Double`, `Boolean`, 和 `Character`)
+  [`JDK 16`](https://openjdk.java.net/jeps/390)
+
+- 移除 Javascript 引擎 Nashorn 和 `jjs` 工具
+  [`JDK 15`](https://openjdk.java.net/jeps/372) (Deprecated in [`JDK 11`](https://openjdk.java.net/jeps/335))
+
+- 移除 Solaris 和 SPARC 平台移植
+  [`JDK 15`](https://openjdk.java.net/jeps/381) (Deprecated in [`JDK 14`](https://openjdk.java.net/jeps/362))
+
+- 废弃 [RMI Activation](https://docs.oracle.com/javase/9/docs/specs/rmi/activation.html)，影响  `java.rmi.activation` 包和  `rmid` 工具，一般不会影响 Java RMI
+  [`JDK 15`](https://openjdk.java.net/jeps/385)
+
+- 默认禁用 [偏向锁](https://stackoverflow.com/questions/9439602/biased-locking-in-java) ，废弃相关的命令行参数
+  [`JDK 15`](https://openjdk.java.net/jeps/374)
+
+- 废弃 `Unsafe::defineAnonymousClass()` 
+  [`JDK 15`](https://openjdk.java.net/jeps/371)
+
+- 移除 Concurrent Mark Sweep (CMS) 垃圾收集器
+  [`JDK 14`](https://openjdk.java.net/jeps/363)
+
+- 废弃 ParallelScavenge + SerialOld GC 的组合
+  [`JDK 14`](https://openjdk.java.net/jeps/366)
+
+- 移除 Pack200 工具及其 API
+  [`JDK 14`](https://openjdk.java.net/jeps/367)
+
+- 废弃 Pack200 工具及其 API
+  [`JDK 11`](https://openjdk.java.net/jeps/336)
+
+- 移除 Java EE 
+  [`JDK 11`](https://openjdk.java.net/jeps/320)
+
+- 移除 CORBA 
+  [`JDK 11`](https://openjdk.java.net/jeps/321)
+
+- 移除 `Thread#destroy` 和  `Thread#stop`
+  [`JDK 11`](https://bugs.openjdk.java.net/browse/JDK-8204243)
+
+- `var` 不再是合法的类名
+  [`JDK 10`](https://openjdk.java.net/jeps/286)
+
+- 移除 javah 工具
+  [`JDK 10`](https://openjdk.java.net/jeps/313)
+
+- 下划线不再是合法的变量名
+  [`JDK 9`](https://openjdk.java.net/jeps/213)
+
+- 移除 `apple.applescript` 和 `com.apple` 包
+  [`JDK 9`](https://openjdk.java.net/jeps/272)
+
+- 禁用基于 SHA-1 签名的 X.509 证书链
+  [`JDK 9`](https://openjdk.java.net/jeps/288)
+
+- 移除 Launch-Time JRE 版本选择指令：`JRE-Version` 清单条目和 `-version:` 命令行选项
+  [`JDK 9`](https://openjdk.java.net/jeps/231)
+
+- 移除 jhat 工具
+  [`JDK 9`](https://openjdk.java.net/jeps/241)
+
+- 移除 JVM TI hprof 代理
+  [`JDK 9`](https://openjdk.java.net/jeps/240)
+
+- 移除 JDK 8 中废弃的 GC 组合 
+  [`JDK 9`](https://openjdk.java.net/jeps/214)
+
+- 废弃 Applet API 
+  [`JDK 9`](https://openjdk.java.net/jeps/289)
+
+- 废弃 Concurrent Mark Sweep (CMS) 垃圾收集器 
+  [`JDK 9`](https://openjdk.java.net/jeps/291)
+
+- 废弃  `Object.finalize()` 
+  [`JDK 9`](https://bugs.openjdk.java.net/browse/JDK-8165641)
+
+- 移除 JRE 中的认可标准覆盖 (`lib/endorsed`) 和扩展 (`lib/ext`) 机制
+  [`JDK 9`](https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-A78CC891-701D-4549-AA4E-B8DD90228B4B)
+
+- 移除 JRE 中的 `rt.jar`
+  [`JDK 9`](https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-A78CC891-701D-4549-AA4E-B8DD90228B4B)
+
+  如果你对 Java 8 和 14 之间所有 API 级别的差异有兴趣，请查看 [`Java Almanac`](https://github.com/marchof/java-almanac) 项目。此外，还可以查看Java类依赖分析器 [`jdeps`](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jdeps.html)，找出你的项目是否还在使用旧的内部 API。
 
 ## 总结
+
+[`JDK 8`](https://openjdk.java.net/projects/jdk8/) 是在 2014 年发布的。我们不得不为 [`JDK 9`](https://openjdk.java.net/projects/jdk9/) 等待三年半的时间。 但从那时起，就快了起来。Java 有一个新的发布架构，目标是每六个月提供一个新版本。
+
+虽然现在仍然支持 Java 8，但迁移到最新版本会带来相当多的改进。
+
+
 
 
 
