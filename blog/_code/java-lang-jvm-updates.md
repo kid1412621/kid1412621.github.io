@@ -1,3 +1,12 @@
+---
+date: 2021-04-18
+tags:
+  - backend
+  - java
+  - translation
+
+---
+
 # Java 9 到 16 的语言和 JVM 特性更新分类清单
 
 从 Java 8 以来，一直到 16 版本，已有 180 个 [JDK Enhancement Proposals](http://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
