@@ -48,7 +48,7 @@ tags:
 
 - [封闭类](#封闭类)
 
-想要一览塑造这个新平台所有的 JEP[^1]，其涵盖了包括 API 、性能与安全方面的改进，参看这份[精选清单：Java 8 以来所有的改进](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-15/)。
+想要一览塑造这个新平台所有的 JEP[^1]，其涵盖了包括 API 、性能与安全方面的改进，参看这份[精选清单：Java 8 以来所有的改进](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-15/)[^2]。
 
 
 
@@ -81,7 +81,7 @@ point.y(); // 返回 2
 
 记录类不仅仅成员变量默认是 final 的，甚至**不允许有非 final 的成员变量**。
 
-**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。再者，虽然可以定义额外的构造方法来提供一些成员变量的默认值，但无法隐藏含有所有成员变量的*标准构造方法*（*canonical constructor*）[^2]。
+**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。再者，虽然可以定义额外的构造方法来提供一些成员变量的默认值，但无法隐藏含有所有成员变量的*标准构造方法*（*canonical constructor*）[^3]。
 
 最后，记录类**不能继承其它类**，**不能声明 native 方法**，是**隐式 final 的**，也**不能是抽象的**。
 
@@ -175,7 +175,7 @@ public static void recordSerializationExample() throws Exception {
 
 注意这里不再需要定义 serialVersionUID 了，因为记录类抛弃了对 serialVersionUID 比对的要求。
 
-参考来源[^3]：
+参考来源[^4]：
 
 - [Inside Java Podcast Episode 4: “Record Classes” with Gavin Bierman](https://inside.java/2020/10/05/podcast-004/)
 - [Inside Java Podcast Episode 14: “Records Serialization” with Julia Boes and Chris Hegarty](https://inside.java/2021/03/08/podcast-014/)
@@ -459,7 +459,7 @@ var greeting = """
     """.formatted("world");
 ```
 
-参考来源[^3]：
+参考来源[^4]：
 
 - [Programmer’s Guide To Text Blocks](https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html)
 - [Definitive Guide To Text Blocks In Java 13](https://nipafx.dev/java-13-text-blocks#)
@@ -553,7 +553,7 @@ Exception in thread "main" java.lang.NullPointerException:
 
 **开始支持版本：** [`JDK 14`](https://openjdk.java.net/jeps/361) ([`JDK 12`](https://openjdk.java.net/jeps/325) [`JDK 13`](https://openjdk.java.net/jeps/354) 中为预览特性)
 
-久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^4]的语法支持：
+久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^5]的语法支持：
 
 ```java
 int numLetters = switch (day) {
@@ -768,7 +768,7 @@ double d = 1;
 
 当前，`var` 还没有相应的单一「关键字」来声明不可变变量（比如 `val` 或 `const`）。希望未来的版本中会支持，在那之前，我们可以使用 `final var` 。
 
-参考来源：
+参考来源[^4]：
 
 - [First Contact With ‘var’ In Java 10](https://blog.codefx.org/java/java-10-var-type-inference/)
 - [26 Items for Dissecting Java Local Variable Type Inference (Var Type)](https://dzone.com/articles/var-work-in-progress)
@@ -932,8 +932,14 @@ double area = switch (shape) {
 
 
 
-[^1]: 译者注：[JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
-[^2]: 译者注：记录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
-[^3]: 译者注：这里指的是原文的参考来源，下同
-[^4]: 译者注：statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
 
+
+译者注：
+
+[^1]: [JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
+
+[^2]: 此篇文章也有翻译：[Java 9 到 16 的语言和 JVM 特性更新分类清单](https://nanova.me/2021/04/04/java-lang-jvm-updates)
+
+[^3]: 译录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
+[^4]: 这里指的是原文的参考来源，下同
+[^5]: statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
