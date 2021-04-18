@@ -9,6 +9,10 @@ tags:
 
 # Java 9 到 16 的语言和 JVM 特性更新分类清单
 
+> 本译文已获取作者许可后翻译、调整、发布。
+>
+> 原文：[A categorized list of all Java and JVM features since JDK 8 to 16](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-16/)
+
 从 Java 8 以来，一直到 16 版本，已有 180 个 [JDK Enhancement Proposals](http://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
 
 ![TOTAL NUMBER OF JEPS SINCE JDK 8](https://advancedweb.hu/assets/posts/post_java_8/jdktimeline-v4-284e4243b1ecaae845e987964b565e343eb3046efb507b20a7d4bed511a6a821.jpg)
