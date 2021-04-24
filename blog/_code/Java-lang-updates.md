@@ -4,6 +4,7 @@ tags:
   - backend
   - java
   - translation
+permalink: java-lang-updates
 ---
 
 # Java 9 到 16 的语言特性更新
