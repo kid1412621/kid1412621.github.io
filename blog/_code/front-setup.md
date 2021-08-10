@@ -10,7 +10,7 @@
 
 ### EditorConfig
 
-[EditorConfig](https://editorconfig.org/) 旨在统一涉及到多人（/平台）时代码文本的基本格式，例如编码格式、缩进方式、换行符（Windows/Unix）、尾部空格等等。像 IDEA 等 IDE 自带集成，若存在其配置文件（`.editorconfig`）则会遵循其定义的格式化规则；但 VSCode 需要安装插件才会默认遵循。
+[EditorConfig](https://editorconfig.org/) 旨在统一涉及到多人（/平台）时代码文本的**基本格式**，例如编码格式、缩进方式、换行符（Windows/Unix）、尾部空格等等。像 IDEA 等 IDE 自带集成，若存在其配置文件（`.editorconfig`）则会遵循其定义的格式化规则；但 VSCode 需要安装插件才会默认遵循。
 
 1. 安装 VSCode [EditorConfig 插件](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) ，安装完后即可发现 VSCode 右下方状态栏的文本格式会遵循配置文件；
 
@@ -33,13 +33,13 @@
 
 ### ESLint
 
-[ESLint](https://eslint.org) 旨在提供 ECMAScript/JavaScript 语言的静态代码检查，可提示/修复代码中的语法问题、潜在 bug、代码风格。
+[ESLint](https://eslint.org) 旨在提供 ECMAScript/JavaScript 语言的静态代码检查，可提示/修复代码中的**语法问题**、潜在 **Bug**、代码风格。
 
-1. 安装 VSCode [ESLint 插件](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) ，安装后赋予 VSCode 根据配置文件提示代码问题、修复问题的能力（当然不安装的话也可以通过命令行使用，安装插件的本质也就是能在 VSCode 中更便捷的使用 ESLint CLI ）；
+1. 安装 VSCode [ESLint 插件](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) ，安装后赋予 VSCode 根据配置文件<u>提示</u>代码问题、<u>修复</u>问题的能力（当然不安装的话也可以通过命令行使用，安装插件的本质也就是能在 VSCode 中更便捷的使用 ESLint CLI ）；
 
 2. 安装 ESLint ，本地安装：`npm i -D eslint` ；全局安装：`npm i -g eslint` 。因为 VSCode ESLint 插件本身并不自带 ESLint ，所以需要单独安装，插件使用 ESLint 的逻辑为：若本项目文件夹中不包含 ESLint ，则使用全局安装的版本。
 
-3. *若项目未定义其配置文件，可按 `Ctrl/Cmd` + `Shift` + `p` ，然后执行 ESLint: Create ESLint configuration ，或者在终端输入 `eslint --init`（但初始化的前提是已经执行了 `npm init`，因为 ESLint 会根据选择安装相关依赖），接着根据提示选择相关；*
+3. *若项目未定义其配置文件，可按 `Ctrl/Cmd` + `Shift` + `p` ，然后执行 ESLint: Create ESLint configuration ，或者在终端输入 `eslint --init`（但初始化的前提是已经执行了 `npm init` ，因为 ESLint 会根据选择安装相关依赖），接着根据提示选择；*
 
    ```shell
    $ eslint --init
@@ -87,15 +87,21 @@
 
    两者的[差别](https://stackoverflow.com/a/54522973/8140523)可理解为：前者的规则全盘接受，后者的规则选择性使用。
 
-4. 配置插件使其达到保存时自动修复代码：
-  a. 方法一：[VSCode 更新后将`FixOnSave`功能进行了整合](https://stackoverflow.com/a/59485018/8140523)
-  b. 方法二：设置 Eslint › Format: Enable 使其成为 VSCode 中的一个代码格式化器，再将 js 的默认格式化器设置为 ESLint；
+4. 配置插件使其达到保存时自动修复代码，也有两种方法：
+    a. [VSCode 更新后将 `FixOnSave` 功能进行了整合](https://stackoverflow.com/a/59485018/8140523)，可直接设置 `"editor.codeActionsOnSave":{"source.fixAll.eslint": true}` 启用；
+  
+  b. 第二种方式首先需要设置 `"editor.formatOnSave": true` 开启编辑器在保存时自动格式化，然后开启 `"eslint.format.enable": true` 使其成为 VSCode 中的一个代码格式化器（且将其作为目标文件类型的默认格式化器）。这种方式有个弊端，若 ESLint 规则设置的不全，则有些格式化效果不佳，因为方法一仅 ESLint 作问题修复用，格式化还是交给了其它格式化器。
 
 
 
 ### StyleLint
 
-1. 安装 [VSCode StyleLint 插件]()；
+[StyleLint](https://stylelint.io) 之于 css 就像 ESLint 之于 JavaScript ，致力于类 css 文件的静态检查，避免样式文件的错误及代码风格。
+
+1. 安装 VSCode [StyleLint 插件](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)，安装后 VSCode 拥有根据配置文件<u>提示</u>代码问题、<u>修复</u>问题的能力；
+2. 安装 StyleLint 及规则：
+3. *初始化配置文件*
+4. 配置，但插件并[未提供格式化代码的功能](https://github.com/stylelint/vscode-stylelint/issues/25)，
 
 
 
