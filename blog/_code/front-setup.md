@@ -1,12 +1,12 @@
 # 2021 ESLint StyleLint Pritter EditorConfig 整合 VSCode
 
-2021 前端开发，就连环境搭建也不比后端简单了，一堆 bundler/transpiler/linter/formatter/...（及其插件和editor/IDE整合），各种概念占据了开发者的内存，各种配置文件充斥了项目根文件。Maybe that's why frontend dev ~~sucks~~ is awesome.
+2021 前端开发，就连环境搭建也不比后端简单了，一堆 bundler/transpiler/linter/formatter/...（及其插件和editor/IDE 整合），各种概念占据了开发者的内存，各种配置文件充斥了项目根文件。Maybe that's why frontend dev ~~sucks~~ is awesome.
 
 
 
 ## 单项独自配置
 0. 安装并配置 VSCode ；
-由于 VSCode 默认的 TabSize 为 4，而[大多数框架和插件都为 2](https://github.com/Microsoft/vscode/issues/41200)，为避免不必要的冲突，最好将其也设置为 2;
+由于 VSCode 默认的 TabSize 为 4，而[大多数框架和插件都为 2](https://github.com/Microsoft/vscode/issues/41200)，为避免不必要的冲突，最好将其也设置为 2 ；
 
 ### EditorConfig
 
@@ -69,7 +69,7 @@
      	// 继承现成规则合集
        "extends": [
            "standard",
-         	"plugin:react/recommended" // 继承插件中的规则
+         	"plugin:react/recommended" // 继承插件中的规则，越往后的优先级越高
        ],
      	// 自定义规则，优先级高
        "rules": {
@@ -115,7 +115,7 @@
        "order/order": [
    			"custom-properties",
    			"declarations"
-   		],
+   		]
      }
    }
    ```
@@ -165,16 +165,31 @@
 ## 完全整合配置
 ### ESLint/StyleLint 整合 Prettier
 
+由于 ESLint 带有问题修复功能，VSCode 也自带代码格式化、修复问题功能，所有很容易和 Prettier 产生冲突，严重的甚至造成代码错乱无法运行。
+
+1. Linter 优先，Prettier 作为 Linter 的一部分（插件/扩展）使用（不推荐，用户自定义的规则，如 ESLint 配置中的 rules 字段仍会冲突），以 ESLint 为例：
+
+  a. 使用 plugins [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) 使 Prettier 作为 ESLint 的一部分来运行（而不是直接运行 Prettier ），Prettier 的配置项会作为 ESLint 的规则来校验；
+
+  a. 使用 extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 覆盖冲突的、代码风格相关的规则：
+
+  
 
 
-1. Linter 优先，将 Prettier 作为 Linter 的规则
-eslint-plugin-prettier 仅仅关闭 eslint 一些默认的冲突规则，要是用户自定义了一些规则导致冲突，vscode 识别到后则任会报错。而且插件需要关闭 vscode 的"editor.formatOnSave": false
+  eslint-plugin-prettier 仅仅关闭 eslint 一些默认的冲突规则，要是用户自定义了一些规则（如 ESLint 配置中的 rules 字段）导致冲突，vscode 识别到后则任会报错。而且插件需要关闭 vscode 的"editor.formatOnSave": false
 
-This extension will use prettier from your project's local dependencies (recommended). When the prettier.resolveGlobalModules is set to true the extension can also attempt to resolve global modules. Should prettier not be installed locally with your project's dependencies or globally on the machine, the version of prettier that is bundled with the extension will be used.
+
 
 Prettier 配置文件和 eslint 中 "prettier/prettier" 规则冲突，例如在 `.prettierrc` 中加入 `"semi": true`，eslint 会报出 `Delete `;`eslintprettier/prettier`；而且 Prettier 配置文件和 eslint 的配置文件的自定义规则(如 semi)若单独设置，也会诱发冲突。所以若坚持使用这种方式，那么最好将规则定义到一个地方。
 
 2. prettier-eslint
+
+
+
+#### 可能的冲突点
+
+1. 配置文件冲突，ESLint 的规则未能和 Prettier 规则正确配置，可能是优先级问题，也可能是多个地方同一个配置项设置了不同的值；
+2. VSCode 同时设置了保存时格式化和保存时修复问题，但格式化使用的是 Prettier ，修复问题使用的是 ESLint 。
 
 
 
