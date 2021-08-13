@@ -10,11 +10,11 @@
 
 ### EditorConfig
 
-[EditorConfig](https://editorconfig.org/) 旨在统一涉及到多人（/平台）时代码文本的**基本格式**，例如编码格式、缩进方式、换行符（Windows/Unix）、尾部空格等等。像 IDEA 等 IDE 自带集成，若存在其配置文件（`.editorconfig`）则会遵循其定义的格式化规则；但 VSCode 需要安装插件才会默认遵循。
+[EditorConfig](https://editorconfig.org/) 旨在统一涉及到多人（/平台）时代码文本的**基本格式**，例如编码格式、缩进方式、换行符（ Windows/Unix ）、尾部空格等等。像 IDEA 等 IDE 自带集成，若存在其配置文件（ `.editorconfig` ）则会遵循其定义的格式化规则；但 VSCode 需要安装插件才会默认遵循。
 
 1. 安装 VSCode [EditorConfig 插件](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) ，安装完后即可发现 VSCode 右下方状态栏的文本格式会遵循配置文件；
 
-2. *若项目未定义其配置文件，在项目根文件夹点击右键，选择 Generate .editorconfig* ，该配置文件遵循 [.properties](https://en.wikipedia.org/wiki/.properties) 格式，例：
+2. *若项目未定义其配置文件，在项目根文件夹点击右键，选择 `Generate .editorconfig`* ，该配置文件遵循 [.properties](https://en.wikipedia.org/wiki/.properties) 格式，例：
 
    ```properties
    # 表示这为最顶层的配置文件，editorconfig 不会再往上寻找配置文件
@@ -53,7 +53,7 @@
    ✔ Would you like to install them now with npm? · No / Yes
    ```
 
-   ESLint 提供 json/js/yaml格式的配置文件，也可定义在 `package.json` 中，在初始化时可选，配置文件详情参见[官网](https://eslint.org/docs/user-guide/configuring/)，例：
+   ESLint 提供 json/js/yaml 格式的配置文件，也可定义在 `package.json` 中，在初始化时可选，配置文件详情参见[官网](https://eslint.org/docs/user-guide/configuring/)，例：
 
    ```json
    {
@@ -89,7 +89,7 @@
 
 4. 配置插件使其达到保存时自动修复代码，也有两种方法：
     a. [VSCode 更新后将 `FixOnSave` 功能进行了整合](https://stackoverflow.com/a/59485018/8140523)，可直接设置 `"editor.codeActionsOnSave":{"source.fixAll.eslint": true}` 启用；
-  
+
   b. 第二种方式首先需要设置 `"editor.formatOnSave": true` 开启编辑器在保存时自动格式化，然后开启 `"eslint.format.enable": true` 使其成为 VSCode 中的一个代码格式化器（且将其作为目标文件类型的默认格式化器）。这种方式有个弊端，若 ESLint 规则设置的不全，则有些格式化效果不佳，因为方法一仅 ESLint 作问题修复用，格式化还是交给了其它格式化器。
 
 
@@ -156,7 +156,7 @@
    }
    ```
 
-   虽然插件也可以配置部分配置，但还是推荐使用配置文件（以便团队协同时保证有相同的格式），插件采用配置的优先级：<u>Prettier 配置文件 > Editorconfig 配置文件 > VSCode 插件配置（前两者存在时不生效）</u>；
+   虽然插件也可以配置部分配置，但还是推荐使用配置文件（以便团队协同时保证有相同的格式），插件采用配置的优先级：<u>Prettier 配置文件 > Editorconfig 配置文件 > VSCode 插件配置（前两者存在时不生效，且[不推荐](https://github.com/prettier/prettier-vscode/issues/958#issue-493377488)）</u>；值得注意的是，修改 Prettier 配置文件，插件未能实时检测修改；
 
 4. 参照前文设置 VSCode 在保存时自动格式化，并配置相应文件类型默认格式化器为 Prettier 。
 
@@ -167,37 +167,76 @@
 
 由于 ESLint 带有问题修复功能，VSCode 也自带代码格式化、修复问题功能，所有很容易和 Prettier 产生冲突，严重的甚至造成代码错乱无法运行。
 
-1. Linter 优先，Prettier 作为 Linter 的一部分（插件/扩展）使用（不推荐，用户自定义的规则，如 ESLint 配置中的 rules 字段仍会冲突），以 ESLint 为例：
+根据官方的[整合指南](https://prettier.io/docs/en/integrating-with-linters.html)， Prettier 作为 Linter 的一部分（插件/扩展）使用，下以 ESLint 为例：
 
-  a. 使用 plugins [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) 使 Prettier 作为 ESLint 的一部分来运行（而不是直接运行 Prettier ），Prettier 的配置项会作为 ESLint 的规则来校验；
+1. 使用 plugins [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) 使 Prettier 作为 ESLint 的一部分来运行（而不是直接运行 Prettier ），Prettier 的配置项会作为 ESLint 的规则来校验；
 
-  a. 使用 extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 覆盖冲突的、代码风格相关的规则：
+2. 使用 extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 覆盖冲突的、代码风格相关的规则*。
 
-  
+```json
+{
+  plugins: ["prettier"],
+  extends: [
+    "eslint:recommended",
+    "prettier"
+  ],
+  rules: {
+    "prettier/prettier": "error"
+  }
+}
+```
 
-
-  eslint-plugin-prettier 仅仅关闭 eslint 一些默认的冲突规则，要是用户自定义了一些规则（如 ESLint 配置中的 rules 字段）导致冲突，vscode 识别到后则任会报错。而且插件需要关闭 vscode 的"editor.formatOnSave": false
-
-
-
-Prettier 配置文件和 eslint 中 "prettier/prettier" 规则冲突，例如在 `.prettierrc` 中加入 `"semi": true`，eslint 会报出 `Delete `;`eslintprettier/prettier`；而且 Prettier 配置文件和 eslint 的配置文件的自定义规则(如 semi)若单独设置，也会诱发冲突。所以若坚持使用这种方式，那么最好将规则定义到一个地方。
-
-2. prettier-eslint
+这样仅仅关闭 eslint 一些默认的冲突规则，要是用户自定义了一些规则（如 ESLint 配置中的 rules 字段）导致冲突，VSCode 识别到后则任会报错。例如在 `.prettierrc` 中配置 `"semi": false `，`.eslintrc` 中 rules 加入 `semi: "error"` ，VSCode 会报错提示删除分号。
 
 
 
 #### 可能的冲突点
 
-1. 配置文件冲突，ESLint 的规则未能和 Prettier 规则正确配置，可能是优先级问题，也可能是多个地方同一个配置项设置了不同的值；
-2. VSCode 同时设置了保存时格式化和保存时修复问题，但格式化使用的是 Prettier ，修复问题使用的是 ESLint 。
-
-
-
-### React
+1. <u>配置文件</u>冲突，ESLint 的规则未能和 Prettier 规则正确配置，可能是优先级问题，也可能是多个地方同一个配置项设置了不同的值；
+2. <u>依赖版本</u>冲突，比如 eslint-config-prettier 依赖的 eslint 版本和安装的 eslint 版本不兼容；
+3. <u>VSCode 设置</u>同时配置了保存时格式化（ `editor.formatOnSave` ）和保存时修复问题（ `editor.codeActionsOnSave` ），但格式化使用的是 Prettier ，修复问题使用的是 ESLint ，这样会造成在保存文件时会对代码修改两次。
 
 
 
 ### Vue
 
-Vetur 内嵌了 prettier 作为格式化器，这也意味着无需安装 Prettier 插件也可配置 `.prettierrc` 文件来指定格式化配置，
+开发 Vue 项目一般都会安装官方 VSCode 插件 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) 来对 `.vue` 文件提供语法高亮等功能，其[内嵌 Prettier 作为格式化器](https://vuejs.github.io/vetur/guide/formatting.html#formatters)，这也意味着无需单独安装 Prettier 插件也可配置 `.prettierrc` 文件来指定格式化配置，其默认配置：
+
+```json
+{
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.defaultFormatter.pug": "prettier",
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.postcss": "prettier",
+  "vetur.format.defaultFormatter.scss": "prettier",
+  "vetur.format.defaultFormatter.less": "prettier",
+  "vetur.format.defaultFormatter.stylus": "stylus-supremacy",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "vetur.format.defaultFormatter.ts": "prettier",
+  "vetur.format.defaultFormatter.sass": "sass-formatter"
+}
+```
+
+这些配置定义了 `.vue` 文件中每类语言的格式化器，相应的，最好再配置 VSCode 中 `.vue` 文件的默认格式化器为 Vetur ：`"[vue]":{"editor.defaultFormatter": "octref.vetur"}` 以避免冲突。
+
+额外的，我会设置 `"vetur.format.defaultFormatter.js": "prettier-eslint"` ，这会使用 [prettier-eslint](https://github.com/prettier/prettier-eslint) 来格式化 `.vue` 文件中的 js 代码，这会将代码先用 `prettier` 格式化，然后将结果传给 `eslint --fix` 修复，最后得到格式化的代码。
+
+此外，根据 Vetur [官方文档](https://vuejs.github.io/vetur/guide/linting-error.html#linting)，如要集成 ESLint 并使用自定义规则，需要设置 `"vetur.validation.template": false` 来关闭 Vetur 自带的 eslint-plugin-vue 校验。
+
+
+
+### React
+
+React 的集成就十分简单，使用 [create-react-app](https://create-react-app.dev/) 来构建项目会自动整合 [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app) ，其包括了网上大多数教程提供的以下配置，<u>无需单独配置</u>：
+
+```json
+parserOptions: {
+  ecmaFeatures: {
+    jsx: true
+  },
+  ecmaVersion: 11
+}
+```
+
+再者，VSCode 中可针对 `.jsx` 文件设置默认的格式化器：`"[javascriptreact]": {"editor.defaultFormatter": "esbenp.prettier-vscode"}` 。
 
