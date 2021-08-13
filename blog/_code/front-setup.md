@@ -1,3 +1,11 @@
+---
+date: 2021-08-13
+tags:
+  - frontend
+  - vscode
+  - setup
+permalink: frontend-setup
+---
 # 2021 ESLint StyleLint Pritter EditorConfig 整合 VSCode
 
 2021 前端开发，就连环境搭建也不比后端简单了，一堆 bundler/transpiler/linter/formatter/...（及其插件和editor/IDE 整合），各种概念占据了开发者的内存，各种配置文件充斥了项目根文件。Maybe that's why frontend dev ~~sucks~~ is awesome.
