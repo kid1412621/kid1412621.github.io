@@ -6,17 +6,22 @@ tags:
   - translation
 ---
 
-# Java 9 到 16 的语言特性更新
+# Java 9 到 17 的语言特性更新
 
 > 本译文已获取作者许可后翻译、调整、发布。
 >
-> 原文：[New language features since Java 8 to 16（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
+> 原文：[New language features since Java 8 to 17（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
 
-当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响的特性，但带来了很多较小的改进。
+当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响的特性，但带来了很多较小的改进。自从 Java 切换到一个更快的发布节奏后，每六个月就会发布一个新版本。记录类可能是最近更新中最重要的一个特性，模式匹配和封闭类也会让处理纯数据更容易。
 
 
 
 ## 目录
+
+**Java 17** (LTS)
+
+- [封闭类](#封闭类)
+- [switch 模式匹配（预览特性🔍）](#switch-模式匹配（预览特性🔍）)
 
 **Java 16**
 
@@ -32,7 +37,7 @@ tags:
 
 - [Switch 表达式](#switch-表达式)
 
-**Java 11**
+**Java 11** (LTS)
 
 - [局部变量类型推断](#局部变量类型推断)
 
@@ -44,11 +49,224 @@ tags:
 - [下划线不再是合法变量名](#下划线不再是合法变量名)
 - [改进的警告](#改进的警告)
 
-**[接下来还什么更新: Java 16 中的预览特性](#接下来还什么更新-java-16-中的预览特性)**
-
-- [封闭类](#封闭类)
-
 想要一览塑造这个新平台所有的 JEP[^1]，其涵盖了包括 API 、性能与安全方面的改进，参看这份[精选清单：Java 8 以来所有的改进](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-15/)[^2]。
+
+
+
+## 封闭类
+
+**开始支持版本：** [`JDK 17`](https://openjdk.java.net/jeps/409) ( [`JDK 15`](https://openjdk.java.net/jeps/360)  [`JDK 16`](https://openjdk.java.net/jeps/397) 为预览特性)
+
+封闭类用于限定哪些类或接口可以被用于继承或实现它们。这给设计公共 API 和替换枚举来构建固定数量的可选项，提供了一个更好的工具。
+
+老版本的 Java 也提供了一些机制来实现类似的效果。标记为 `final` 的类不允许被继承，配合访问修饰符就能确保仅同一包中的类才能继承。
+
+在此之上，*封闭类*提供了更细粒度的控制，让开发者能显式地列举其子类。
+
+```java
+public sealed class Shape
+    permits Circle, Quadrilateral {...}
+```
+
+在这个例子中，被允许继承 `Shape` 类的只有 `Circle` 和 `Quadrilateral` 类。实际上，*permits* 这个关键字有些歧义，因为它不止有允许的含义，其还有**需要列举出能直接继承封闭类的子类**的必要条件。
+
+再者，好比一个类或许需要这样的权限，不然**将会产生编译错误，如果其它类尝试继承**封闭类。
+
+继承封闭类的类需要符合一些规则。
+
+**开发者被强制每次都需要显式定义出封闭类继承的边界**，通过添加任意一个下面修饰符到被允许的子类上来实现：
+
+- `final`: 子类不能继承
+- `sealed`: 子类仅能继承被允许的类
+- `non-sealed`: 子类能任意继承
+
+因为子类本身也可以是封闭的，这就意味着可以定义**整条继承链包含限定的可选项**：
+
+```java
+public sealed class Shape
+    permits Circle, Quadrilateral, WeirdShape {...}
+
+public final class Circle extends Shape {...}
+
+public sealed class Quadrilateral extends Shape
+    permits Rectangle, Parallelogram {...}
+public final class Rectangle extends Quadrilateral {...}
+public final class Parallelogram extends Quadrilateral {...}
+
+public non-sealed class WeirdShape extends Shape {...}
+```
+
+```mermaid
+classDiagram
+  Shape <|-- Circle
+  Shape <|-- Quadrilateral
+  Shape <|-- WeirdShape
+  
+  Quadrilateral <|-- Rectangle
+  Quadrilateral <|-- Parallelogram
+  
+  class Shape {
+		<<Sealed>>
+  }
+
+  class Circle {
+		<<Final>>
+  }
+  
+  class Quadrilateral {
+		<<Sealed>>
+  }
+  
+  class WeirdShape {
+		<<Final>>
+  }
+  
+  class Rectangle {
+  	<<Final>>
+  }
+  
+  class Parallelogram {
+  	<<Final>>
+  }
+```
+
+如果这些类比较简短，且大多仅和数据相关，那么可以将它们声明在**同一个源文件中，`permits` 关键字也可以忽略**：
+
+```java
+public sealed class Shape {
+  public final class Circle extends Shape {}
+
+  public sealed class Quadrilateral extends Shape {
+    public final class Rectangle extends Quadrilateral {}
+    public final class Parallelogram extends Quadrilateral {}
+  }
+
+  public non-sealed class WeirdShape extends Shape {}
+}
+```
+
+记录类也可以作为封闭类的子类，因为它们是隐式 final 的。
+
+**被允许继承的类必须和父类（封闭类）在同一个包里**，如果是使用 java 模块，那它们必须在同一模块中。
+
+### ⚠️ Tip: Consider using Sealed classes over Enums
+
+Before *Sealed classes*, it was only possible to model fixed alternatives using *Enum types*. E.g.:
+
+```java
+enum Expression {
+  ADDITION,
+  SUBTRACTION,
+  MULTIPLICATION,
+  DIVISION
+}
+```
+
+However, all variations need to be in the same source file, and *Enum types*doesn’t support modelling cases when an instance is needed instead of a constant, e.g. to represent individual messages of a type.
+
+*Sealed classes* offer a nice alternative to *Enum types* making it possible to use regular classes to model the fixed alternatives. This will come to full power once *Pattern Matching for switch* becomes production ready, after that *Sealed classes* can be used in `switch` expressions just like enums, and the compiler can automatically check if all cases are covered.
+
+Enum values can be enumerated with the `values` method. For Sealed classes and interfaces, the permitted subclasses can be listed with `getPermittedSubclasses`.
+
+
+
+## switch 模式匹配（预览特性🔍）
+
+**Available since:** Preview in [JDK 17](https://openjdk.java.net/jeps/406)
+
+Previously, `switch` was very limited: the cases could only test exact equality, and only for values of a few types: numbers, Enum types and Strings.
+
+This preview feature **enhances `switch` to work on any type and to match on more complex patterns**.
+
+These additions are **backwards compatible**, `switch` with the traditional constants work just as before, for example, with Enum values:
+
+```java
+var symbol = switch (expression) {
+  case ADDITION       -> "+";
+  case SUBTRACTION    -> "-";
+  case MULTIPLICATION -> "*";
+  case DIVISION       -> "/";
+};
+```
+
+However, now it also **works with type patterns** introduced by [JEP 394: Pattern Matching for instanceof](https://openjdk.java.net/jeps/394):
+
+```java
+return switch (expression) {
+  case Addition expr       -> "+";
+  case Subtraction expr    -> "-";
+  case Multiplication expr -> "*";
+  case Division expr       -> "/";
+};
+```
+
+A pattern supports **guards**, written as `type pattern && guard expression`:
+
+```java
+String formatted = switch (o) {
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    case Integer i           -> String.format("a small Integer %d", i);
+    default                  -> "something else";
+};
+```
+
+This makes a very nice symmetry with the type patterns used in `if`statements, because similar patterns can be used as conditionals:
+
+```java
+if (o instanceof Integer i && i > 10) {
+  return String.format("a large Integer %d", i);
+} else if (o instanceof Integer i) {
+  return String.format("a large Integer %d", i);
+} else {
+  return "something else";
+}
+```
+
+Similarly to the type patterns in `if` conditions, the **scope of the pattern variables are flow sensitive**. For example, in the case below the scope of `i` is the guard expression and the right hand side expression:
+
+```java
+case Integer i && i > 10 -> String.format("a large Integer %d", i);
+```
+
+Generally it works just as you’d expect, but there are many rules and edge cases involved. If you are intereseted, I recommend to read the corresponding JEPs or see the [Pattern matching for instanceof](https://advancedweb.hu/new-language-features-since-java-8-to-17/#pattern-matching-for-instanceof) chapter.
+
+**Switch can now also match `null` values**. Traditionally, when a `null` value was supplied to a `switch`, it threw a `NullPointerException`. This is still the case when a `null` is attempted to be matched on a constant. However, now an explicit case for `null` can be added:
+
+```java
+switch (s) {
+  case null  -> System.out.println("Null");
+  case "Foo" -> System.out.println("Foo");
+  default    -> System.out.println("Something else");
+}
+```
+
+The Java compiler **emits an error when the `switch` is incomplete or a case completely dominates the other**:
+
+```java
+Object o = 1234;
+
+// OK
+String formatted = switch (o) {
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    case Integer i           -> String.format("a small Integer %d", i);
+    default                  -> "something else";
+};
+
+// Compile error - 'switch' expression does not cover all possible input values
+String formatted = switch (o) {
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    case Integer i           -> String.format("a small Integer %d", i);
+};
+
+// Compile error - the second case is dominated by a preceding case label
+String formatted = switch (o) {
+    case Integer i           -> String.format("a small Integer %d", i);
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    default                  -> "something else";
+};
+```
+
+这个**预览**特性需要通过 `--enable-preview` 标记来显式开启。当然我们试目以待吧，因为更多的特性将要到来：[JEP405](https://openjdk.java.net/jeps/405) 针对 Java 18 ，旨在带来可用于解构的数组模式和记录类模式。
 
 
 
@@ -567,7 +785,7 @@ int numLetters = switch (day) {
 };
 ```
 
-最重大的差别是，这个新的语法形式能作为表达式使用。从上面的例子中可见，这可用于变量赋值，且可以用在任何接受表达式的地方：
+最重大的差别是，这个新的语法形式**能作为表达式使用**。从上面的例子中可见，这可用于变量赋值，且可以用在任何接受表达式的地方：
 
 ```java
 int k = 3;
@@ -584,7 +802,7 @@ System.out.println(
 
 首先，switch 表达式**不存在击穿（fall-through）的情况**。这样再也不会因缺失 `break` 关键字而产生缺陷了。为了避免有使用击穿的需求，**每个 `case` 可以定义多个常量**，以逗号分割。
 
-其次，每一个 `case` 有其自己的作用域。
+其次，每一个 `case` **有其自己的作用域**。
 
 ```java
 String s = switch (k) {
@@ -670,7 +888,7 @@ var greetingMessage = "Hello!";
 
 来看下这段来自 JEP 的引述：
 
-> > > 我们旨在简化 Java 代码编写中的繁文缛节，来提升开发者的编程体验，并保持 Java 作为静态类型安全语言的承诺。
+> 我们旨在简化 Java 代码编写中的繁文缛节，来提升开发者的编程体验，并保持 Java 作为静态类型安全语言的承诺。
 
 声明变量的类型是**在编译时推断的**。在上面的例子中其类型是字符串。使用 `var` 而不是显式的类型，能使这块代码不那么臃肿，也更易读。
 
@@ -682,7 +900,7 @@ MyAwesomeClass awesome = new MyAwesomeClass();
 
 在很多的情况下，这个特性确实能提升代码质量。但有时候继续使用显式的类型声明反而是更推崇的。我们来看几个使用 `var` 替换类型声明导致问题的例子。
 
-### ⚠️ 技巧：时刻想着可读性
+### ⚠️ 技巧：时刻考虑可读性
 
 第一个情形是，当在源码中移除显式的类型信息，会影响可读性。
 
@@ -860,7 +1078,7 @@ try (br1; br2) {
 
 在这个例子中，变量的初始化和其注册到 `try-with-resources` 结构中的步骤已经分离开。
 
-**⚠️ 技巧：当心已释放的资源**
+### **⚠️ 技巧：当心已释放的资源**
 
 有一点需要警惕在心，已被 `try-with-resources` 释放的资源是可能会被再次引用的，但这几乎都会失败：
 
@@ -895,34 +1113,6 @@ int _ = 10; // 编译错误
 现在可以用 `@SafeVarargs` 注解在私有方法上，以标记 `Type safety: Potential heap pollution via varargs parameter` 警告（事实上，这个变化是前面讨论过  [JEP 213: Milling Project Coin](https://openjdk.java.net/jeps/213) 的一部分）。需要了解更多可以参看官方文档，[可变参数](https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html)、[泛型](https://docs.oracle.com/javase/8/docs/technotes/guides/language/generics.html)以及两者结合[可能产生的问题](https://docs.oracle.com/javase/tutorial/java/generics/nonReifiableVarargsType.html)。
 
 还有，自从 [Java 9](https://openjdk.java.net/jeps/211) 以后，编译器不再为引入废弃的类型报出警告。因为这些警告已经在调用的地方展示了，所以没有太多实际有价值的信息，也显得冗余。
-
-
-
-## 接下来还什么更新: Java 16 中的预览特性
-
-Java 16 中有一个预览特性，可以通过 `--enable-preview -source 16` 标记来开启。它们很有可能很快成为下一个 Java 版本更新的特性。这里简短的预告下。
-
-### 封闭类
-
-[JEP 360](https://openjdk.java.net/jeps/360) 改进给 Java 语言添加了封闭类和接口，用于限定哪些类或接口可以被用于继承或实现它们。
-
-```java
-public abstract sealed class Shape
-    permits Circle, Rectangle {...}
-
-public class Circle extends Shape {...} // OK
-public class Rectangle extends Shape {...} // OK
-public class Triangle extends Shape {...} // 编译错误
-```
-
-这个特性也改善了 switch 表达式。当其使用枚举时，如果可能的值在编译时能确定，且所有分支都有处理，那么不需要定义 default 分支。
-
-```java
-double area = switch (shape) {
-    case Circle c    -> Math.pow(c.radius(), 2) * Math.PI
-    case Rectangle r -> r.a() * r.b()
-};
-```
 
 
 
