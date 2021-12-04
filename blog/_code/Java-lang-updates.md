@@ -1,23 +1,29 @@
 ---
-date: 2021-04-04
+date: 2021-12-04
 tags:
   - backend
   - java
   - translation
-permalink: java-lang-updates
 ---
 
-# Java 9 到 16 的语言特性更新
+# Java 9 到 17 的语言特性更新
 
 > 本译文已获取作者许可后翻译、调整、发布。
 >
-> 原文：[New language features since Java 8 to 16（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
+> 原文：[New language features since Java 8 to 17（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
+>
+> 此外，Oracle 官方也有清单可供一览：[Java Language Changes](https://docs.oracle.com/en/java/javase/17/language/java-language-changes.html#GUID-6459681C-6881-45D8-B0DB-395D1BD6DB9B)
 
-当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响的特性，但带来了很多较小的改进。
+当 Java 8 引入流和 Lambda 这两个重大更新时，函数式编程风格赋予了 Java 更少模板代码的语法。虽然最近的版本更新没添加这么富有影响的特性，但带来了很多较小的改进。自从 Java 切换到一个更快的发布节奏后，每六个月就会发布一个新版本。记录类可能是最近更新中最重要的一个特性，模式匹配和封闭类也会让处理纯数据更容易。
 
 
 
 ## 目录
+
+**Java 17** (LTS)
+
+- [封闭类](#封闭类)
+- [switch 模式匹配（预览特性🔍）](#switch-模式匹配（预览特性🔍）)
 
 **Java 16**
 
@@ -33,7 +39,7 @@ permalink: java-lang-updates
 
 - [Switch 表达式](#switch-表达式)
 
-**Java 11**
+**Java 11** (LTS)
 
 - [局部变量类型推断](#局部变量类型推断)
 
@@ -45,11 +51,224 @@ permalink: java-lang-updates
 - [下划线不再是合法变量名](#下划线不再是合法变量名)
 - [改进的警告](#改进的警告)
 
-**[接下来还什么更新: Java 16 中的预览特性](#接下来还什么更新-java-16-中的预览特性)**
-
-- [封闭类](#封闭类)
-
 想要一览塑造这个新平台所有的 JEP[^1]，其涵盖了包括 API 、性能与安全方面的改进，参看这份[精选清单：Java 8 以来所有的改进](https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-15/)[^2]。
+
+
+
+## 封闭类
+
+**开始支持版本：** [`JDK 17`](https://openjdk.java.net/jeps/409) ( [`JDK 15`](https://openjdk.java.net/jeps/360)  [`JDK 16`](https://openjdk.java.net/jeps/397) 为预览特性)
+
+封闭类用于限定哪些类或接口可以被用于继承或实现它们。这给设计公共 API 和替换枚举来构建固定数量的可选项，提供了一个更好的工具。
+
+老版本的 Java 也提供了一些机制来实现类似的效果。标记为 `final` 的类不允许被继承，配合访问修饰符就能确保仅同一包中的类才能继承。
+
+在此之上，*封闭类*提供了更细粒度的控制，让开发者能显式地列举其子类。
+
+```java
+public sealed class Shape
+    permits Circle, Quadrilateral {...}
+```
+
+在这个例子中，被允许继承 `Shape` 类的只有 `Circle` 和 `Quadrilateral` 类。实际上，*permits* 这个关键字有些歧义，因为它不止有允许的含义，其**要求列举的类直接继承封闭类**。
+
+此外，正如人们所期望的那样，如果**任何其它的类试图继承这个封闭类，都会出现编译错误**。
+
+继承封闭类的类需要符合一些规则。
+
+**开发者被强制每次都需要显式定义出封闭类继承的边界**，通过添加任意一个下面修饰符到被允许的子类上来实现：
+
+- `final`: 子类不能继承
+- `sealed`: 子类仅能继承被允许的类
+- `non-sealed`: 子类能任意继承
+
+因为子类本身也可以是封闭的，这就意味着可以定义**整条继承链包含限定的可选项**：
+
+```java
+public sealed class Shape
+    permits Circle, Quadrilateral, WeirdShape {...}
+
+public final class Circle extends Shape {...}
+
+public sealed class Quadrilateral extends Shape
+    permits Rectangle, Parallelogram {...}
+public final class Rectangle extends Quadrilateral {...}
+public final class Parallelogram extends Quadrilateral {...}
+
+public non-sealed class WeirdShape extends Shape {...}
+```
+
+```mermaid
+classDiagram
+  Shape <|-- Circle
+  Shape <|-- Quadrilateral
+  Shape <|-- WeirdShape
+  
+  Quadrilateral <|-- Rectangle
+  Quadrilateral <|-- Parallelogram
+  
+  class Shape {
+		<<Sealed>>
+  }
+
+  class Circle {
+		<<Final>>
+  }
+  
+  class Quadrilateral {
+		<<Sealed>>
+  }
+  
+  class WeirdShape {
+		<<Final>>
+  }
+  
+  class Rectangle {
+  	<<Final>>
+  }
+  
+  class Parallelogram {
+  	<<Final>>
+  }
+```
+
+如果这些类比较简短，且大多仅和数据相关，那么可以将它们声明在**同一个源文件中，`permits` 关键字也可以忽略**：
+
+```java
+public sealed class Shape {
+  public final class Circle extends Shape {}
+
+  public sealed class Quadrilateral extends Shape {
+    public final class Rectangle extends Quadrilateral {}
+    public final class Parallelogram extends Quadrilateral {}
+  }
+
+  public non-sealed class WeirdShape extends Shape {}
+}
+```
+
+记录类也可以作为封闭类的子类，因为它们是隐式 final 的。
+
+**被允许继承的类必须和父类（封闭类）在同一个包里**，如果是使用 java 模块，那它们必须在同一模块中。
+
+### ⚠️技巧：考虑使用封闭类优于枚举
+
+在*封闭类*出现前，只能用*枚举类*对固定可选项建模，比如：
+
+```java
+enum Expression {
+  ADDITION,
+  SUBTRACTION,
+  MULTIPLICATION,
+  DIVISION
+}
+```
+
+然而，所有的变量都要在同一个源文件中，且*枚举类*不支持需要实例的情况（而不是常量），例如表示一个类型的单个消息。
+
+*封闭类*提供一个比*枚举类*更好的选择，使得用普通类来为固定可选项建模成为可能。当 *switch 模式匹配*在生产环境可用时就更能充分发挥其作用，*封闭类*能像枚举一样在 `switch` 表达式中使用，编译器能自动检查代码是否涵盖了全部情况。
+
+枚举类的值可以使用 `values` 方法列举出来。对应到封闭类和封闭接口，可以使用 `getPermittedSubclasses` 方法例举出所有被允许继承的子类。
+
+
+
+## switch 模式匹配（预览特性🔍）
+
+**开始支持版本：**[`JDK 17`](https://openjdk.java.net/jeps/406) 为预览特性
+
+此前，`switch` 表达式的用法十分局限：条件仅仅支持完全相等的情况，而且只支持很少几类类型：数值、枚举类和字符串。
+
+这个预览特性增强了 `swith` 表达式的用法，**可以用在任意的类型上，匹配更复杂的模式**。
+
+这些新特性是**向后兼容的**，`switch` 搭配传统的常量就如以往一样的使用，例如和枚举值：
+
+```java
+var symbol = switch (expression) {
+  case ADDITION       -> "+";
+  case SUBTRACTION    -> "-";
+  case MULTIPLICATION -> "*";
+  case DIVISION       -> "/";
+};
+```
+
+然而，随着 [JEP 394: Pattern Matching for instanceof](https://openjdk.java.net/jeps/394) 的引入，现在可以和类型模式搭配使用：
+
+```java
+return switch (expression) {
+  case Addition expr       -> "+";
+  case Subtraction expr    -> "-";
+  case Multiplication expr -> "*";
+  case Division expr       -> "/";
+};
+```
+
+模式还支持**卫语句**[^3]，写法为`type pattern && guard expression`：
+
+```java
+String formatted = switch (o) {
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    case Integer i           -> String.format("a small Integer %d", i);
+    default                  -> "something else";
+};
+```
+
+这和使用 `if` 声明的类型模式构成了很好的对称性，因为类似的模式可以用于条件语句：
+
+```java
+if (o instanceof Integer i && i > 10) {
+  return String.format("a large Integer %d", i);
+} else if (o instanceof Integer i) {
+  return String.format("a large Integer %d", i);
+} else {
+  return "something else";
+}
+```
+
+与 `if` 条件类似，**模式变量的作用域是分支敏感的**（flow sensitive）。比如，在下面的条件中，变量 `i` 的作用域为卫语句及其右边的表达式。
+
+```java
+case Integer i && i > 10 -> String.format("a large Integer %d", i);
+```
+
+总体来说，模式匹配会按你期待的那样工作，但其中涉及了很多规则和边缘情况。如果你感兴趣，我推荐你读下相关的 JEPs 或是看下  [Pattern matching for instanceof](#instanceof-模式匹配)  章节。
+
+**Switch 现在也能匹配 `null` 值**。通常来说，当 `null` 值传给 `switch` 会报 `NullPointerException`。当一个常量试图匹配 `null` 的时候也会出现这种情况。然而，现在可以显示得声明 `null` 在分支上：
+
+```java
+switch (s) {
+  case null  -> System.out.println("Null");
+  case "Foo" -> System.out.println("Foo");
+  default    -> System.out.println("Something else");
+}
+```
+
+**当 `switch` 表达式没有完全覆盖各种情况分支，或是一个分支条件完全包含了另一个分支，编译器会报错。**
+
+```java
+Object o = 1234;
+
+// OK
+String formatted = switch (o) {
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    case Integer i           -> String.format("a small Integer %d", i);
+    default                  -> "something else";
+};
+
+// 编译错误 - 'switch' 表达式没有涵盖所有可能的输入值
+String formatted = switch (o) {
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    case Integer i           -> String.format("a small Integer %d", i);
+};
+
+// 编译错误 - 第二个条件已包含在第一个条件分支中
+String formatted = switch (o) {
+    case Integer i           -> String.format("a small Integer %d", i);
+    case Integer i && i > 10 -> String.format("a large Integer %d", i);
+    default                  -> "something else";
+};
+```
+
+这个**预览**特性需要通过 `--enable-preview` 标记来显式开启。当然我们试目以待吧，因为更多的特性将要到来：[JEP405](https://openjdk.java.net/jeps/405) 针对 Java 18 ，旨在带来可用于解构的数组模式和记录类模式。
 
 
 
@@ -82,7 +301,7 @@ point.y(); // 返回 2
 
 记录类不仅仅成员变量默认是 final 的，甚至**不允许有非 final 的成员变量**。
 
-**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。再者，虽然可以定义额外的构造方法来提供一些成员变量的默认值，但无法隐藏含有所有成员变量的*标准构造方法*（*canonical constructor*）[^3]。
+**记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。再者，虽然可以定义额外的构造方法来提供一些成员变量的默认值，但无法隐藏含有所有成员变量的*标准构造方法*（*canonical constructor*）[^4]。
 
 最后，记录类**不能继承其它类**，**不能声明 native 方法**，是**隐式 final 的**，也**不能是抽象的**。
 
@@ -176,7 +395,7 @@ public static void recordSerializationExample() throws Exception {
 
 注意这里不再需要定义 serialVersionUID 了，因为记录类抛弃了对 serialVersionUID 比对的要求。
 
-参考来源[^4]：
+参考来源[^5]：
 
 - [Inside Java Podcast Episode 4: “Record Classes” with Gavin Bierman](https://inside.java/2020/10/05/podcast-004/)
 - [Inside Java Podcast Episode 14: “Records Serialization” with Julia Boes and Chris Hegarty](https://inside.java/2021/03/08/podcast-014/)
@@ -460,7 +679,7 @@ var greeting = """
     """.formatted("world");
 ```
 
-参考来源[^4]：
+参考来源[^5]：
 
 - [Programmer’s Guide To Text Blocks](https://cr.openjdk.java.net/~jlaskey/Strings/TextBlocksGuide_v11.html)
 - [Definitive Guide To Text Blocks In Java 13](https://nipafx.dev/java-13-text-blocks#)
@@ -554,7 +773,7 @@ Exception in thread "main" java.lang.NullPointerException:
 
 **开始支持版本：** [`JDK 14`](https://openjdk.java.net/jeps/361) ([`JDK 12`](https://openjdk.java.net/jeps/325) [`JDK 13`](https://openjdk.java.net/jeps/354) 中为预览特性)
 
-久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^5]的语法支持：
+久远的 `switch` 关键字在 Java 14 中获得了一次大提升。Java 在保持支持久的 [switch 语句](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html) 功能特性的同时，也添加了 **swith 表达式**[^6]的语法支持：
 
 ```java
 int numLetters = switch (day) {
@@ -568,7 +787,7 @@ int numLetters = switch (day) {
 };
 ```
 
-最重大的差别是，这个新的语法形式能作为表达式使用。从上面的例子中可见，这可用于变量赋值，且可以用在任何接受表达式的地方：
+最重大的差别是，这个新的语法形式**能作为表达式使用**。从上面的例子中可见，这可用于变量赋值，且可以用在任何接受表达式的地方：
 
 ```java
 int k = 3;
@@ -585,7 +804,7 @@ System.out.println(
 
 首先，switch 表达式**不存在击穿（fall-through）的情况**。这样再也不会因缺失 `break` 关键字而产生缺陷了。为了避免有使用击穿的需求，**每个 `case` 可以定义多个常量**，以逗号分割。
 
-其次，每一个 `case` 有其自己的作用域。
+其次，每一个 `case` **有其自己的作用域**。
 
 ```java
 String s = switch (k) {
@@ -671,7 +890,7 @@ var greetingMessage = "Hello!";
 
 来看下这段来自 JEP 的引述：
 
-> > > 我们旨在简化 Java 代码编写中的繁文缛节，来提升开发者的编程体验，并保持 Java 作为静态类型安全语言的承诺。
+> 我们旨在简化 Java 代码编写中的繁文缛节，来提升开发者的编程体验，并保持 Java 作为静态类型安全语言的承诺。
 
 声明变量的类型是**在编译时推断的**。在上面的例子中其类型是字符串。使用 `var` 而不是显式的类型，能使这块代码不那么臃肿，也更易读。
 
@@ -683,7 +902,7 @@ MyAwesomeClass awesome = new MyAwesomeClass();
 
 在很多的情况下，这个特性确实能提升代码质量。但有时候继续使用显式的类型声明反而是更推崇的。我们来看几个使用 `var` 替换类型声明导致问题的例子。
 
-### ⚠️ 技巧：时刻想着可读性
+### ⚠️ 技巧：时刻考虑可读性
 
 第一个情形是，当在源码中移除显式的类型信息，会影响可读性。
 
@@ -769,7 +988,7 @@ double d = 1;
 
 当前，`var` 还没有相应的单一「关键字」来声明不可变变量（比如 `val` 或 `const`）。希望未来的版本中会支持，在那之前，我们可以使用 `final var` 。
 
-参考来源[^4]：
+参考来源[^5]：
 
 - [First Contact With ‘var’ In Java 10](https://blog.codefx.org/java/java-10-var-type-inference/)
 - [26 Items for Dissecting Java Local Variable Type Inference (Var Type)](https://dzone.com/articles/var-work-in-progress)
@@ -861,7 +1080,7 @@ try (br1; br2) {
 
 在这个例子中，变量的初始化和其注册到 `try-with-resources` 结构中的步骤已经分离开。
 
-**⚠️ 技巧：当心已释放的资源**
+### **⚠️ 技巧：当心已释放的资源**
 
 有一点需要警惕在心，已被 `try-with-resources` 释放的资源是可能会被再次引用的，但这几乎都会失败：
 
@@ -899,34 +1118,6 @@ int _ = 10; // 编译错误
 
 
 
-## 接下来还什么更新: Java 16 中的预览特性
-
-Java 16 中有一个预览特性，可以通过 `--enable-preview -source 16` 标记来开启。它们很有可能很快成为下一个 Java 版本更新的特性。这里简短的预告下。
-
-### 封闭类
-
-[JEP 360](https://openjdk.java.net/jeps/360) 改进给 Java 语言添加了封闭类和接口，用于限定哪些类或接口可以被用于继承或实现它们。
-
-```java
-public abstract sealed class Shape
-    permits Circle, Rectangle {...}
-
-public class Circle extends Shape {...} // OK
-public class Rectangle extends Shape {...} // OK
-public class Triangle extends Shape {...} // 编译错误
-```
-
-这个特性也改善了 switch 表达式。当其使用枚举时，如果可能的值在编译时能确定，且所有分支都有处理，那么不需要定义 default 分支。
-
-```java
-double area = switch (shape) {
-    case Circle c    -> Math.pow(c.radius(), 2) * Math.PI
-    case Rectangle r -> r.a() * r.b()
-};
-```
-
-
-
 ## 总结
 
 这篇文章介绍了 Java 8 以后的语言改进。随着新的每 6 个月一次的快速发布周期，更多的变化被引入，保持关注 Java 平台的变化就更加重要了。
@@ -940,7 +1131,8 @@ double area = switch (shape) {
 [^1]: [JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
 
 [^2]: 此篇文章也有翻译：[Java 9 到 16 的语言和 JVM 特性更新分类清单](https://nanova.me/2021/04/04/java-lang-jvm-updates)
+[^3]: guards，翻译参考：https://en.wikipedia.org/wiki/Guard_(computer_science)
+[^4]: 译录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
+[^5]: 这里指的是原文的参考来源，下同
+[^6]: statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
 
-[^3]: 译录类的构造方法有：*canonical constructor*（编译器会自动生成） 和 *compact constructors*（没有入参括号，默认会调用标准构造方法，也会沿用全部的成员变量作为入参） 以及 *alternative constructor*（可以自定义入参，必须先调用前面两种构造方法），参考：[Records Come to Java (oracle.com)](https://blogs.oracle.com/javamagazine/records-come-to-java#anchor_4)
-[^4]: 这里指的是原文的参考来源，下同
-[^5]: statement 和 expression 的区别参见：https://stackoverflow.com/questions/39523474/what-is-the-difference-between-an-expression-and-a-statement-in-java
