@@ -1,12 +1,20 @@
+---
+date: 2021-08-13
+tags:
+  - frontend
+  - vscode
+  - setup
+permalink: frontend-setup
+---
+
 # 2021 ESLint StyleLint Pritter EditorConfig 整合 VSCode
 
-2021 前端开发，就连环境搭建也不比后端简单了，一堆 bundler/transpiler/linter/formatter/...（及其插件和editor/IDE 整合），各种概念占据了开发者的内存，各种配置文件充斥了项目根文件。Maybe that's why frontend dev ~~sucks~~ is awesome.
-
-
+2021 前端开发，就连环境搭建也不比后端简单了，一堆 bundler/transpiler/linter/formatter/...（及其插件和 editor/IDE 整合），各种概念占据了开发者的内存，各种配置文件充斥了项目根文件。Maybe that's why frontend dev ~~sucks~~ is awesome.
 
 ## 单项独自配置
+
 0. 安装并配置 VSCode ；
-由于 VSCode 默认的 TabSize 为 4，而[大多数框架和插件都为 2](https://github.com/Microsoft/vscode/issues/41200)，为避免不必要的冲突，最好将其也设置为 2 ；
+   由于 VSCode 默认的 TabSize 为 4，而[大多数框架和插件都为 2](https://github.com/Microsoft/vscode/issues/41200)，为避免不必要的冲突，最好将其也设置为 2 ；
 
 ### EditorConfig
 
@@ -14,12 +22,11 @@
 
 1. 安装 VSCode [EditorConfig 插件](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) ，安装完后即可发现 VSCode 右下方状态栏的文本格式会遵循配置文件；
 
-2. *若项目未定义其配置文件，在项目根文件夹点击右键，选择 `Generate .editorconfig`* ，该配置文件遵循 [.properties](https://en.wikipedia.org/wiki/.properties) 格式，例：
+2. _若项目未定义其配置文件，在项目根文件夹点击右键，选择 `Generate .editorconfig`_ ，该配置文件遵循 [.properties](https://en.wikipedia.org/wiki/.properties) 格式，例：
 
    ```properties
    # 表示这为最顶层的配置文件，editorconfig 不会再往上寻找配置文件
    root = true
-   
    [*]
    indent_style = space
    indent_size = 4
@@ -29,8 +36,6 @@
    insert_final_newline = false
    ```
 
-   
-
 ### ESLint
 
 [ESLint](https://eslint.org) 旨在提供 ECMAScript/JavaScript 语言的静态代码检查，可提示/修复代码中的**语法问题**、潜在 **Bug**、代码风格。
@@ -39,7 +44,7 @@
 
 2. 安装 ESLint ，因为 VSCode ESLint 插件本身并不自带 ESLint ，所以需要单独安装。本地安装：`npm i -D eslint` ；全局安装：`npm i -g eslint` 。插件采用优先级为：<u>项目依赖 > 全局安装</u>；
 
-3. *若项目未定义其配置文件，可按 `Ctrl/Cmd` + `Shift` + `p` ，然后执行 ESLint: Create ESLint configuration ，或者在终端输入 `eslint --init`（但初始化的前提是已经执行了 `npm init` ，因为 ESLint 会根据选择安装相关依赖），接着根据提示选择；*
+3. _若项目未定义其配置文件，可按 `Ctrl/Cmd` + `Shift` + `p` ，然后执行 ESLint: Create ESLint configuration ，或者在终端输入 `eslint --init`（但初始化的前提是已经执行了 `npm init` ，因为 ESLint 会根据选择安装相关依赖），接着根据提示选择；_
 
    ```shell
    $ eslint --init
@@ -57,25 +62,23 @@
 
    ```json
    {
-     	// 代码的 context
-       "env": {
-           "browser": true,
-           "es2021": true
-       },
-     	// 使用插件
-     	"plugins": [
-           "react"
-   		],
-     	// 继承现成规则合集
-       "extends": [
-           "standard",
-         	"plugin:react/recommended" // 继承插件中的规则，越往后的优先级越高
-       ],
-     	// 自定义规则，优先级高
-       "rules": {
-           "semi": ["error", "always"],
-           "quotes": ["error", "double"]
-       }
+     // 代码的 context
+     "env": {
+       "browser": true,
+       "es2021": true
+     },
+     // 使用插件
+     "plugins": ["react"],
+     // 继承现成规则合集
+     "extends": [
+       "standard",
+       "plugin:react/recommended" // 继承插件中的规则，越往后的优先级越高
+     ],
+     // 自定义规则，优先级高
+     "rules": {
+       "semi": ["error", "always"],
+       "quotes": ["error", "double"]
+     }
    }
    ```
 
@@ -88,11 +91,9 @@
    两者的[差别](https://stackoverflow.com/a/54522973/8140523)可理解为：前者的规则全盘接受，后者的规则选择性使用。
 
 4. 配置插件使其达到保存时自动修复代码，也有两种方法：
-    a. [VSCode 更新后将 `FixOnSave` 功能进行了整合](https://stackoverflow.com/a/59485018/8140523)，可直接设置 `"editor.codeActionsOnSave":{"source.fixAll.eslint": true}` 启用；
+   a. [VSCode 更新后将 `FixOnSave` 功能进行了整合](https://stackoverflow.com/a/59485018/8140523)，可直接设置 `"editor.codeActionsOnSave":{"source.fixAll.eslint": true}` 启用；
 
-  b. 第二种方式首先需要设置 `"editor.formatOnSave": true` 开启编辑器在保存时自动格式化，然后开启 `"eslint.format.enable": true` 使其成为 VSCode 中的一个代码格式化器（且将其作为目标文件类型的默认格式化器）。这种方式有个弊端，若 ESLint 规则设置的不全，则有些格式化效果不佳，因为方法一仅 ESLint 作问题修复用，格式化还是交给了其它格式化器。
-
-
+b. 第二种方式首先需要设置 `"editor.formatOnSave": true` 开启编辑器在保存时自动格式化，然后开启 `"eslint.format.enable": true` 使其成为 VSCode 中的一个代码格式化器（且将其作为目标文件类型的默认格式化器）。这种方式有个弊端，若 ESLint 规则设置的不全，则有些格式化效果不佳，因为方法一仅 ESLint 作问题修复用，格式化还是交给了其它格式化器。
 
 ### StyleLint
 
@@ -107,22 +108,15 @@
    ```json
    {
      "extends": "stylelint-config-standard",
-     "plugins": [
-   		"stylelint-order"
-   	],
+     "plugins": ["stylelint-order"],
      "rules": {
        "color-no-invalid-hex": true,
-       "order/order": [
-   			"custom-properties",
-   			"declarations"
-   		]
+       "order/order": ["custom-properties", "declarations"]
      }
    }
    ```
 
 4. 配置保存时自动修复问题，设置 `"editor.codeActionsOnSave":{"source.fixAll.stylelint": true}` 启用，但插件并[未提供格式化代码的功能](https://github.com/stylelint/vscode-stylelint/issues/25)，
-
-
 
 ### Prettier
 
@@ -138,17 +132,19 @@
 
    ```json
    {
-   	"endOfLine": "lf",        // 换行符
-     "useTabs": false,					// 是否使用 tab
-     "tabWidth": 2,						// tab 转化为空格的宽度
-     "semi": true,							// 表达式尾分号
-     "singleQuote": false,			// 是否使用单引号
-     "bracketSpacing": true,		// 括号首尾空格
-     "trailingComma": "es5",		// 行尾逗号
-     "overrides": [						// 覆写总体规则
+     "endOfLine": "lf", // 换行符
+     "useTabs": false, // 是否使用 tab
+     "tabWidth": 2, // tab 转化为空格的宽度
+     "semi": true, // 表达式尾分号
+     "singleQuote": false, // 是否使用单引号
+     "bracketSpacing": true, // 括号首尾空格
+     "trailingComma": "es5", // 行尾逗号
+     "overrides": [
+       // 覆写总体规则
        {
-         "files": "*.test.js",	// 覆写的文件类型
-         "options": {					// 覆写的具体规则
+         "files": "*.test.js", // 覆写的文件类型
+         "options": {
+           // 覆写的具体规则
            "semi": false
          }
        }
@@ -160,9 +156,8 @@
 
 4. 参照前文设置 VSCode 在保存时自动格式化，并配置相应文件类型默认格式化器为 Prettier 。
 
-
-
 ## 完全整合配置
+
 ### ESLint/StyleLint 整合 Prettier
 
 由于 ESLint 带有问题修复功能，VSCode 也自带代码格式化、修复问题功能，所有很容易和 Prettier 产生冲突，严重的甚至造成代码错乱无法运行。
@@ -171,16 +166,13 @@
 
 1. 使用 plugins [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) 使 Prettier 作为 ESLint 的一部分来运行（而不是直接运行 Prettier ），Prettier 的配置项会作为 ESLint 的规则来校验；
 
-2. 使用 extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 覆盖冲突的、代码风格相关的规则*。
+2. 使用 extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 覆盖冲突的、代码风格相关的规则\*。
 
 ```json
 {
-  plugins: ["prettier"],
-  extends: [
-    "eslint:recommended",
-    "prettier"
-  ],
-  rules: {
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "prettier"],
+  "rules": {
     "prettier/prettier": "error"
   }
 }
@@ -188,15 +180,11 @@
 
 这样仅仅关闭 eslint 一些默认的冲突规则，要是用户自定义了一些规则（如 ESLint 配置中的 rules 字段）导致冲突，VSCode 识别到后则任会报错。例如在 `.prettierrc` 中配置 `"semi": false `，`.eslintrc` 中 rules 加入 `semi: "error"` ，VSCode 会报错提示删除分号。
 
-
-
 #### 可能的冲突点
 
 1. <u>配置文件</u>冲突，ESLint 的规则未能和 Prettier 规则正确配置，可能是优先级问题，也可能是多个地方同一个配置项设置了不同的值；
 2. <u>依赖版本</u>冲突，比如 eslint-config-prettier 依赖的 eslint 版本和安装的 eslint 版本不兼容；
 3. <u>VSCode 设置</u>同时配置了保存时格式化（ `editor.formatOnSave` ）和保存时修复问题（ `editor.codeActionsOnSave` ），但格式化使用的是 Prettier ，修复问题使用的是 ESLint ，这样会造成在保存文件时会对代码修改两次。
-
-
 
 ### Vue
 
@@ -223,8 +211,6 @@
 
 此外，根据 Vetur [官方文档](https://vuejs.github.io/vetur/guide/linting-error.html#linting)，如要集成 ESLint 并使用自定义规则，需要设置 `"vetur.validation.template": false` 来关闭 Vetur 自带的 eslint-plugin-vue 校验。
 
-
-
 ### React
 
 React 的集成就十分简单，使用 [create-react-app](https://create-react-app.dev/) 来构建项目会自动整合 [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app) ，其包括了网上大多数教程提供的以下配置，<u>无需单独配置</u>：
@@ -239,4 +225,3 @@ parserOptions: {
 ```
 
 再者，VSCode 中可针对 `.jsx` 文件设置默认的格式化器：`"[javascriptreact]": {"editor.defaultFormatter": "esbenp.prettier-vscode"}` 。
-
