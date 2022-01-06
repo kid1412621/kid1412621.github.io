@@ -1,5 +1,6 @@
 ---
 date: 2021-12-04
+permalink: /java-lang-updates
 tags:
   - backend
   - java
