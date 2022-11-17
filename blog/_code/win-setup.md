@@ -1,10 +1,21 @@
+---
+date: 2022-11-20
+tags:
+  - dev env
+  - win
+---
+
 # Windows 11 dev setup
 
-Windows as an OS companied me over 2 decades (started from Win95) reluctantly or willingly, since it was phenomenonally popular pirated software in China. After I encountered other OSs as a developer, I still got the mixed feeling about Windows even lots of poeple complaining about its bloat and privacy. To be frank, the dev experience on Windows did not good as the \*NIX systems. However M$ devotes to improve this, Windows 11 got much better experience in different ways (yes, it still sucks in certain way). And I do enjoy the variety of OS for nerds like me, so Windows is still part of my daily developing and gaming activities.
+Windows as an OS companied me over 2 decades (started from Win95) reluctantly or willingly, since it was phenomenonally popular pirated software in China. After I encountered other OSs as a developer, I still got the mixed feeling about Windows even lots of poeple complaining about its bloat and privacy. To be frank, the dev experience on Windows did not good as the \*NIX-based systems. However M$ devotes to improve this, Windows 11 got much better experience in different ways (yes, it still sucks in certain way). And I do enjoy the variety of OS for nerds like me, so Windows is still part of my daily developing and gaming activities.
+This post is just my personal introduction for win dev setup. I wanna keep it minimal and helpful.
 
-## Terminal
+## Windows Terminal
 
-## Powershell
+First thing first, the CLI infrastructure, the terminal(aka console). In Windows world, before we got some ugly and "outdated" tools (Command Prompt and PowerShell) to type command line to interact with the OS. Some more eye-catching tools like [cmder](https://cmder.app/), [Fluent Terminal](https://github.com/felixse/FluentTerminal) emerged, trying to improve developer experience. A million years later, M$ finally decided to address on this issue. So the [Windows Terminal](https://github.com/microsoft/terminal) turned out and this new toy rocketed.
+Windows Terminal provides a bunch of morden features and unifies the UX across cmd, PowerShell and [WSL](##WSL). With the latest win11, the terminal is already be installed and set as the default system-level terminal application. If you're not using the latest win11, you can just install it via [Microsoft Store](https://aka.ms/terminal), or [Github binary release](https://github.com/microsoft/terminal/releases)(yes, it's open source), or [Winget](###Winget).
+
+## PowerShell
 
 ### Oh My Posh
 
@@ -17,6 +28,7 @@ Linux got `apt`/`apt-get`, `dnf`/`yum`, `pacman` etc. MacOS got `brew`. So why n
 Not recommend to use `winget` to install apps from Microsoft Store since this may conflict with x86/64 app (e.g. the powershell from msstore is different than the counterpart one). Besides, some apps are missing, like Netflix. If you try to use `winget search` to find such app, the result will be different than using search bar in msstore.
 
 ### Scoop
+
 install git vim grep java nodejs
 
 ## VSCode
