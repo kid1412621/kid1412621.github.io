@@ -31,13 +31,18 @@ Set up some useful configs in shell [profile](https://learn.microsoft.com/en-us/
 
 `notepad $PROFILE` or `vim $PROFILE`
 
-Adding bash-like keybindings and auto-completion:
+Adding [bash-like keybindings](https://github.com/kid1412621/geek-cheat-sheet/blob/master/sh/bash.md) and auto-completion:
 
 ```powershell
 Set-PSReadLineOption -EditMode Emacs -HistorySearchCursorMovesToEnd
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+```
+
+Adding some [PowerShell modules](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_modules?view=powershell-7.3) for common commands. (Tips: using modules to implement auto-completion will slow down the shell initiation, that's why [kubernetes generating script directly into profile file](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#optional-kubectl-configurations-and-plugins) )
+
+```powershell 
 Import-Module DockerCompletion
 Import-Module MavenAutoCompletion
 Import-Module npm-completion
