@@ -27,15 +27,38 @@ Check the installed version:
 
 `$PSVersionTable`
 
-Set up some useful configs in shell [profile](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.3):
+Set up some useful configs in shell [profile](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.3)  (notice the profile scope):
 
 `notepad $PROFILE` or `vim $PROFILE`
 
-Adding xxx:
+Adding bash-like keybindings and auto-completion:
 
-``
+```powershell
+Set-PSReadLineOption -EditMode Emacs -HistorySearchCursorMovesToEnd
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+Import-Module DockerCompletion
+Import-Module MavenAutoCompletion
+Import-Module npm-completion
+```
 
-Highly recommend to read this section for [optimizing your shell experience](https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/optimize-shell?view=powershell-7.3).
+Setting up some aliases:
+
+```powershell
+nal -N l -V Get-ChildItem
+nal -N v -V vim
+nal -N g -V git
+nal -N d -V docker
+nal -N nsv -V New-Service
+nal -N rssv -V Restart-Service
+nal -N fmo -V Find-Module
+nal -N rdns -V Resolve-DnsName
+nal -N gnc -V Get-NetTCPConnection
+nal -N gvm -V Get-VM
+```
+
+Here's [my profile file](https://gist.github.com/kid1412621/e9bafc5362acbded0f6b726402c40d62#file-microsoft-powershell_profile-ps1), and highly recommend to read this section for [optimizing your shell experience](https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/optimize-shell?view=powershell-7.3).
 
 ### Oh My Posh
 
@@ -63,7 +86,7 @@ So far, we can get a cool shell env for developing.
 
 ### Winget
 
-Linux got `apt`/`apt-get`, `dnf`/`yum`, `pacman` etc. MacOS got `brew`. So why not on Windows? As Windows official package manager, `winget` is still relative naive and the official repo lists are not abundant. But basic usages are satisfied.
+Linux got `apt`/`apt-get`, `dnf`/`yum`, `pacman` etc. MacOS got `brew`. So why different on Windows? As Windows official package manager, `winget` is still relative naive and the official repo lists are not abundant. But basic usages are satisfied.
 
 Not recommend to use `winget` to install apps from Microsoft Store since this may conflict with x86/64 app (e.g. the powershell from msstore is different than the counterpart one). Besides, some apps are missing, like Netflix. If you try to use `winget search` to find such app, the result will be different than using search bar in msstore.
 
