@@ -27,7 +27,7 @@ Check the installed version:
 
 `$PSVersionTable`
 
-Set up some useful configs in shell [profile](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.3)  (notice the profile scope):
+Set up some useful configs in shell profile (similar to `.bashrc` or `.bash_profile`) (notice the [profile scope](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.3)):
 
 `notepad $PROFILE` or `vim $PROFILE`
 
@@ -40,30 +40,34 @@ Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 ```
 
-Adding some [PowerShell modules](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_modules?view=powershell-7.3) for common commands. (Tips: using modules to implement auto-completion will slow down the shell initiation, that's why [kubernetes generating script directly into profile file](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#optional-kubectl-configurations-and-plugins) )
+Setting up some aliases:
 
-```powershell 
+```powershell
+Set-Alias -N l -V Get-ChildItem
+Set-Alias -N v -V vim
+Set-Alias -N g -V git
+Set-Alias -N d -V docker
+Set-Alias -N nsv -V New-Service
+Set-Alias -N rssv -V Restart-Service
+Set-Alias -N fmo -V Find-Module
+Set-Alias -N rdns -V Resolve-DnsName
+Set-Alias -N gnc -V Get-NetTCPConnection
+Set-Alias -N gvm -V Get-VM
+function Connnect-VM { vmconnect localhost $args }
+Set-Alias -N cnvm -V Connnect-VM
+Set-Alias -N open -V Invoke-Item
+```
+
+Adding some [PowerShell modules](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_modules?view=powershell-7.3) for common commands. (Notice: using some of those modules to implement auto-completion might [slow down the shell initiation](https://stackoverflow.com/questions/68998763/how-to-import-modules-in-background-in-powershell), that's why [kubernetes provides a way to generate script directly into profile file](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#optional-kubectl-configurations-and-plugins))
+
+```powershell
+Import-Module posh-git
 Import-Module DockerCompletion
 Import-Module MavenAutoCompletion
 Import-Module npm-completion
 ```
 
-Setting up some aliases:
-
-```powershell
-nal -N l -V Get-ChildItem
-nal -N v -V vim
-nal -N g -V git
-nal -N d -V docker
-nal -N nsv -V New-Service
-nal -N rssv -V Restart-Service
-nal -N fmo -V Find-Module
-nal -N rdns -V Resolve-DnsName
-nal -N gnc -V Get-NetTCPConnection
-nal -N gvm -V Get-VM
-```
-
-Here's [my profile file](https://gist.github.com/kid1412621/e9bafc5362acbded0f6b726402c40d62#file-microsoft-powershell_profile-ps1), and highly recommend to read this section for [optimizing your shell experience](https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/optimize-shell?view=powershell-7.3).
+Here's [my profile file](https://gist.github.com/kid1412621/e9bafc5362acbded0f6b726402c40d62#file-microsoft-powershell_profile-ps1), and highly recommend to read this section of documentation for [optimizing your shell experience](https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/optimize-shell?view=powershell-7.3).
 
 ### Oh My Posh
 
@@ -75,17 +79,13 @@ See the [official document](https://ohmyposh.dev/docs/installation/windows) for 
 
 Init with preset theme:
 
-`oh-my-posh init pwsh --config $env:POSH_THEMES_PATH\starship.omp.json' | Invoke-Expression`
+`oh-my-posh init pwsh --config $env:POSH_THEMES_PATH\star.omp.json' | Invoke-Expression`
 
 Reload profile for the changes to take effect:
 
 `. $PROFILE`
 
-In order to implement an eye-catchy theming for shell env, certain fonts need to be installed. [Nerd Fonts](https://www.nerdfonts.com/) is quit popular, and you can install via [scoop](#scoop).
-
-So far, we can get a cool shell env for developing.
-
-<!-- todo insert pic here -->
+In order to implement an eye-catchy theming for shell env, certain fonts need to be installed. [Nerd Fonts](https://www.nerdfonts.com/) is quit popular, and you can [install via scoop](#fonts).
 
 ## Package Manager
 
@@ -97,21 +97,51 @@ Not recommend to use `winget` to install apps from Microsoft Store since this ma
 
 ### Scoop
 
-install git vim grep java nodejs
+[Scoop](https://github.com/ScoopInstaller/Scoop) got similar concepts as [Homebrew](http://mxcl.github.io/homebrew/), 
 
-Here's some basic setups for some stacks which I've been using:
+To install:
+
+```powershell
+iwr -useb get.scoop.sh | iex`
+```
+
+To install some basic tools:
+
+```powershell
+scoop install git vim grep which sudo less
+```
+
+Here's few setups for some stacks which I've been using:
 
 #### Java dev env
 
-`scoop bucket add java`
-`scoop install openjdk gradle maven`
-`scoop bucket add extras`
-`scoop install jenv`
+```powershell
+scoop bucket add java
+scoop install openjdk gradle maven
+scoop bucket add extras
+scoop install jenv
+```
 
 #### Node dev env
 
-`scoop install nvm`
-`nvm install lts && nvm use lts`
+```powershell
+scoop install nvm
+nvm install lts
+nvm use lts
+```
+
+#### Fonts
+
+```powershell
+scoop bucket add nerd-fonts
+scoop install CascadiaCode-NF-Mono
+# or
+scoop install JetBrainsMono-NF-Mono
+```
+
+So far, we can get a ~~cool~~ useful shell env for developing.
+
+<!-- todo insert pic here -->
 
 ## VSCode
 
@@ -131,5 +161,7 @@ Tips:
 ## WSA
 
 ## Powertoys
+
+One more thing.
 
 ## DevToys
