@@ -95,11 +95,13 @@ Linux got `apt`/`apt-get`, `dnf`/`yum`, `pacman` etc. MacOS got `brew`. So why d
 
 Not recommend to use `winget` to install apps from Microsoft Store since this may conflict with x86/64 app (e.g. the powershell from msstore is different than the counterpart one). Besides, some apps are missing, like Netflix. If you try to use `winget search` to find such app, the result will be different than using search bar in msstore.
 
+### Choco
+
 ### Scoop
 
-[Scoop](https://github.com/ScoopInstaller/Scoop) got similar concepts as [Homebrew](http://mxcl.github.io/homebrew/), 
+[Scoop](https://scoop.sh) got similar concepts as [Homebrew](https://brew.sh), and [scoop bucket](https://github.com/ScoopInstaller/Scoop/wiki/Buckets) relates to [brew tap](https://docs.brew.sh/Taps), basically both are using git repo to store package meta infos.
 
-To install:
+To install scoop:
 
 ```powershell
 iwr -useb get.scoop.sh | iex`
@@ -108,7 +110,7 @@ iwr -useb get.scoop.sh | iex`
 To install some basic tools:
 
 ```powershell
-scoop install git vim grep which sudo less
+scoop install sudo aria2 curl git vim gow
 ```
 
 Here's few setups for some stacks which I've been using:
@@ -139,11 +141,13 @@ scoop install CascadiaCode-NF-Mono
 scoop install JetBrainsMono-NF-Mono
 ```
 
-So far, we can get a ~~cool~~ useful shell env for developing.
+So far, we can get a ~~cool~~ useful shell env for developing. Finally, you can follow [this instruction](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui) to setup openssh.
 
 <!-- todo insert pic here -->
 
 ## VSCode
+
+I think VSCode no need for more explaination since it's THE most popular lightweight IDE (right, I don't consider it just as text editor).
 
 ## WSL
 

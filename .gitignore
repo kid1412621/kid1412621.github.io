@@ -1,3 +1,6 @@
 node_modules
 dist
 .vitepress/cache
+.gitignore
+.vscode
+**/.DS_Store
