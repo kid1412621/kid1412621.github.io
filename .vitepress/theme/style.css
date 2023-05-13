@@ -127,17 +127,18 @@ span.lang {
 
 /* overwrite code style */
 
-.prose :where(code):not(:where([class~="not-prose"] *)){
+p code {
   border-radius: 4px;
   padding: 3px 6px;
-  color: var(--c-brand-light);
+  color: var(--c-brand-light) !important;
   background-color: #f6f6f7;
   transition: color 0.5s, background-color 0.5s;
 }
 
-.prose :where(code):not(:where([class~="not-prose"] *))::before {
-    content: "";
+p code::before {
+  content: "" !important;
 }
-.prose :where(code):not(:where([class~="not-prose"] *))::after {
-    content: "";
+
+p code::after {
+  content: "" !important;
 }
