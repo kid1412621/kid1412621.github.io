@@ -1,5 +1,5 @@
 ---
-title: windows 11 dev setup
+title: Windows dev setup
 date: 2023-05-13
 tags:
   - dev env
