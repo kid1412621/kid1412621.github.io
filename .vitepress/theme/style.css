@@ -130,9 +130,15 @@ span.lang {
 p code {
   border-radius: 4px;
   padding: 3px 6px;
+  font-weight: 500 !important;
   color: var(--c-brand-light) !important;
   background-color: #f6f6f7;
   transition: color 0.5s, background-color 0.5s;
+}
+
+.dark p code {
+  color: #c9def1 !important;
+  background-color: #313136;
 }
 
 p code::before {
