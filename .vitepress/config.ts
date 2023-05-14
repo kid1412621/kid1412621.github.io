@@ -4,8 +4,8 @@ import MarkdownItPlantuml from 'markdown-it-plantuml'
 import MarkdownItFootnote from 'markdown-it-footnote'
 
 export default defineConfig({
-  title: "NanoNova's Cyberspace",
-  description: 'The ubiquitous uniqueness, yet another personal odyssey',
+  title: "Yet another personal odyssey",
+  description: 'The ubiquitous uniqueness',
   cleanUrls: true,
   head: [
     ['meta', { name: 'twitter:site', content: '@kid1412621' }],
