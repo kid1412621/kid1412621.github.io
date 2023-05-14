@@ -124,7 +124,7 @@ p code::after {
 ## Permalink
 
 So far, VitePress is not support permalink which's quite important for sharing URL.
-My solution is to hardcode the certain permalinlks in the 404 page to redirect.
+My workaround is to hardcode the certain permalinlks in the 404 page to redirect.
 
 `.vitepress/theme/NotFound.vue`
 

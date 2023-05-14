@@ -7,6 +7,7 @@ tags:
 ---
 
 Reluctantly or willingly, Windows as an OS has companied me over 2 decades (since Win95). After encountered other OSes as a developer, I still got the mixed feeling about Windows when lots of coders were complaining about its bloats and privacy. To be frank, the developer experience(DX) on Windows did not good as the \*NIX-based systems.
+
 However M$ is committing to improve it, Windows 11 got much better experience in different ways (yes, it still sucks in certain ways). As a nerd, I do enjoy the variety of OS(using MacOS/Linux/Windows at the same time), though Windows plays a role of my daily developing and gaming activities. This post is just my personal experience of win dev setup. I hope to keep it minimal and helpful.
 
 ---
