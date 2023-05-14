@@ -6,19 +6,19 @@ tags:
   - windows
 ---
 
-Windows as an OS companied me over 2 decades (started from Win95) reluctantly or willingly, since it was phenomenonally popular pirated software in China. After I encountered other OSs as a developer, I still got the mixed feeling about Windows even lots of poeple complaining about its bloats and privacy. To be frank, the dev experience on Windows did not good as the \*NIX-based systems.
-However M$ devotes to improve this, Windows 11 got much better experience in different ways (yes, it still sucks in certain ways). And I do enjoy the variety of OS for nerds like me, so Windows is still part of my daily developing and gaming activities. This post is just my personal experience of win dev setup. I wanna keep it minimal and helpful.
+Reluctantly or willingly, Windows as an OS has companied me over 2 decades (since Win95). After encountered other OSes as a developer, I still got the mixed feeling about Windows when lots of coders were complaining about its bloats and privacy. To be frank, the developer experience(DX) on Windows did not good as the \*NIX-based systems.
+However M$ is committing to improve it, Windows 11 got much better experience in different ways (yes, it still sucks in certain ways). As a nerd, I do enjoy the variety of OS(using MacOS/Linux/Windows at the same time), though Windows plays a role of my daily developing and gaming activities. This post is just my personal experience of win dev setup. I hope to keep it minimal and helpful.
 
 ---
 
 ## Windows Terminal
 
-First thing first, the CLI infrastructure, the terminal(aka console). In Windows world, before we got some ugly and "outdated" tools (Command Prompt and Windows PowerShell) to type command line to interact with the OS. Some more eye-catching tools like [cmder](https://cmder.app/), [Fluent Terminal](https://github.com/felixse/FluentTerminal) emerged, trying to improve developer experience(DX). A million years later, M$ finally decided to address on this issue. So the [Windows Terminal](https://github.com/microsoft/terminal) turned out and this new toy rocketed.
+First thing first, the CLI infrastructure, the terminal(aka console). In Windows world, before we got some ugly and "outdated" tools (Command Prompt and Windows PowerShell) to type command line to interact with the OS. Some more eye-catching tools like [cmder](https://cmder.app/), [Fluent Terminal](https://github.com/felixse/FluentTerminal) emerged, trying to improve DX. A million years later, M$ finally decided to address on this issue. So the [Windows Terminal](https://github.com/microsoft/terminal) turned out and this new toy rocketed.
 Windows Terminal provides a bunch of morden features and unifies the UX across cmd, PowerShell and [WSL](##WSL). With the latest Win11, the terminal is already be installed and set as the default system-level terminal application. If you're not using the latest Win11, you can just install it via [Microsoft Store](https://aka.ms/terminal), or [Github binary release](https://github.com/microsoft/terminal/releases)(yes, it's open source), or [Winget](###Winget).
 
 ![wt](https://learn.microsoft.com/en-us/windows/terminal/images/alt-click-pane.gif)
 
-Here's the [official guide to _fancy-lise_ your terminal](https://learn.microsoft.com/en-us/windows/terminal/tutorials/custom-prompt-setup), and I'll metion in the follow.
+Here's the [official guide to _fancy-lise_ your terminal](https://learn.microsoft.com/en-us/windows/terminal/tutorials/custom-prompt-setup), and I'll metion few in the follow sections.
 
 ## PowerShell
 

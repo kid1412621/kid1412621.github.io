@@ -16,13 +16,13 @@ I'm nothing more than the ubiquitous uniqueness.
 
 ## Labeling is a cognitive shortcutting
 
-- Code Money & pseudo-Geek
+- Code monkey
 
 - SciFi guru
 
 - Post-Rock & Classic Music buff
 
-- Carbon unit from Planet Earth
+- Carbon unit from planet Earth
 
 ## Goals
 

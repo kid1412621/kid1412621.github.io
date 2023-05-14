@@ -7,10 +7,9 @@ The laziest way.
 
 ---
 
+[Vue.js team decided replace VuePress with VitePress totally](https://github.com/vuejs/vitepress/discussions/548). And they're planning to ship VitePress as VuePress 3 to drop webpack support. In current stage, the VitePress is still in alpha and not fully ready yet. So the migration is not smooth due to some features missing.
 
-[Vue.js team decided replace VuePress with VitePress totally](https://github.com/vuejs/vitepress/discussions/548), or they're planning ship VitePress as VuePress 3 to drop webpack support. So in current stage, the VitePress is still in alpha and not fully ready yet. The migration is not smooth due to some features missing.
-
-Anyway, once I decide to do so, there's no turning back. But I don't want to pay a lot of time to learn the new API and polish the details to solve the issues during the migration, I've chosen the laziest way.
+Anyway, once I've been attracted by the new toy, there's no turning back. Learning the new API, or polishing the details to solve the issues isn't my option, hence I choose the laziest way for the sake of time.
 
 ## Replace the default theme
 

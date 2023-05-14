@@ -5,7 +5,7 @@ import MarkdownItFootnote from 'markdown-it-footnote'
 
 export default defineConfig({
   title: "NanoNova's Cyberspace",
-  description: 'The ubiquitous uniqueness, Yet Another Personal Odyssey',
+  description: 'The ubiquitous uniqueness, yet another personal odyssey',
   cleanUrls: true,
   head: [
     ['meta', { name: 'twitter:site', content: '@kid1412621' }],
