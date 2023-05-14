@@ -8,7 +8,7 @@ const baseUrl = `https://nanova.me`
 export async function genFeed(config: SiteConfig) {
   const feed = new Feed({
     title: "NanoNova's cyberspace",
-    description: 'The ubiquitous uniqueness, Yet Another Personal Odyssey',
+    description: 'The ubiquitous uniqueness, yet another personal odyssey',
     id: baseUrl,
     link: baseUrl,
     language: 'en',

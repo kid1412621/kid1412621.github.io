@@ -1,5 +1,5 @@
 ---
 title: NanoNova's Cyberspace
-subtext: The ubiquitous uniqueness, Yet Another Personal Odyssey
+subtext: The ubiquitous uniqueness, yet another personal odyssey.
 index: true
 ---
