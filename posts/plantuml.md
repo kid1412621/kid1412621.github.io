@@ -23,13 +23,13 @@ PlantUML 提供的语法极其简单，几分钟就能上手，下面是声明�
 
 开头 `@startuml` 和结尾 `@enduml` 是声明，若要放在 Markdown 里面的话，需要放在代码块中，声明为 plantuml，如下：
 
-````pseudocode
+```md
 ​```plantuml
 @startuml
 ...do your own stuff
 @enduml
 ​```
-````
+```
 
 下面是我写的一些简单的例子，你可以去[官网在线渲染服务](http://www.plantuml.com/plantuml/umla/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80) get your hands dirty。
 
@@ -37,7 +37,7 @@ PlantUML 提供的语法极其简单，几分钟就能上手，下面是声明�
 
 - PlantUML 代码
 
-````pseudocode
+```md
 ​```plantuml
 @startuml
 Thanos -up-> InfinityGauntlet : use
@@ -70,7 +70,7 @@ N .. Thanos
 InfinityGauntlet .. N
 @enduml
 ​```
-````
+```
 
 - 生成后效果
 
@@ -111,7 +111,7 @@ InfinityGauntlet .. N
 
 关系的声明和元素（类、接口）的声明是分开的，若仅有关系的声明，那么元素默认为类。你可以通过声明语法来改变元素的类型，并添加元素的成员变量和方法（其可访问性修饰符号也和 UML 一致），语法和 Java 很像：
 
-````pseudocode
+```md
 ​```plantuml
 @startuml
 skinparam classAttributeIconSize 0
@@ -134,13 +134,13 @@ abstract class AbstractList
 interface List
 @enduml
 ​```
-````
+```
 
 ### 时序图
 
 - PlantUML 代码
 
-````pseudocode
+```md
 ​```plantuml
 @startuml
 actor 需求 #yellow
@@ -174,7 +174,7 @@ return 增量需求开发完成
 开发 --> 开发 !! : 猝
 @enduml
 ​```
-````
+```
 
 - 生成后效果
 
@@ -216,8 +216,9 @@ PlantUML 的本质就是一个解析文本并转图片的渲染服务，所以�
 
 - JAR (with Maven)
 
-```
+```bash
 mvn jetty:run -Djetty.port=9999
+
 ```
 
 - Docker
@@ -246,7 +247,7 @@ docker pull plantuml/plantuml-server
 
 #### VSCode（ Winows / Mac OS / Linux ）
 
-大厂的编辑器品质有保证，在 M\$ 收购 Github 前，同样使用 Electron 开发的 VSCode 比 Atom 性能高出不是一星半点（而且 Electron 还是 Github 开发的）。使用 VSCode 最大的幸福感之一坐拥无比繁荣的插件生态，要什么样的自行车，丰俭由君。支持 Markdown 中使用 PlantUML 主要涉及两个插件：[PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) 和 [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended)，前者主要集成 PlantUML 渲染服务以及语法高亮，后者主要提供转化文件。
+大厂的编辑器品质有保证，在 M$ 收购 Github 前，同样使用 Electron 开发的 VSCode 比 Atom 性能高出不是一星半点（而且 Electron 还是 Github 开发的）。使用 VSCode 最大的幸福感之一坐拥无比繁荣的插件生态，要什么样的自行车，丰俭由君。支持 Markdown 中使用 PlantUML 主要涉及两个插件：[PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) 和 [Markdown Extended](https://marketplace.visualstudio.com/items?itemName=jebbs.markdown-extended)，前者主要集成 PlantUML 渲染服务以及语法高亮，后者主要提供转化文件。
 
 Tips：
 
@@ -269,13 +270,15 @@ IDEA 的支持也是靠插件：[PlantUML integration](https://plugins.jetbrains
 
 Gitlab 从 8.16 开始就支持了 PlantUML 集成，未自己试过，可以参考下[官方文档](https://docs.gitlab.com/ee/administration/integration/plantuml.html#gitlab)。
 
-#### VuePress
+#### ~~VuePress~~
 
-[VuePress](https://vuepress.vuejs.org/) 是 Vue 官方出品的一款静态网站生成器，可以实现用 Markdown 写博客/文档，同时还支持 Vue 的一些特性。由于 VuePress 使用 [markdown-it](https://github.com/markdown-it/markdown-it) 作为其 Markdown 渲染器，所以就可以使用 markdown-it 的插件来支持。
+VuePress 成为历史，看我写的 [VitePress 迁移记录](./vitepress-migration.md#markdown-plugins)。
+
+[VuePress](https://vuepress.vuejs.org/) 是 Vue 官方出品的一款静态网站生成器，可以实现用 Markdown 写博客/文档，同时还支持 Vue 的一些特性。由于 VuePress 使用 [markdown-it](https://github.com/markdown-it/markdown-it) 作为其 Markdown 渲染器，所以就可以使用 markdown-it 的[插件](https://github.com/gmunguia/markdown-it-plantuml)来支持。
 
 npm 安装：
 
-```shell
+```bash
 npm i -D markdown-it-plantuml
 ```
 

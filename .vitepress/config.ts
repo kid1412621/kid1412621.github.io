@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { genFeed } from './genFeed.js'
+import MarkdownItPlantuml from 'markdown-it-plantuml'
+import MarkdownItFootnote from 'markdown-it-footnote'
 
 export default defineConfig({
   title: "NanoNova's Cyberspace",
@@ -33,5 +35,10 @@ export default defineConfig({
       }
     ]
   ],
+  markdown: {
+    config: (md) => {
+      md.use(MarkdownItFootnote).use(MarkdownItPlantuml)
+    }
+  },
   buildEnd: genFeed
 })
