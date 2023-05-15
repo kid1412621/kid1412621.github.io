@@ -12,6 +12,8 @@ However M$ is committing to improve it, Windows 11 got much better experience in
 
 ---
 
+[[TOC]]
+
 ## Windows Terminal
 
 First thing first, the CLI infrastructure, the terminal(aka console). In Windows world, before we got some ugly and "outdated" tools (Command Prompt and Windows PowerShell) to type command line to interact with the OS. Some more eye-catching tools like [cmder](https://cmder.app/), [Fluent Terminal](https://github.com/felixse/FluentTerminal) emerged, trying to improve DX. A million years later, M$ finally decided to address on this issue. So the [Windows Terminal](https://github.com/microsoft/terminal) turned out and this new toy rocketed.
@@ -145,7 +147,7 @@ To install scoop:
 iwr -useb get.scoop.sh | iex`
 ```
 
-To install some basic tools:
+#### Basic tools
 
 ```powershell
 scoop install sudo aria2 curl git vim gow
@@ -195,9 +197,11 @@ Farewell, the good old [Sublime Text](https://www.sublimetext.com/) and [sunsett
 
 ## WSL
 
-The [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/) probablly is a game changer in Windows dev world. Windows coder can use Linux tool sets without the overhead of a traditional virtual machine or dual-boot setup. It's interoperable between Windows and WSL, meaning you can boot up a service in WSL and access in Windows, see [more details](https://learn.microsoft.com/en-us/windows/wsl/networking).
+Before [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/), the Windows world got some tools, like [Cygwin](https://www.cygwin.com/), [minGW(-w64)](https://www.mingw-w64.org/) and [MSYS(2)](https://www.msys2.org/) (here's [a greate post to explain the difference](https://www.sobyte.net/post/2021-11/cygwin-mingw-msys/)), to provide POSIX compatibility. If you just won't to use some basic Linux tools, like `grep` or `awk`, try [gow](https://github.com/bmatzelle/gow) [which can be installed via scoop easily](#basic-tools).
 
-Run `wsl --install <Distro>` to install a distribution for WSL. To check, run `wsl -l -v`. By default, the [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/compare-versions) will be used. Comparing to WSL 1 which translates system calls to Linux kernal, WSL 2 is based on Hyper-V which got performance boost for file system and full system call compatibility.
+The WSL probablly is a game changer in Windows dev world. Windows coder can use Linux tool sets without the overhead of a traditional virtual machine or dual-boot setup. It's interoperable between Windows and WSL, meaning you can boot up a service in WSL and access in Windows, see [more details](https://learn.microsoft.com/en-us/windows/wsl/networking).
+
+Run `wsl --install <Distro>` to install a distribution for WSL. To check, run `wsl -l -v`. By default, the [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/compare-versions) will be used. Comparing to WSL 1 which translates system calls to Linux kernal, WSL 2 is based on Hyper-V which got performance boost for file system and full system call compatibility. However, WSL got [issues on VPN environment](https://learn.microsoft.com/en-us/windows/wsl/troubleshooting#wsl-has-no-network-connectivity-once-connected-to-a-vpn).
 
 Tips:
 

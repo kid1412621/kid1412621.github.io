@@ -182,3 +182,9 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
 ```
+
+## Still missing features
+
+- in-site search
+- tag system
+- toc (one can insert `[[TOC]]`)
