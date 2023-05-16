@@ -48,6 +48,13 @@ $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Obj
 LESSCHARDEF: `UTF-8`
 LESSCHARSET: `UTF-8`
 
+以管理员身份启动 PowerShell，然后执行：
+
+```powershell
+[Environment]::SetEnvironmentVariable('LESSCHARSET', 'UTF-8', 'Machine')
+[Environment]::SetEnvironmentVariable('LESSCHARDEF', 'UTF-8', 'Machine')
+```
+
 ## Java
 
 提供环境变量：
