@@ -127,7 +127,8 @@ span.lang {
 
 /* overwrite code style */
 
-p code {
+p code,
+li code {
   border-radius: 4px;
   padding: 3px 6px;
   font-weight: 500 !important;
@@ -136,15 +137,18 @@ p code {
   transition: color 0.5s, background-color 0.5s;
 }
 
-.dark p code {
+.dark p code,
+.dark li code {
   color: #c9def1 !important;
   background-color: #313136;
 }
 
-p code::before {
+p code::before,
+li code::before {
   content: "" !important;
 }
 
-p code::after {
+p code::after,
+li code::after {
   content: "" !important;
 }
