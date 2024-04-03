@@ -8,7 +8,7 @@ tags:
 permalink: java-lang-jvm-updates
 ---
 
-从 Java 8 以来，一直到 16 版本，已有 180 个 [JDK Enhancement Proposals](http://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
+从 Java 8 以来，一直到 16 版本，已有 180 个 [JDK Enhancement Proposals](https://openjdk.java.net/jeps/0)（JEPs）塑造 Java，每个 JEP 都给这个平台带来了改善。这篇文章分类梳理了最重要的改进。
 
 ---
 

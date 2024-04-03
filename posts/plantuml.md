@@ -7,7 +7,7 @@ tags:
 
 程序员喜欢简洁，所以 [Markdown](https://daringfireball.net/projects/markdown/) 作为轻量级、纯文本的格式化标记语言深受喜爱。在书写技术文档时，让程序员感受到「世界的美好」，将其从 Office 各种格式化问题的泥潭中解放出来，专注生产。
 
-写技术文档不免需要要结合 UML 配图，以让读者更方便直观的理解。那么，同理，有没有什么工具/语言能让程序员免于下盗版 Visio 的痛苦？或者 [ProcessOn](https://www.processon.com) 对 UML 支持有限的痛苦？再或者 [Draw.io](http://drawio-app.com) 连接慢的痛苦？
+写技术文档不免需要要结合 UML 配图，以让读者更方便直观的理解。那么，同理，有没有什么工具/语言能让程序员免于下盗版 Visio 的痛苦？或者 [ProcessOn](https://www.processon.com) 对 UML 支持有限的痛苦？再或者 [Draw.io](https://drawio-app.com) 连接慢的痛苦？
 
 当然，我们能想到的大多场景，早已有人也在深受折磨后，造好了轮子。
 
@@ -31,7 +31,7 @@ PlantUML 提供的语法极其简单，几分钟就能上手，下面是声明�
 ​```
 ```
 
-下面是我写的一些简单的例子，你可以去[官网在线渲染服务](http://www.plantuml.com/plantuml/umla/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80) get your hands dirty。
+下面是我写的一些简单的例子，你可以去[官网在线渲染服务](https://www.plantuml.com/plantuml/umla/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80) get your hands dirty。
 
 ### 类图
 
@@ -237,7 +237,7 @@ docker pull plantuml/plantuml-server
 
 #### Typora（ Winows / Mac OS / Linux ）
 
-作为 Markdown 编辑器中的明星产品，Typora 对图表绘制仅做了[有限的支持](http://support.typora.io/Draw-Diagrams-With-Markdown/)，不过支持无需第三方服务完成本地渲染。缺乏对 UML 更全面的支持（一般的需求也已覆盖）实在让人叹息，值得让人期待的是，官方有个 [issue](https://github.com/typora/typora-issues/issues/1138?notification_referrer_id=MDE4Ok5vdGlmaWNhdGlvblRocmVhZDI4OTQ4MDA3MzoyNjI3ODA1NA%3D%3D&notifications_query=is%3Aunread#issuecomment-629978863) 列举了对一些图表库/语法，其中 PlantUML 呼声最高，后续可能会考虑支持。
+作为 Markdown 编辑器中的明星产品，Typora 对图表绘制仅做了[有限的支持](https://support.typora.io/Draw-Diagrams-With-Markdown/)，不过支持无需第三方服务完成本地渲染。缺乏对 UML 更全面的支持（一般的需求也已覆盖）实在让人叹息，值得让人期待的是，官方有个 [issue](https://github.com/typora/typora-issues/issues/1138?notification_referrer_id=MDE4Ok5vdGlmaWNhdGlvblRocmVhZDI4OTQ4MDA3MzoyNjI3ODA1NA%3D%3D&notifications_query=is%3Aunread#issuecomment-629978863) 列举了对一些图表库/语法，其中 PlantUML 呼声最高，后续可能会考虑支持。
 
 若现在你的写作流 Typora 是无可替代的，那么只能采取先将 PlantUML 转成图片，[上传图床](https://support.typora.io/Upload-Image/)，再把图片贴回来。
 
