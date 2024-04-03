@@ -367,7 +367,7 @@ public record Point(int x, int y) {
 
 小结一下：**记录类专注于承载数据**，不提供太多定制化选项。
 
-得益于这样的特殊设计，**记录类的序列化也十分容易**且安全，相较于[其它的普通类](http://cr.openjdk.java.net/~briangoetz/amber/serialization.html)来说。就像 JEP 中提及的：
+得益于这样的特殊设计，**记录类的序列化也十分容易**且安全，相较于[其它的普通类](https://cr.openjdk.java.net/~briangoetz/amber/serialization.html)来说。就像 JEP 中提及的：
 
 > 记录类的实例能被序列化和反序列化。然而不能通过提供 writeObject，readObject，readObjectNoData，writeExternal 或 readExternal 方法来自定义其处理流程。记录类的组件（成员变量）负责序列化，而记录类的标准构造方法掌管反序列化。
 
@@ -399,7 +399,7 @@ public static void recordSerializationExample() throws Exception {
 
 - [Inside Java Podcast Episode 4: “Record Classes” with Gavin Bierman](https://inside.java/2020/10/05/podcast-004/)
 - [Inside Java Podcast Episode 14: “Records Serialization” with Julia Boes and Chris Hegarty](https://inside.java/2021/03/08/podcast-014/)
-- [Towards Better Serialization - Brian Goetz, June 2019](http://cr.openjdk.java.net/~briangoetz/amber/serialization.html)
+- [Towards Better Serialization - Brian Goetz, June 2019](https://cr.openjdk.java.net/~briangoetz/amber/serialization.html)
 - [Record Serialization](https://docs.oracle.com/en/java/javase/16/docs/specs/records-serialization.html)
 
 ### ⚠️ 技巧：使用本地记录类来构建中间转化变量
@@ -998,7 +998,7 @@ double d = 1;
 
 ## 接口中允许私有方法
 
-**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](http://openjdk.java.net/jeps/213))
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](https://openjdk.java.net/jeps/213))
 
 从 Java 8 开始，在接口中添加默认方法成为可能。到 Java 9 中，默认方法甚至能调用私有方法，这既满足代码复用的需求，但又不对外暴露相应逻辑。
 
@@ -1008,7 +1008,7 @@ double d = 1;
 
 ## 匿名内部类的钻石操作符
 
-**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](http://openjdk.java.net/jeps/213))
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](https://openjdk.java.net/jeps/213))
 
 Java 7 引入了钻石操作符（`<>`）来减少冗余，这是通过让编译器推断构造方法的参数类型实现的：
 
@@ -1016,7 +1016,7 @@ Java 7 引入了钻石操作符（`<>`）来减少冗余，这是通过让编译
 List<Integer> numbers = new ArrayList<>();
 ```
 
-然而，这个特性之前并不支持匿名内部类。根据 [JDK 项目的邮件列表讨论](http://mail.openjdk.java.net/pipermail/coin-dev/2011-June/003283.html)来看，钻石操作符一开始没有添加此特性是由于这需要 JVM 层面较大的改动。
+然而，这个特性之前并不支持匿名内部类。根据 [JDK 项目的邮件列表讨论](https://mail.openjdk.java.net/pipermail/coin-dev/2011-June/003283.html)来看，钻石操作符一开始没有添加此特性是由于这需要 JVM 层面较大的改动。
 
 到 Java 9 时，这个小小的痛点已被解决，钻石操作符更加的通用：
 
@@ -1030,7 +1030,7 @@ List<Integer> numbers = new ArrayList<>() {
 
 ## try-with-resources 语句中允许使用 effectively-final 变量
 
-**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](http://openjdk.java.net/jeps/213))
+**开始支持版本：** [JDK 9](https://openjdk.java.net/jeps/213) ([Milling Project Coin](https://openjdk.java.net/jeps/213))
 
 Java 7 带来了另一个语法增强：`try-with-resources` ，帮助开发者解决总是担心释放资源的问题。
 
@@ -1128,7 +1128,7 @@ int _ = 10; // 编译错误
 
 译者注：
 
-[^1]: [JDK Enhancement Proposal](http://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
+[^1]: [JDK Enhancement Proposal](https://openjdk.java.net/jeps/0), JDK 改进提议，JDK 的重大修改/特性几乎都以此提出，类似于 ECMA 的 [TC39 Proposal](https://github.com/tc39/proposals)；
 
 [^2]: 此篇文章也有翻译：[Java 9 到 16 的语言和 JVM 特性更新分类清单](https://nanova.me/2021/04/04/java-lang-jvm-updates)
 [^3]: guards，翻译参考：https://en.wikipedia.org/wiki/Guard_(computer_science)

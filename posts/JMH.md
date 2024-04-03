@@ -442,7 +442,7 @@ Process finished with exit code 0
 
 Jenkins 也可以通过相应[插件](https://github.com/brianfromoregon/jmh-plugin)集成，配置成  JSON 导出测试报告（CSV 格式也支持），还可通过 `d3.js` 做可视化展示。
 
-还有一些在线可视化服务：[JMH Visual Chart](http://deepoove.com/jmh-visual-chart/)，[JMH Visualizer](https://jmh.morethan.io/)。
+还有一些在线可视化服务：[JMH Visual Chart](https://deepoove.com/jmh-visual-chart/)，[JMH Visualizer](https://jmh.morethan.io/)。
 
 
 
@@ -471,7 +471,7 @@ JMH 确实能提供细粒度的性能测试，但这一切的前提是，项目�
 [^2]: [Performance measurement with JMH – Java Microbenchmark Harness](https://blog.codecentric.de/en/2017/10/performance-measurement-with-jmh-java-microbenchmark-harness/)
 [^3]: [Microbenchmarking Comes to Java 9](https://dzone.com/articles/microbenchmarking-comes-to-java-9)
 [^guide1]: [Microbenchmarking with Java](https://www.baeldung.com/java-microbenchmark-harness)
-[^guide2]: [JMH - Java Microbenchmark Harness](http://tutorials.jenkov.com/java-performance/jmh.html#why-are-java-microbenchmarks-hard)
+[^guide2]: [JMH - Java Microbenchmark Harness](https://tutorials.jenkov.com/java-performance/jmh.html#why-are-java-microbenchmarks-hard)
 [^guide3]: [Testing your code performance with JMH tool](https://blog.aspiresys.pl/technology/testing-code-performance-jmh-tool/)
 [^guide4]: [JAVA 拾遗 — JMH 与 8 个测试陷阱](https://www.cnkirito.moe/java-jmh/)
 
