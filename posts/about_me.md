@@ -6,8 +6,7 @@ gravatar: ecb75d0149c17e589d65afa9d800d95a
 twitter: '@kid1412621'
 ---
 
-![nice-to-meet-you](https://cdn.jsdelivr.net/gh/kid1412621/imgBed@master/uPic/nice-to-meet-you.jpeg)
-
+![nice-to-meet-you](/image/nice-to-meet-you.png)
 ---
 
 # Greeting! Earthlings.
