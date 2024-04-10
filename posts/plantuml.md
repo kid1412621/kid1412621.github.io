@@ -107,7 +107,7 @@ InfinityGauntlet .. N
 
 可以看出，类之间关系的箭头，通过如 `--|>` 或 `--o` 之类的符号，很直观的映射成了图中的关系，短横线 `-` 的长短决定了图中关系线的长短，还可以在短横线中加方向关键字 `-up->` 来改变布局。下面是一些图例，一图胜千言：
 
-![plantuml-example](https://raw.githubusercontent.com/kid1412621/imgBed/master/plantuml-example.png)
+![plantuml-example](/image/plantuml-example.webp)
 
 关系的声明和元素（类、接口）的声明是分开的，若仅有关系的声明，那么元素默认为类。你可以通过声明语法来改变元素的类型，并添加元素的成员变量和方法（其可访问性修饰符号也和 UML 一致），语法和 Java 很像：
 
