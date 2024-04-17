@@ -40,7 +40,7 @@ tags:
 但总体来说，手感讨喜，虽是塑料材质，但给人比较 firm 的感觉。扬声器效果很感人，显示器效果除了反光处理不足都挺好。
 
 # Software
-ChromeOS 感觉就是个 Web + Ａndroid + Ｌinux VM 的缝合怪，整体采用了 Ｍaterial Ｄesign，观感现代美观。
+ChromeOS 感觉就是个 Web + Android + Linux VM 的缝合怪，整体采用了 Ｍaterial Ｄesign，观感现代美观。
 内置壁纸和 Android 的很像，也有自动暗色主题和 Accent Color，但是没有地球那种动态壁纸，有点可惜。屏保的 Art Gallery 和 Google TV 上的感觉几乎一模一样。
 安装的 Apps 也和 Windows 很像，在状态栏左下角有个 Laucher 罗列了所有 App。也同 Pixel Launcher 相似，可直接搜 App 或网页内容，当然也有 Google Assistant 加持。
 关于自动暗色模式这个我觉得应该是现在每个系统的标配，ChromeOS 也有，Web App 和 Android App 都能识别到系统主题的变化，但是 Linux App 就不行，VSCode 和 Android Studio 试了都不行，不太清楚是不是 Linux VM 里面的原因。
