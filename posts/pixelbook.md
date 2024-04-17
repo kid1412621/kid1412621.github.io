@@ -1,6 +1,14 @@
 ---
 title: Pixelbook Go - Google's Chromebook swansong
 date: 2024-04-17
+tags:
+  - hardware
+  - google
+  - pixel
+---
+
+本文编辑于 Pixelbook Go & Pixel 5 😂
+
 ---
 
 # Intro
