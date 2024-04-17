@@ -46,7 +46,7 @@ ChromeOS 感觉就是个 Web + Android + Linux VM 的缝合怪，整体采用了
 关于自动暗色模式这个我觉得应该是现在每个系统的标配，ChromeOS 也有，Web App 和 Android App 都能识别到系统主题的变化，但是 Linux App 就不行，VSCode 和 Android Studio 试了都不行，不太清楚是不是 Linux VM 里面的原因。
 值得一提的是，桌面不支任何的控件，也不能放文件或文件夹。（完全清爽了😂）
 
-右下角是一些状态图标，通知中心和控制中心分开；值得说一下的是 Phone hub，能直接查看手机状态，可以查看最近手机里的相片和 App，App 可以直接在 ChromeOS 里面操控。比 Windows 的 Phone Link 集成感更好。但也并非完美，比如虽然可以使用 Pixel Phone 解锁 ChromeBook，但是需要手机解锁，然后再在 ChromeBook 上确认，没有 Apple Watch 解锁 Mac 简单便捷；再如 Pixel Buds 不能自动连接 ChromeBook，更不会在 ChromeBook 播放音频时从手机切换过来。
+右下角是一些状态图标，通知中心和控制中心分开；值得说一下的是 Phone hub，能直接查看手机状态，可以查看最近手机里的相片和 App，App 可以直接在 ChromeOS 里面操控。比 Windows 的 Phone Link 集成感更好。但也并非完美，比如虽然可以使用 Pixel Phone 解锁 ChromeBook，但是需要手机解锁，然后再在 ChromeBook 上确认，没有 Apple Watch 解锁 Mac 简单便捷；再如 Pixel Buds 不能自动连接 ChromeBook，更不会在 ChromeBook 播放音频时从手机切换过来。在未连接 WiFi 的情况下，若 Pixel Phone 在旁边，会提示连接手机热点，点击后无需在手机上进行任何操作。
 
 ![chromeos-desk](/public/image/chromeos-desk.webp)
 
