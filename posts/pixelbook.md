@@ -33,17 +33,18 @@ tags:
 
 有些不满足的地方，比如磁盘太小，毕竟现在很多手机起步就这配置；
 再比如蓝牙太老，即使对于 2019 年的设备来说，在搭配 Pixel Buds A-Series 的时候，偶尔会出现断连的情况；
-此外，不同于 2017 款可以将屏幕整个翻转 360 度作为平板使用，这款翻转的角度有限，而且二手卖家表示翻转时的异响是个通病；
+此外，不同于 2017 款可以将屏幕整个翻转 360 度作为平板使用，这款翻转的角度有限，而且卖家表示翻转时的异响是个通病；
 再者，电触感源键太软，和其它普通按键没区别，反馈不足，很多时候不知道到底开机没开机；
 再说到触控板，比较灵敏，但是不像 MacBook 那样是整体不下沉，给震动错觉，这个是物理下沉的。
 
-但总体来说，手感讨喜，虽是塑料材质，但给人比较 firm 的感觉。扬声器效果很感人，显示器效果除了反光处理不足都挺好。
+但总体来说，手感讨喜，虽是塑料材质，但给人比较 firm 的感觉。扬声器效果很感人，显示器效果除了反光处理不足都挺好，也可单手抬起屏幕。
 
 # Software
 ChromeOS 感觉就是个 Web + Android + Linux VM 的缝合怪，整体采用了 Ｍaterial Ｄesign，观感现代美观。
 内置壁纸和 Android 的很像，也有自动暗色主题和 Accent Color，但是没有地球那种动态壁纸，有点可惜。屏保的 Art Gallery 和 Google TV 上的感觉几乎一模一样。
-安装的 Apps 也和 Windows 很像，在状态栏左下角有个 Laucher 罗列了所有 App。也同 Pixel Launcher 相似，可直接搜 App 或网页内容，当然也有 Google Assistant 加持。
+安装的 Apps 也和 Windows 很像，在状态栏左下角有个 Laucher 罗列了所有 App。也同 Pixel Launcher 相似，可直接搜 App 或网页内容，当然也有 Google Assistant 加持（对，完全没有 Gemini 的影子）。
 关于自动暗色模式这个我觉得应该是现在每个系统的标配，ChromeOS 也有，Web App 和 Android App 都能识别到系统主题的变化，但是 Linux App 就不行，VSCode 和 Android Studio 试了都不行，不太清楚是不是 Linux VM 里面的原因。
+值得一提的是，桌面不支任何的控件，也不能放文件或文件夹。（完全清爽了😂）
 
 右下角是一些状态图标，通知中心和控制中心分开；值得说一下的是 Phone hub，能直接查看手机状态，可以查看最近手机里的相片和 App，App 可以直接在 ChromeOS 里面操控。比 Windows 的 Phone Link 集成感更好。但也并非完美，比如虽然可以使用 Pixel Phone 解锁 ChromeBook，但是需要手机解锁，然后再在 ChromeBook 上确认，没有 Apple Watch 解锁 Mac 简单便捷；再如 Pixel Buds 不能自动连接 ChromeBook，更不会在 ChromeBook 播放音频时从手机切换过来。
 
@@ -70,6 +71,16 @@ Android App 算是体验最好的一类，因为官方给 [Android 虚拟机进�
 ![no-optimised-android-app-on-chromeos](/public/image/no-optimised-android-app-on-chromeos.webp)
 
 至于 Linux App，我觉得体验很差，但也不是不能用。ChromeOS 内置的 VM（[crostini](https://chromeos.dev/en/linux/linux-on-chromeos-faq#why-the-name-crostini)）是 Debian 发行版，需要[在设置里开发者手动选项开启](https://chromeos.dev/en/linux/setup)。每次打开 Terminal 的时候，能明显感觉到 VM 加载的时间很长。而且 Android Studio 也是在 VM 中装的，编译一个普通的项目至少 5 分钟以上；窗口最大化点击完全没反应。和 WSL 比起来比较差劲。不过也有可圈点之处，ChromeOS 的文件系统可以共享加载到 Linux 里面，VM Disk 大小可随时动态调整。
+
+有的 App 可能同时有多种选择，就像在 M1 的 MacBook 可安装同一 App 的 MacOS  和 iOS/iPadOS 版一样，下面是 Obsidian Linux 版 和 Android 版的对比：
+
+![obsidian-linux](/public/image/obsidian-linux.webp)
+Linux 版
+
+![obsidian-android](/public/image/obsidian-android.webp)
+Android 版
+
+显然 Linux 版功能更全，因为是桌面应用，Android 版因为是面向手机/平板，部分功能被简化甚至砍掉，UI 由于是主触控交互所以也偏大。
 
 # Outro
 说实话，2019 年的设备能有如此到的体验确实不错。但是优缺点都十分明显，入手前需要明确自己需求。
