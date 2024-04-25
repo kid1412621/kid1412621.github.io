@@ -1,0 +1,75 @@
+
+---
+title: Android 项目 Github Actions 集成：打包发布 Google Play
+date: 2024-04-25
+tags:
+  - Android
+  - Google Play
+  - GCP
+  - Github
+  - CICD
+---
+
+使用 Github Actions 自动构建 Android 项目，打包上传发布 Github Release 和 Google Play。
+
+---
+
+# 思路
+
+通过配置 Github Actions，在打 Tag 时自动编译打包，读取 CHANGELOG.md 文件生成 Release Note， 发布 Github Release 时使用并附上 APK 文件，同时将 AAB 上传 Google Play。
+
+# 步骤
+## 配置 Gradle
+```kotlin
+android {
+    defaultConfig {
+        versionCode = 8
+        versionName = "0.1.1"
+    }
+
+    buildTypes {
+        release {
+            val isTest = gradle.startParameter.taskNames.any { it.contains("test") }
+            if (!isTest) {
+                val keystorePropertiesFile = rootProject.file("keystore.properties")
+                val keystoreProperties = Properties()
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+                signingConfigs {
+                    create("releaseConfig") {
+                        storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
+                        storePassword = keystoreProperties["storePassword"] as String
+                        keyAlias = keystoreProperties["keyAlias"] as String
+                        keyPassword = keystoreProperties["keyPassword"] as String
+                    }
+                }
+                signingConfig = signingConfigs.getByName("releaseConfig")
+            }
+        }
+    }
+}
+```
+
+完整配置可参看[这里](https://github.com/kid1412621/subspace/blob/main/app/build.gradle.kts)
+
+## 配置 Github Actions
+
+```yaml
+
+```
+[CHANGELOG 格式](https://github.com/standard/standard/blob/master/CHANGELOG.md?plain=1)
+
+虽然官方也有关于 Release 的 Action，例如：[create-release](https://github.com/actions/create-release) 和 [upload-release-asset](https://github.com/actions/upload-release-asset)。但都已被废弃了，搜索一圈，这个第三方的 Action 还比较流行：[action-gh-release](https://github.com/softprops/action-gh-release)。
+
+需要注意的是，需要 action-gh-release 来发布 Github Release 的话，需要[在项目设置里配置写权限](https://github.com/softprops/action-gh-release/issues/366#issuecomment-1605875364)
+
+完整配置可参看[这里](https://github.com/kid1412621/subspace/blob/main/.github/workflows/release.yml)
+
+## 配置 Google Play
+## 配置 GCP
+
+
+---
+
+References:
+
+1. https://medium.com/@vit.azarov/building-android-ci-cd-pipeline-with-github-actions-c9c25831bd03
