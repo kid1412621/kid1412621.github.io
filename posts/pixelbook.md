@@ -70,7 +70,7 @@ Android App 算是体验最好的一类，因为官方给 [Android 虚拟机进�
 
 ![no-optimised-android-app-on-chromeos](/public/image/no-optimised-android-app-on-chromeos.webp)
 
-至于 Linux App，我觉得体验很差，但也不是不能用。ChromeOS 内置的 VM（[crostini](https://chromeos.dev/en/linux/linux-on-chromeos-faq#why-the-name-crostini)）是 Debian 发行版，需要[在设置里开发者手动选项开启](https://chromeos.dev/en/linux/setup)。每次打开 Terminal 的时候，能明显感觉到 VM 加载的时间很长。而且 Android Studio 也是在 VM 中装的，编译一个普通的项目至少 5 分钟以上；窗口最大化点击完全没反应。和 WSL 比起来比较差劲。不过也有可圈点之处，ChromeOS 的文件系统可以共享加载到 Linux 里面，VM Disk 大小可随时动态调整。
+至于 Linux App，我觉得体验很差，但也不是不能用。ChromeOS 内置的 VM（[crostini](https://chromeos.dev/en/linux/linux-on-chromeos-faq#why-the-name-crostini)）是 Debian 发行版，需要[在设置里开发者手动选项开启](https://chromeos.dev/en/linux/setup)。每次打开 Terminal 的时候，能明显感觉到 VM 加载的时间很长。而且 Android Studio 也是在 VM 中装的，编译一个普通的项目至少 5 分钟以上；窗口最大化点击完全没反应，外接高分辨率屏时，偶尔会导致应用字体变得模糊（重启才能解决）。和 WSL 比起来比较差劲，也没有 WSLg 的硬件加速。不过也有可圈点之处，ChromeOS 的文件系统可以共享加载到 Linux 里面，VM Disk 大小可随时动态调整。
 
 有的 App 可能同时有多种选择，就像在 M1 的 MacBook 可安装同一 App 的 MacOS  和 iOS/iPadOS 版一样，下面是 Obsidian Linux 版 和 Android 版的对比：
 
