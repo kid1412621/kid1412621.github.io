@@ -10,15 +10,17 @@ tags:
   - CICD
 ---
 
-使用 Github Actions 自动构建 Android 项目，打包上传发布 Github Release 和 Google Play。
+通过配置 Github Actions，在打 Tag 时自动编译打包，读取 CHANGELOG.md 文件生成 Release Note， 发布 Github Release 时使用并附上 APK 文件，同时将 AAB 上传 Google Play。
 
 ---
 
-# 思路
-
-通过配置 Github Actions，在打 Tag 时自动编译打包，读取 CHANGELOG.md 文件生成 Release Note， 发布 Github Release 时使用并附上 APK 文件，同时将 AAB 上传 Google Play。
 
 # 步骤
+
+开始之前，我们需要了解关于 key 的基本概念，Android App 发布时涉及两种 Key：
+
+key 选择： https://support.google.com/googleplay/android-developer/answer/9842756?hl=en#:~:text=If%20you%20also%20distribute%20your,distribute%20outside%20of%20Google%20Play
+
 ## 配置 Gradle
 ```kotlin
 android {
@@ -29,9 +31,8 @@ android {
 
     buildTypes {
         release {
-            val isTest = gradle.startParameter.taskNames.any { it.contains("test") }
-            if (!isTest) {
-                val keystorePropertiesFile = rootProject.file("keystore.properties")
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            if (keystorePropertiesFile.exists()) {
                 val keystoreProperties = Properties()
                 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
                 signingConfigs {
@@ -56,6 +57,9 @@ android {
 ```yaml
 
 ```
+
+然后生成 Release Note, 由于文本可能是多行的，我们需要[特殊的语法](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#multiline-strings)来支持多行文本。
+
 [CHANGELOG 格式](https://github.com/standard/standard/blob/master/CHANGELOG.md?plain=1)
 
 虽然官方也有关于 Release 的 Action，例如：[create-release](https://github.com/actions/create-release) 和 [upload-release-asset](https://github.com/actions/upload-release-asset)。但都已被废弃了，搜索一圈，这个第三方的 Action 还比较流行：[action-gh-release](https://github.com/softprops/action-gh-release)。
@@ -65,6 +69,7 @@ android {
 完整配置可参看[这里](https://github.com/kid1412621/subspace/blob/main/.github/workflows/release.yml)
 
 ## 配置 Google Play
+
 ## 配置 GCP
 
 
@@ -73,3 +78,4 @@ android {
 References:
 
 1. https://medium.com/@vit.azarov/building-android-ci-cd-pipeline-with-github-actions-c9c25831bd03
+2. https://medium.com/@vontonnie/automating-success-github-actions-workflow-for-android-app-deployment-908095d53b97
