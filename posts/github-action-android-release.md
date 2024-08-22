@@ -14,12 +14,13 @@ tags:
 
 ---
 
-
-# 步骤
+# 前言
 
 开始之前，我们需要了解关于 key 的基本概念，Android App 发布时涉及两种 Key：
 
 key 选择： https://support.google.com/googleplay/android-developer/answer/9842756?hl=en#:~:text=If%20you%20also%20distribute%20your,distribute%20outside%20of%20Google%20Play
+
+# 步骤
 
 ## 配置 Gradle
 ```kotlin
