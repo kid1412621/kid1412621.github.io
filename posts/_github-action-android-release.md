@@ -1,7 +1,7 @@
 
 ---
 title: Android 项目 Github Actions 集成：打包发布 Google Play
-date: 2024-04-25
+date: 2024-10-15
 tags:
   - Android
   - Google Play
@@ -69,6 +69,7 @@ android {
 
 需要注意的是，需要 action-gh-release 来发布 Github Release 的话，需要[在项目设置里配置写权限](https://github.com/softprops/action-gh-release/issues/366#issuecomment-1605875364)
 
+使用第三方 Action [Upload-Google-Play](https://github.com/r0adkll/upload-google-play) 将签好名的包传到 Google Play。
 完整配置可参看[这里](https://github.com/kid1412621/subspace/blob/main/.github/workflows/release.yml)
 
 ## 配置 Google Play
