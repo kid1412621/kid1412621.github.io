@@ -1,10 +1,11 @@
 import { defineConfig } from 'vitepress'
+import tailwindcss from '@tailwindcss/vite'
 import { genFeed } from './genFeed.js'
 import MarkdownItPlantuml from 'markdown-it-plantuml'
 import MarkdownItFootnote from 'markdown-it-footnote'
 
 export default defineConfig({
-  title: "Yet another personal odyssey",
+  title: 'Yet another personal odyssey',
   description: 'The ubiquitous uniqueness',
   cleanUrls: true,
   head: [
@@ -39,6 +40,9 @@ export default defineConfig({
     config: (md) => {
       md.use(MarkdownItFootnote).use(MarkdownItPlantuml)
     }
+  },
+  vite: {
+    plugins: [tailwindcss()]
   },
   buildEnd: genFeed
 })

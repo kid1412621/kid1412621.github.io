@@ -5,5 +5,12 @@
     "strict": true,
     "jsx": "preserve"
   },
-  "include": ["./.vitepress/**/*"]
+  "include": [
+    "./.vitepress/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist/**/*",
+    "**/cache/**/*"
+  ]
 }

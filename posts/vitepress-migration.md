@@ -7,13 +7,29 @@ The laziest way.
 
 ---
 
+**2025 updates**:
+
+After I updated tailwindcss from v3 to v4, somethings broken.
+Here's my key actions to fix:
+
+1. Remove all postcss dependencies and config files;
+2. Install `@tailwindcss/vite`, then config the plugin in `config.ts`, see [doc](https://tailwindcss.com/blog/tailwindcss-v4#first-party-vite-plugin);
+3. Update `style.css` about tailwind imports:
+
+```css
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+```
+
+---
+
 [Vue.js team decided replace VuePress with VitePress totally](https://github.com/vuejs/vitepress/discussions/548). And they're planning to ship VitePress as VuePress 3 to drop webpack support. In current stage, the VitePress is still in alpha and not fully ready yet. So the migration is not smooth due to some features missing.
 
 Anyway, once I've been attracted by the new toy, there's no turning back. Learning the new API, or polishing the details to solve the issues isn't my option, hence I choose the laziest way for the sake of time.
 
 ## Replace the default theme
 
-If you follow the [VitePress documentation](https://vitepress.dev/guide/getting-started) to start the project, you will get a default theme which is targeting doucmentation instead of blog. Absence of third-party theme, I don't want to make efforts to create my own one. (Off course you can implement by youself, I'm lazy, remember?). Wait a sec, is [the official Vue.js blog](https://blog.vuejs.org/) using the VitePress? Why I just clone the code and make some changes?
+If you follow the [VitePress documentation](https://vitepress.dev/guide/getting-started) to start the project, you will get a default theme which is targeting documentation instead of blog. Absence of third-party theme, I don't want to make efforts to create my own one. (Off course you can implement by yourself, I'm lazy, remember?). Wait a sec, is [the official Vue.js blog](https://blog.vuejs.org/) using the VitePress? Why I just clone the code and make some changes?
 
 ```bash
 git clone https://github.com/vuejs/blog.git
