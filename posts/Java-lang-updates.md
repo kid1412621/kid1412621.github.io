@@ -31,31 +31,42 @@ tags:
 **Java 17** (LTS)
 
 - [封闭类 (Sealed Classes)](#封闭类)
-  - [提示：考虑使用封闭类而非枚举](#️-提示考虑使用封闭类而非枚举-tip-consider-sealed-classes-vs-enums)
+  - [提示：考虑使用封闭类而非枚举](#tip-consider-sealed-classes-vs-enums)
 
 **Java 16**
 
 - [记录类 (Record Classes)](#记录类)
+  - [提示：使用本地记录类来构建中间转化变量](#tip-use-local-records-to-model-intermediate-transformations)
+  - [提示：检查你用的类库](#tip-check-your-libraries)
 - [instanceof 模式匹配](#instanceof-模式匹配)
 
 **Java 15**
 
 - [文本块](#文本块)
+  - [提示：保留结尾空格](#tip-preserve-trailing-spaces)
+  - [提示：正确处理 Windows 的换行符](#tip-produce-the-correct-newline-charactors-for-windows)
+  - [提示：关注缩进的一致性](#tip-pay-attention-to-consistent-indentation)
 - [包含有用信息的空指针异常](#包含有用信息的空指针异常)
+  - [提示：检查你的工具链](#tip-check-your-tooling)
 
 **Java 14**
 
 - [Switch 表达式](#switch-表达式)
+  - [提示：使用箭头语法](#tip-use-arrow-syntax)
 
 **Java 11** (LTS)
 
 - [局部变量类型推断](#局部变量类型推断)
+  - [提示：时刻考虑可读性](#tip-keep-readability-in-mind)
+  - [提示：注意保留重要的类型信息](#tip-pay-attention-to-preserve-important-type-infomation)
+  - [提示：确保阅读官方的代码风格指南](#tip-make-sure-to-read-the-official-style-guides)
 
 **Java 9**
 
 - [接口中允许私有方法](#接口中允许私有方法)
 - [匿名内部类的钻石操作符](#匿名内部类的钻石操作符)
 - [try-with-resources 语句中允许使用 effectively-final 变量](#try-with-resources-语句中允许使用-effectively-final-变量)
+  - [提示：当心已释放的资源](#tip-watch-out-for-released-resources)
 - [下划线不再是合法变量名](#下划线不再是合法变量名)
 - [改进的警告](#改进的警告)
 
@@ -344,10 +355,10 @@ public record Point(int x, int y) { }
 
 上面的记录类很像普通的类，其有以下定义：
 
-- 两个私有的、final 的成员变量：int x 和 int y
-- 一个以 x 和 y 作为参数的构造方法
-- 成员变量的 getter 方法：x() 和 y() 
-- 涉及 x 和 y 变量的 hashCode、equals 和 toString 方法
+- 两个 `private final` 的成员变量：`int x` 和 `int y`
+- 一个以 `x` 和 `y` 作为参数的构造方法
+- 成员变量的 getter 方法：`x()` 和 `y()` 
+- 涉及 `x` 和 `y` 变量的 `hashCode`、`equals` 和 `toString` 方法
 
 它们使用起来也很像一般的类：
 
@@ -359,7 +370,7 @@ point.y(); // 返回 2
 
 记录类旨于作为**浅层不可变数据**（shallowly immutable data）的**透明载体**（transparent carriers）。为支撑这种设计，随之而来的是一系列**限制**。
 
-记录类不仅仅成员变量默认是 final 的，甚至**不允许有非 final 的成员变量**。
+记录类不仅仅成员变量默认是 `final` 的，甚至**不允许有非 final 的成员变量**。
 
 **记录类头部必须定义出所有可能的状态**。其主体不能定义额外的成员变量。再者，虽然可以定义额外的构造方法来提供一些成员变量的默认值，但无法隐藏含有所有成员变量的*标准构造方法*（*canonical constructor*）[^4]。
 
@@ -394,7 +405,7 @@ public record Point(int x, int y) {
 }
 ```
 
-从记录类*获取数据*是通过它的访问器方法。对于每个成员变量，例如 x，记录类都会生成对应的公共 getter 方法，像 x() 这种格式。
+从记录类*获取数据*是通过它的访问器方法。对于每个成员变量，例如 x，记录类都会生成对应的公共 getter 方法，像 `x()` 这种格式。
 
 这些 getter 方法也可以显式声明：
 
@@ -407,9 +418,9 @@ public record Point(int x, int y) {
 }
 ```
 
-注意上面的例子， Override 注解能被用于确保显式定义的方法是一个访问器方法，而不是意外地添加成其它普通方法。
+注意上面的例子， `Override` 注解能被用于确保显式定义的方法是一个访问器方法，而不是意外地添加成其它普通方法。
 
-除了 getter 方法，hashCode、equals 以及 toString 方法都有默认提供，且涉及所有成员变量；当然这些方法也可以显式声明。
+除了 getter 方法，`hashCode`、`equals` 以及 `toString` 方法都有默认提供，且涉及所有成员变量；当然这些方法也可以显式声明。
 
 最后，记录类也允许有静态方法和实例方法，用于方便地得到衍生信息或是作为工厂方法：
 
@@ -453,7 +464,7 @@ public static void recordSerializationExample() throws Exception {
 }
 ```
 
-注意这里不再需要定义 serialVersionUID 了，因为记录类抛弃了对 serialVersionUID 比对的要求。
+注意这里不再需要定义 `serialVersionUID` 了，因为记录类抛弃了对 `serialVersionUID` 比对的要求。
 
 参考来源：
 
@@ -462,7 +473,7 @@ public static void recordSerializationExample() throws Exception {
 - [Towards Better Serialization - Brian Goetz, June 2019](https://cr.openjdk.java.net/~briangoetz/amber/serialization.html)
 - [Record Serialization](https://docs.oracle.com/en/java/javase/16/docs/specs/records-serialization.html)
 
-### ⚠️ 提示：使用本地记录类来构建中间转化变量
+### ⚠️ 提示：使用本地记录类来构建中间转化变量 {#tip-use-local-records-to-model-intermediate-transformations}
 
 复杂的数据转换需要我们构建中间变量。在 Java 16 之前，典型方案是依赖于 Pair 或三方库里相似的 holder 类，再或者是自己定义（可能是静态内部）类来承载数据。
 
@@ -485,23 +496,23 @@ public List<Product> findProductsWithMostSaving(List<Product> products) {
 
 记录类紧凑的语法正好契合 Steam API 紧凑的语法。
 
-除了记录类外，这个改进也适用于本地枚举甚至接口。
+除了记录类外，这个改进也**适用于本地枚举甚至接口**。
 
-### ⚠️ 提示：检查你用的类库
+### ⚠️ 提示：检查你用的类库 {#tip-check-your-libraries}
 
 **记录类没有遵循 [JavaBeans](https://www.oracle.com/java/technologies/javase/javabeans-spec.html) 的约定**：
 
 - 没有默认的构造方法；
 - 没有 setter 方法；
-- 访问器方法不依照 getX() 格式；
+- 访问器方法不依照 `getX()` 格式；
 
 由于以上原因，**一些依循 JavaBeans 约定的工具类和记录类可能不能正常使用**。
 
 举个例子，**记录类不能用作 JPA（比如 Hibernate ）的实体**。有一些[关于 JPA 遵循记录类规范的讨论](https://www.eclipse.org/lists/jpa-dev/msg00056.html)，但迄今为止我没找到相关开发进度的报道。然而值得一提的是，有文章指出[将记录类能应用到项目中](https://thorben-janssen.com/java-records-hibernate-jpa/)且没有问题。
 
-大多数我[试过的工具类](https://advancedweb.hu/working-with-structured-data-in-java/)（包括 [Jackson](https://github.com/FasterXML/jackson)，[Apache Commons Lang](https://commons.apache.org/proper/commons-lang/)，[JSON-P](https://javaee.github.io/jsonp/)，[Guava](https://github.com/google/guava) ）都**支持记录类，但由于它十分新还存在些小问题**。
+大多数我[试过的工具类](https://advancedweb.hu/working-with-structured-data-in-java/)（包括 [Jackson](https://github.com/FasterXML/jackson)，[Apache Commons Lang](https://commons.apache.org/proper/commons-lang/)，[JSON-P](https://javaee.github.io/jsonp/)，[Guava](https://github.com/google/guava) ）都**支持记录类，但由于它十分新还存在些小问题**。比如，流行的 JSON 库 Jackson [较早就支持记录类](https://github.com/FasterXML/jackson-future-ideas/issues/46)。它的大多数特性，包括对记录类和 JavaBeans 的序列化、反序列化都没什么问题，但[操控对象的特性还没适配](https://github.com/FasterXML/jackson-databind/issues/3079)。
 
-比如，流行的 JSON 库 Jackson [较早就支持记录类](https://github.com/FasterXML/jackson-future-ideas/issues/46)。它的大多数特性，包括对记录类和 JavaBeans 的序列化、反序列化都没什么问题，但[操控对象的特性还没适配](https://github.com/FasterXML/jackson-databind/issues/3079)。
+我遇到的另一个例子是 [Spring，也在许多情况下对记录类提供开箱即用的支持](https://dzone.com/articles/jdk-14-records-for-spring-devs)。包括了序列化甚至依赖注入，但许多 Spring 应用程序使用的 [ModelMapper](https://github.com/modelmapper/modelmapper) 库 [不支持将 JavaBeans 映射到记录类](https://github.com/modelmapper/modelmapper/issues/546)。
 
 我的建议是，**在使用记录类前先升级并检查使用的工具库**，避免意外之喜，但大体上来说，可以认为流行的工具库已经涵盖了大部分特性。
 
@@ -529,9 +540,9 @@ if (obj instanceof String s) {
 }
 ```
 
-这种模式匹配其实是一种*检测*（obj instance of）和*模式变量*（s）的组合。
+这种模式匹配其实是一种*检查*（obj instance of）和*模式变量*（s）的组合。
 
-这种*检测***和旧的 instanceof 操作符几乎一样**，除了若不保证它能通过的话，会导致编译错误。
+这种*检查*和**旧的 instanceof 操作符几乎一样**，除了若不保证它能通过的话，会导致编译错误。
 
 ```java
 // 老的 instanceof 操作符，没有模式变量：
@@ -546,7 +557,7 @@ if (i instanceof Object o) { ... } // 报错
 
 注意，相反即使用的是旧的 instanceof 操作符，出现了编译错误，那么模式匹配也总会失败。
 
-而且仅在检测通过时，*模式变量*才会从目标变量中提取出来。**它几乎和常规的非 final 变量一样**：
+而且仅在检查通过时，*模式变量*才会从目标变量中提取出来。**它几乎和常规的非 final 变量一样**：
 
 - 值能被修改
 - 可以跟在成员变量声明的后面
@@ -554,7 +565,7 @@ if (i instanceof Object o) { ... } // 报错
 
 然而，模式变量有着特殊的作用域规则：该作用域是明确匹配的，并由流程控制的作用域解析决定。
 
-从上面例子里可以看出最简单的情形：如果检测通过，变量 s 能在 if 语块中使用。
+从上面例子里可以看出最简单的情形：如果检查通过，变量 s 能在 if 语块中使用。
 
 但「明确匹配」的规则也能应用到更复杂的情形：
 
@@ -580,7 +591,7 @@ private static int getLength(Object obj) {
 }
 ```
 
-流程控制的作用域解析和现有的流程解析很相似，比如对[明确赋值](https://docs.oracle.com/javase/specs/jls/se15/html/jls-16.html)的检测：
+流程控制的作用域解析和现有的流程解析很相似，比如对[明确赋值](https://docs.oracle.com/javase/specs/jls/se15/html/jls-16.html)的检查：
 
 ```java
 private static int getDoubleLength(String s) {
@@ -743,13 +754,13 @@ var greeting = """
 - [Definitive Guide To Text Blocks In Java 13](https://nipafx.dev/java-13-text-blocks#)
 - [Java Text Blocks - Bealdung](https://www.baeldung.com/java-text-blocks)
 
-### ⚠️ 提示：保留结尾空格
+### ⚠️ 提示：保留结尾空格 {#tip-preserve-trailing-spaces}
 
 在文本块的结尾空格会被忽略掉。这通常不是问题，除非在特定的场景，比如在单元测试时一个方法的执行结果需要和一个基准值做比较。
 
 如果是需要考虑这些的场景时，这行结尾需要添加 `\s` 或 `\t`，而不是空格或者是制表符。
 
-### ⚠️ 提示：正确处理 Windows 的换行符
+### ⚠️ 提示：正确处理 Windows 的换行符 {#tip-produce-the-correct-newline-charactors-for-windows}
 
 [换行](https://en.wikipedia.org/wiki/Newline)在 Unix 和 Windows 下有着不同的控制符。前者使用单一的换行符（`\n`），而后者多使用了回车符（`\r\n`）。
 
@@ -764,7 +775,7 @@ Files.writeString(Paths.get("<PATH_TO_FILE>"), """
 
 如果使用一个仅兼容 Windows 换行符的软件（如 Notepad）打开这样的文件，会单单只显示一行。如果你旨在兼容 Windows 系统，请确保使用正确的换行符，比方说使用 `Stirng::replace` 来替换每一个 `"\n"` 字符为 `"\r\n"`。
 
-### ⚠️ 提示：关注缩进的一致性
+### ⚠️ 提示：关注缩进的一致性 {#tip-pay-attention-to-consistent-indentation}
 
 文本块在任意类型的缩进下都能胜任：制表符、空格或者两者混用。但每行使用一致的缩进很重要，否则意外的缩进不会被移除。
 
@@ -816,7 +827,7 @@ Exception in thread "main" java.lang.NullPointerException:
 
 当前**有用信息的空指针这一特性默认关闭**，必须加上 `-XX:+ShowCodeDetailsInExceptionMessages` 标记来手动开启。
 
-### ⚠️ 提示：检查你的工具链
+### ⚠️ 提示：检查你的工具链 {#tip-check-your-tooling}
 
 当你升级到 Java 15 时，检查你的应用和基础设施并确保以下几点：
 
@@ -907,7 +918,7 @@ switch (day) {
 
 鉴于以上所有原因，更偏向于使用 switch 表达式而不是 switch 语句，能利于产出更多可维护的代码。
 
-### ⚠️ 提示：使用箭头语法
+### ⚠️ 提示：使用箭头语法 {#tip-use-arrow-syntax}
 
 switch 表达式中 `case` 不仅能使用类似于 lambda 表达式中箭头形式，还能配合 `yeild` 关键字**使用类似于以往 switch 语句中的冒号形式**：
 
@@ -957,7 +968,7 @@ MyAwesomeClass awesome = new MyAwesomeClass();
 
 在很多的情况下，这个特性确实能提升代码质量。但有时候继续使用显式的类型声明反而是更推崇的。我们来看几个使用 `var` 替换类型声明导致问题的例子。
 
-### ⚠️ 提示：时刻考虑可读性
+### ⚠️ 提示：时刻考虑可读性 {#tip-keep-readability-in-mind}
 
 第一个情形是，当在源码中移除显式的类型信息，会影响可读性。
 
@@ -995,7 +1006,7 @@ private void longerMethod() {
 
 如果这儿有显式的类型声明，弄清 `dayOfWeek` 对象是什么类型就很容易。现在有了 `var` ，读者首先得找出 `date` 对象的类型，还要搞清 `getDayOfWeek` 方法做了什么。要是有一个 IDE，这一切都很轻松，但是仅仅是快速浏览代码，这就没那么容易了。
 
-### ⚠️ 提示：注意保留重要的类型信息
+### ⚠️ 提示：注意保留重要的类型信息 {#tip-pay-attention-to-preserve-important-type-infomation}
 
 第二个情形是，使用 `var` 消除了所有可用的类型信息，甚至导致无法被推断。在绝大多数情形下，这些问题能被 Java 编译器捕获。比如，`var` 不能针对 lambda 和方法引用进行推断，因为编译器依赖于表达式左边的声明来确定类型。
 
@@ -1033,7 +1044,7 @@ double d = 1;
 
 在没有显式类型声明的情况下，上面的所有变量都会被推断为整型。在处理基本类型时，要么使用类型字面量（比如 `1L`），要么就完全避免使用 `var` 。
 
-### **⚠️ 提示：确保阅读官方的代码风格指南**
+### ⚠️ 提示：确保阅读官方的代码风格指南 {#tip-make-sure-to-read-the-official-style-guides}
 
 什么时候使用类型推断完全取决于你，但确保它不会影响可读性和正确性。经验之谈，保持一个良好的编程实践，比如不错的命名和缩小局部变量的作用域肯定是很有帮助的。确保阅读官方针对 `var` 的[代码风格指南](https://openjdk.java.net/projects/amber/LVTIstyle.html)和[常见问题](https://openjdk.java.net/projects/amber/LVTIFAQ.html)。
 
@@ -1132,7 +1143,7 @@ try (br1; br2) {
 
 在这个例子中，变量的初始化和其注册到 `try-with-resources` 结构中的步骤已经分离开。
 
-### **⚠️ 提示：当心已释放的资源**
+### ⚠️ 提示：当心已释放的资源 {#tip-watch-out-for-released-resources}
 
 有一点需要警惕在心，已被 `try-with-resources` 释放的资源是可能会被再次引用的，但这几乎都会失败：
 
