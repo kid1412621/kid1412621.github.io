@@ -3,8 +3,9 @@ import tailwindcss from '@tailwindcss/vite'
 import { genFeed } from './genFeed.js'
 import MarkdownItPlantuml from 'markdown-it-plantuml'
 import MarkdownItFootnote from 'markdown-it-footnote'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+const viteConfig = defineConfig({
   title: 'Yet another personal odyssey',
   description: 'The ubiquitous uniqueness',
   cleanUrls: true,
@@ -45,4 +46,9 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   buildEnd: genFeed
+})
+
+export default withMermaid({
+  ...viteConfig,
+  mermaid: {}
 })
