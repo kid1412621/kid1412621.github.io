@@ -31,7 +31,7 @@ tags:
 **Java 17** (LTS)
 
 - [封闭类 (Sealed Classes)](#封闭类)
-  - [提示：考虑使用封闭类而非枚举](#-提示：考虑使用封闭类而非枚举)
+  - [提示：考虑使用封闭类而非枚举](#️-提示考虑使用封闭类而非枚举-tip-consider-sealed-classes-vs-enums)
 
 **Java 16**
 
@@ -312,7 +312,7 @@ public sealed class Shape {
 
 **被允许继承的类必须和父类（封闭类）在同一个包里**，如果是使用 java 模块，那它们必须在同一模块中。
 
-### ⚠️ 提示：考虑使用封闭类而非枚举
+### ⚠️ 提示：考虑使用封闭类而非枚举 {#tip-consider-sealed-classes-vs-enums}
 
 在*封闭类*出现前，只能用*枚举类*对固定可选项建模，比如：
 
