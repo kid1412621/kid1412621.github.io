@@ -687,6 +687,6 @@ JEPs 的完全列表可以在 OpenJDK 网站下的 [jdk](https://openjdk.java.ne
 
 译者注：
 
-[^1]: 这篇文章也有翻译：参看 [Java 9 到 16 的语言特性更新](https://nanova.me/2021/04/04/java-lang-updates/)
+[^1]: 这篇文章也有翻译：参看 [Java 9 到 21 的语言特性更新](https://nanova.me/posts/Java-lang-updates)
 [^2]: 这里指的是原文的参考来源
 [^3]: 译者有写相关的介绍文[章](https://nanova.me/2020/06/21/jmh/)
