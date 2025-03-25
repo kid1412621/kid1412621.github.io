@@ -15,7 +15,7 @@ tags:
 >
 > 原文：[New language features since Java 8 to 21（Enhancements to the Java language you should know）](https://advancedweb.hu/new-language-features-since-java-8)
 >
-> 此外，Oracle 官方也有清单可供一览：[Java Language Changes](https://docs.oracle.com/en/java/javase/17/language/java-language-changes.html#GUID-6459681C-6881-45D8-B0DB-395D1BD6DB9B)
+> 此外，Oracle 官方也有清单可供一览：[Java Language Changes](https://docs.oracle.com/javase/specs/index.html)
 
 
 ## 目录
