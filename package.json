@@ -1,28 +1,35 @@
 {
   "name": "nanova-blog",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "serve": "vitepress serve",
+    "preview": "vitepress preview",
+    "clean": "rm -rf .vitepress/dist && rm -rf .vitepress/cache && rm -rf node_modules"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.0.8",
-    "@types/markdown-it": "^14.1.1",
+    "@tailwindcss/vite": "^4.0.16",
+    "@types/markdown-it": "^14.1.2",
     "@types/markdown-it-footnote": "^3.0.4",
     "@types/markdown-it-plantuml": "^1.4.5",
-    "@types/node": "^22.13.4",
-    "feed": "^4.2.1",
-    "gray-matter": "^4.0.2",
+    "@types/node": "^22.13.13",
+    "feed": "^4.2.2",
+    "gray-matter": "^4.0.3",
     "markdown-it-footnote": "^4.0.0",
     "markdown-it-plantuml": "^1.4.1",
     "mermaid": "^11.6.0",
-    "tailwindcss": "^4.0.7",
+    "tailwindcss": "^4.0.16",
     "vitepress": "^1.6.3",
     "vitepress-plugin-mermaid": "^2.0.17",
     "vue": "^3.5.13"
-  }
+  },
+  "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af"
 }
