@@ -19,8 +19,11 @@ const { page, frontmatter } = useData()
           <a class="hover:text-gray-700 dark:hover:text-gray-200" href="/posts/about_me" target="_self" rel="noopener">
             About <span class="hidden sm:inline">me</span></a>
           <span class="mr-2 ml-2">·</span>
-          <a class="hover:text-gray-700 dark:hover:text-gray-200" href="/feed.rss">
-            RSS <span class="hidden sm:inline"> Feed</span></a>
+          <a
+            class="hover:text-gray-700 dark:hover:text-gray-200 vp-raw"
+            href="/feed.rss"
+            >RSS<span class="hidden sm:inline"> Feed</span></a
+          >
           <span class="mr-2 ml-2">·</span>
           <a class="hover:text-gray-700 dark:hover:text-gray-200"
             href="https://github.com/kid1412621/kid1412621.github.io" target="_blank" rel="noopener">Github →</a>
