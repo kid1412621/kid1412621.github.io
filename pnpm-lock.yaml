@@ -27,8 +27,8 @@ importers:
         specifier: ^22.13.13
         version: 22.13.13
       feed:
-        specifier: ^4.2.2
-        version: 4.2.2
+        specifier: ^5.0.1
+        version: 5.0.1
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -1071,9 +1071,9 @@ packages:
     resolution: {integrity: sha512-zCnTtlxNoAiDc3gqY2aYAWFx7XWWiasuF2K8Me5WbN8otHKTUKBwjPtNpRs/rbUZm7KxWAaNj7P1a/p52GbVug==}
     engines: {node: '>=0.10.0'}
 
-  feed@4.2.2:
-    resolution: {integrity: sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==}
-    engines: {node: '>=0.4.0'}
+  feed@5.0.1:
+    resolution: {integrity: sha512-kOveKLHucVZ6RI91bdWAts9O0L1N2mGzRGVCDQPRnHh4HmgqLdN66Cp/5dMeJZGn/qnBslWliwX37FEBq8DCIA==}
+    engines: {node: '>=20', pnpm: '>=10'}
 
   focus-trap@7.6.4:
     resolution: {integrity: sha512-xx560wGBk7seZ6y933idtjJQc1l+ck+pI3sKvhKozdBV1dRZoKhkW5xoCaFv9tQiX5RH1xfSxjuNu6g+lmN/gw==}
@@ -2584,7 +2584,7 @@ snapshots:
     dependencies:
       is-extendable: 0.1.1
 
-  feed@4.2.2:
+  feed@5.0.1:
     dependencies:
       xml-js: 1.6.11
 
