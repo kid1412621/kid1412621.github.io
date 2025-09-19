@@ -21,6 +21,10 @@ key 选择： https://support.google.com/googleplay/android-developer/answer/984
 
 由此可见，
 
+而且，还需要了解 Google Play 中不同发布的区别。
+
+![](/image/google-play-releases.webp)
+
 # 步骤
 
 ## 配置 Gradle
