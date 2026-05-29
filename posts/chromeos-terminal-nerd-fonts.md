@@ -38,11 +38,11 @@ tags:
 
 3. 如果无法打开 `chrome-untrusted://terminal/html/nassh_preferences_editor.html`, 在终端按 `Ctrl` + `SHift` + `J`,控制台输入:
 
-```
-term_.prefs_.set('user-css-text', `@font-face { font-family: "Caskaydia Cove NFM"; src: url("https://raw.githubusercontent.com/ryanoasis/nerd-fonts/v3.1.1/patched-fonts/CascadiaCode/Regular/CaskaydiaCoveNerdFontMono-Regular.ttf"); font-weight: normal; font-style: normal; } x-row { text-rendering: optimizeLegibility; font-variant-ligatures: normal; }`);
+   ```
+   term_.prefs_.set('user-css-text', `@font-face { font-family: "Caskaydia Cove NFM"; src: url("https://raw.githubusercontent.com/ryanoasis/nerd-fonts/v3.1.1/patched-fonts/CascadiaCode/Regular/CaskaydiaCoveNerdFontMono-Regular.ttf"); font-weight: normal; font-style: normal; } x-row { text-rendering: optimizeLegibility; font-variant-ligatures: normal; }`);
 
-term_.prefs_.set('font-family', "'Caskaydia Cove NFM', 'Fira Code', 'Noto Sans Mono'");
-```
+   term_.prefs_.set('font-family', "'Caskaydia Cove NFM', 'Fira Code', 'Noto Sans Mono'");
+   ```
 
 完美解决:
 
